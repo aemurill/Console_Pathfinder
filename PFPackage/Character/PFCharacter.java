@@ -2,8 +2,8 @@ package PFPackage.Character;
 
 public class PFCharacter {
     //BASE STATS
-    public AbilityScore characterStats = new AbilityScore();
+    public MyAbilityScore characterStats = new MyAbilityScore();
     
     //SKILL RANKS
-    public SkillRanks characterSkills = new SkillRanks();
+    public MySkillRanks characterSkills = new MySkillRanks();
 }

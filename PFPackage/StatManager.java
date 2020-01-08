@@ -1,23 +1,26 @@
 package PFPackage;
 
-import PFPackage.Character.*;
+import static PFPackage.Character.AbilityScore.*;
+
+import PFPackage.Character.MyAbilityScore;
+import PFPackage.Character.MySkillRanks;
+import PFPackage.Character.PFCharacter;
+import PFPackage.Character.SkillRank;
 
 class StatManager {
 
-    static public void run(){
+    static public void run() {
         System.out.println(" --- Player 1 --- ");
         PFCharacter player = new PFCharacter();
-        System.out.println("STR: " + player.characterStats
-            .getBase(AbilityScore.AbilityScoreEnum.STR));
-        System.out.println("STR mod: " + player.characterStats
-            .getModifier(AbilityScore.AbilityScoreEnum.STR));
-        System.out.println("Set STR: " + player.characterStats
-            .setBase(AbilityScore.AbilityScoreEnum.STR, 20));
-        System.out.println("STR mod: " + player.characterStats
-            .getModifier(AbilityScore.AbilityScoreEnum.STR));
+        MyAbilityScore myAS = player.characterStats;
+        MySkillRanks mySK = player.characterSkills;
 
-        System.out.println("Stealth: " + player.characterSkills
-            .getBase(SkillRanks.SkillRankEnum.stealth));
+        System.out.println("STR: " + myAS.getBase(STR));
+        System.out.println("STR mod: " + myAS.getModifier(STR));
+        System.out.println("Set STR: " + myAS.setBase(STR, 20));
+        System.out.println("STR mod: " + myAS.getModifier(STR));
+
+        System.out.println("Stealth: " + mySK.getBase(SkillRank.stealth));
     }
 
 

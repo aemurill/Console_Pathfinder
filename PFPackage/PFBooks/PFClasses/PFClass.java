@@ -1,19 +1,37 @@
-package PFPackage.PFBooks;
+package PFPackage.PFBooks.PFClasses;
 
-abstract class PFClass{
-    //class name
+import java.util.List;
 
-    //alignment restrictions
+import PFPackage.PFBooks.Dice;
+import PFPackage.Character.SkillRank;
+import PFPackage.PFBooks.Alignment;
+
+public interface PFClass {
+    // class name
+    PFClassName className = null;
+
+    // alignment restrictions
+    List<Alignment> alignmentRestrictions = null;
 
     //role description
+    String roleDesc = null;
 
     //hit die
+    Dice hitDie = null;    
 
     //starting wealth
+    Object[] initWealth = null;// = {5, d6, 10 } ;
+    //In addition, each character begins play with an outfit worth 10 gp or less.
+    int initOutfitWealth = 1000; //10 gp = 100 sp = 1000 cp
 
     //CLASS SKILLS
-
+    List<SkillRank> classSkills = null;
+    /*List<SkillRankEnum> classSkills = Arrays.asList(
+        SkillRankEnum.acrobatics,  
+    );*/
+    
     //Skill Ranks per level
+    int skillRanksPerLevel = 0; // n + INT
 
     //Class leveling TABLE
 
