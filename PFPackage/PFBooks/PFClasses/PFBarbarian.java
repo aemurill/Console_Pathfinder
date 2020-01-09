@@ -3,15 +3,18 @@ package PFPackage.PFBooks.PFClasses;
 import java.util.Arrays;
 import java.util.List;
 
-import PFPackage.PFBooks.Dice;
-import static PFPackage.PFBooks.Dice.*;
-import PFPackage.Character.SkillRank;
-import static PFPackage.Character.SkillRank.*;
-import PFPackage.PFBooks.Alignment;
-import static PFPackage.PFBooks.Alignment.*;
+import PFPackage.PFBooks.DiceEnum;
+import static PFPackage.PFBooks.DiceEnum.*;
+import PFPackage.Character.SkillRankEnum;
+import static PFPackage.Character.SkillRankEnum.*;
+import PFPackage.PFBooks.AlignmentEnum;
+import static PFPackage.PFBooks.AlignmentEnum.*;
 import static PFPackage.PFBooks.PFClasses.PFClassName.*;
+import PFPackage.PFBooks.Feat;
 
 public class PFBarbarian implements PFClass {
+    //UNPLANNED: Ex-Barbarian Status
+
     public enum ArchetypeNames {
         ArmoredHulk, Breaker, BrutalPugilist, BurnRider, Dreadnought,
         // More can be added but stop here pls
@@ -19,17 +22,15 @@ public class PFBarbarian implements PFClass {
 
     // class name
     final PFClassName className = Barbarian;
-
     public PFClassName getClassName(){
         return className;
     }
 
     // alignment restrictions
-    final List<Alignment> alignmentRestrictions = Arrays.asList(
+    final List<AlignmentEnum> alignmentRestrictions = Arrays.asList(
         NG, NN, NE, CG, CN, CE
     );
-
-    public List<Alignment> getAlignmentRestrictions(){
+    public List<AlignmentEnum> getAlignmentRestrictions(){
         return alignmentRestrictions;
     }
 
@@ -45,8 +46,8 @@ public class PFBarbarian implements PFClass {
     }
 
     // hit die
-    final Dice hitDie = d12;
-    public Dice getHitDie(){
+    final DiceEnum hitDie = d12;
+    public DiceEnum getHitDie(){
         return hitDie;
     }
 
@@ -61,12 +62,11 @@ public class PFBarbarian implements PFClass {
     }
 
     // CLASS SKILLS
-    final List<SkillRank> classSkills = Arrays.asList(
+    final List<SkillRankEnum> classSkills = Arrays.asList(
         acrobatics, climb, craft, handleAnimal, intimidate, knowledgeNature, 
         perception, ride, survival, swim
-    );
-    
-    public List<SkillRank> getClassSkills(){
+    );    
+    public List<SkillRankEnum> getClassSkills(){
         return classSkills;
     }
 
@@ -74,6 +74,11 @@ public class PFBarbarian implements PFClass {
     final int skillRanksPerLevel = 4; // n + INT
     public int getSkillRanksPerLevel(){
         return skillRanksPerLevel;
+    }
+
+    private List<Feat> classFeatures = null;
+    public List<Feat> getClassFeatures(){
+        return classFeatures;
     }
     
 }

@@ -2,11 +2,13 @@ package PFPackage;
 
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
-import PFPackage.PFBooks.Alignment;
-import PFPackage.PFBooks.Dice;
+import PFPackage.PFBooks.AlignmentEnum;
+import PFPackage.PFBooks.DiceEnum;
+import PFPackage.PFBooks.Feat;
+import PFPackage.PFBooks.FeatList;
 
-import static PFPackage.Character.AbilityScore.*;
-import static PFPackage.Character.SkillRank.*;
+import static PFPackage.Character.AbilityScoreEnum.*;
+import static PFPackage.Character.SkillRankEnum.*;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ class StatManager {
         player.characterClass = (PFClass) new PFBarbarian();
         PFClass myClass = player.characterClass;
 
-        for(AbilityScore enumvar : AbilityScore.values()){
+        for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
             System.out.println(
                 enumvar.toString() + ": " + myAS.getBase(enumvar)
             );
@@ -29,7 +31,7 @@ class StatManager {
             );
         }
         System.out.println("<Set STR: " + myAS.setBase(STR, 20) + ">");
-        for(AbilityScore enumvar : AbilityScore.values()){
+        for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
             System.out.println(
                 enumvar.toString() + ": " + myAS.getBase(enumvar)
             );
@@ -39,7 +41,7 @@ class StatManager {
         }
 
         System.out.println("<Set Stealth: " + mySK.setBase(stealth, 12) + ">");
-        for(SkillRank enumvar : SkillRank.values()){
+        for(SkillRankEnum enumvar : SkillRankEnum.values()){
             System.out.println(
                 enumvar.toString() + ": " + mySK.getBase(enumvar)
             );
@@ -48,20 +50,30 @@ class StatManager {
         System.out.println("== Class Stats == ");
         PFClassName className = myClass.getClassName();
         System.out.println("Class: " +className);
-        List<Alignment> badAlign = myClass.getAlignmentRestrictions();
+        List<AlignmentEnum> badAlign = myClass.getAlignmentRestrictions();
         System.out.println("Alignment Restrictions: " +badAlign);
         String roleDesc = myClass.getRoleDescriptions();
         System.out.println("Role Description: " +roleDesc);
-        Dice die = myClass.getHitDie();
+        DiceEnum die = myClass.getHitDie();
         System.out.println("Hit Die: " +die.name());
         double initWealth = myClass.calcInitWealth();
         System.out.println("Initial Wealth: " + initWealth);
         double initOutfitWealth = myClass.getInitOutfitWealth();
         System.out.println("Outfit Wealth: " +initOutfitWealth);
-        List<SkillRank> classSkills = myClass.getClassSkills();
+        List<SkillRankEnum> classSkills = myClass.getClassSkills();
         System.out.println("Class Skills: " +classSkills);
         int classSR = myClass.getSkillRanksPerLevel() + myAS.getModifier(INT);
         System.out.println("Skill Ranks per Level (INT): " +classSR);
+
+        List<Feat> featList = FeatList.getList();
+        for (Feat feat: featList){
+            System.out.println("FeatList: " + feat);
+            System.out.println(": " + feat.getCategory());
+            System.out.println(": " + feat.getPrereq());
+            System.out.println(": " + feat.getBenefitDesc());
+            System.out.println(": " + feat.getBenefit());
+            System.out.println(": " + feat.getSource());
+        }
     }
 
 

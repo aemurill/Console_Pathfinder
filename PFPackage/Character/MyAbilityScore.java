@@ -5,30 +5,30 @@ import java.util.EnumMap;
 public class MyAbilityScore {    
 
     // Base Ability Score Map
-    private EnumMap<AbilityScore, Integer> baseAbScMap = new EnumMap<AbilityScore, Integer>(
-            AbilityScore.class);
+    private EnumMap<AbilityScoreEnum, Integer> baseAbScMap = new EnumMap<AbilityScoreEnum, Integer>(
+            AbilityScoreEnum.class);
 
     public MyAbilityScore() {
         //init all to 10
-        for(AbilityScore aEnum: AbilityScore.values()){
+        for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
             baseAbScMap.put(aEnum, 10);        
         }
     }        
 
     // return base Ability Score given enum
-    public int getBase(AbilityScore enumvar){
+    public int getBase(AbilityScoreEnum enumvar){
         return baseAbScMap.get(enumvar);    
     }
 
     // To be used PURELY for character creation, all other increases to be 
     // stored in temp adjustments.
     // set base Ability Score given enum
-    public int setBase(AbilityScore enumvar, int value){
+    public int setBase(AbilityScoreEnum enumvar, int value){
         baseAbScMap.put(enumvar, value);
         return baseAbScMap.get(enumvar);    
     }
 
-    public int getModifier(AbilityScore enumvar){
+    public int getModifier(AbilityScoreEnum enumvar){
         int base = getBase(enumvar);
         int modifier = (int) (Math.floor(base/2)) - 5;
 

@@ -11,4 +11,6 @@ public class PFCharacter {
 
     //CLASS
     public PFClass characterClass = null;
+
+    //FEATS - keep track here, based off what's held and otther player stasts
 }

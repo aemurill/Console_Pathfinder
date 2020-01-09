@@ -1,6 +1,6 @@
 package PFPackage.Character;
 
-public enum SkillRank {
+public enum SkillRankEnum {
     acrobatics, 
     appraise, 
     bluff, 
@@ -39,10 +39,10 @@ public enum SkillRank {
     
     private String string = null;
 
-    private SkillRank(){
+    private SkillRankEnum(){
     }
 
-    private SkillRank(String string){
+    private SkillRankEnum(String string){
         this.string = string;
     }
 
