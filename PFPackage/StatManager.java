@@ -1,11 +1,10 @@
 package PFPackage;
 
-import static PFPackage.Character.AbilityScore.*;
+import PFPackage.Character.*;
+import PFPackage.PFBooks.PFClasses.*;
 
-import PFPackage.Character.MyAbilityScore;
-import PFPackage.Character.MySkillRanks;
-import PFPackage.Character.PFCharacter;
-import PFPackage.Character.SkillRank;
+import static PFPackage.Character.AbilityScore.*;
+import static PFPackage.Character.SkillRank.*;
 
 class StatManager {
 
@@ -14,13 +13,42 @@ class StatManager {
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
+        player.characterClass = (PFClass) new PFBarbarian();
+        PFClass myClass = player.characterClass;
 
-        System.out.println("STR: " + myAS.getBase(STR));
-        System.out.println("STR mod: " + myAS.getModifier(STR));
-        System.out.println("Set STR: " + myAS.setBase(STR, 20));
-        System.out.println("STR mod: " + myAS.getModifier(STR));
+        for(AbilityScore enumvar : AbilityScore.values()){
+            System.out.println(
+                enumvar.toString() + ": " + myAS.getBase(enumvar)
+            );
+            System.out.println(
+                enumvar.fullString() + " mod: " + myAS.getModifier(enumvar)
+            );
+        }
+        System.out.println("<Set STR: " + myAS.setBase(STR, 20) + ">");
+        for(AbilityScore enumvar : AbilityScore.values()){
+            System.out.println(
+                enumvar.toString() + ": " + myAS.getBase(enumvar)
+            );
+            System.out.println(
+                enumvar.fullString() + " mod: " + myAS.getModifier(enumvar)
+            );
+        }
 
-        System.out.println("Stealth: " + mySK.getBase(SkillRank.stealth));
+        System.out.println("<Set Stealth: " + mySK.setBase(stealth, 12) + ">");
+        for(SkillRank enumvar : SkillRank.values()){
+            System.out.println(
+                enumvar.toString() + ": " + mySK.getBase(enumvar)
+            );
+        }
+
+        System.out.println("== Class Stats == ");
+        System.out.println(myClass);
+        PFClassName className = myClass.className;
+        System.out.println(className);
+        PFClassName roleDesc = myClass.className;
+        System.out.println(roleDesc);
+        System.out.println(myClass.hitDie.name());
+        
     }
 
 

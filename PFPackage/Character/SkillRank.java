@@ -1,11 +1,55 @@
 package PFPackage.Character;
 
 public enum SkillRank {
-    acrobatics, appraise, bluff, climb, craft, diplomacy, disableDevice, 
-    disguise, escapeArtist, fly, handleAnimal, heal, intimidate, 
-    knowledgeArcana, knowledgeDungeoneering, knowledgeEngineering,
-    knowledgeGeography, knowledgeHistory, knowledgeLocal, knowledgeNature,
-    knowledgeNobility, knowledgePlanes, knowledgeReligion, linguistics,
-    perception, perform, profession, ride, senseMotive, sleightOfHand, 
-    spellCraft, stealth, survival, swim, useMagicalDevice
+    acrobatics, 
+    appraise, 
+    bluff, 
+    climb, 
+    craft, 
+    diplomacy, 
+    disableDevice("disable device"), 
+    disguise, 
+    escapeArtist, 
+    fly, 
+    handleAnimal, 
+    heal, 
+    intimidate, 
+    knowledgeArcana("knowledge arcana"),
+    knowledgeDungeoneering("knowledge dungeoneering"), 
+    knowledgeEngineering("knowledge engineering"),
+    knowledgeGeography("knowledge geography"), 
+    knowledgeHistory("knowledge history"), 
+    knowledgeLocal("knowledge local"), 
+    knowledgeNature("knowledge nature"),
+    knowledgeNobility("knowledge nobility"), 
+    knowledgePlanes("knowledge planes"), 
+    knowledgeReligion("knowledge religion"), 
+    linguistics,
+    perception, 
+    perform, 
+    profession, 
+    ride, 
+    senseMotive("sense motive"), 
+    sleightOfHand("sleight of hand"), 
+    spellcraft, 
+    stealth, 
+    survival, 
+    swim, 
+    useMagicalDevice("acrobatics");
+    
+    private String string = null;
+
+    private SkillRank(){
+    }
+
+    private SkillRank(String string){
+        this.string = string;
+    }
+
+    @Override
+    public String toString() {
+        if (string == null)
+            return this.name();
+        return this.string;
+    }
 }

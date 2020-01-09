@@ -8,30 +8,39 @@ import PFPackage.PFBooks.Alignment;
 
 public interface PFClass {
     // class name
-    PFClassName className = null;
+    //final PFClassName className = null;
+    public PFClassName getClassName();
 
     // alignment restrictions
-    List<Alignment> alignmentRestrictions = null;
+    //static List<Alignment> alignmentRestrictions = null;
+    public List<Alignment> getAlignmentRestrictions();
 
     //role description
-    String roleDesc = null;
+    //static String roleDesc = null;
+    public String getRoleDescriptions();
 
     //hit die
-    Dice hitDie = null;    
+    //static Dice hitDie = null;    
+    public Dice getHitDie();
 
     //starting wealth
-    Object[] initWealth = null;// = {5, d6, 10 } ;
+    //static Object[] initWealth = null;// = {5, d6, 10 } ;
+    public Object[] getInitWealth();
+
     //In addition, each character begins play with an outfit worth 10 gp or less.
     int initOutfitWealth = 1000; //10 gp = 100 sp = 1000 cp
+    public int getInitOutfitWealth();
 
     //CLASS SKILLS
-    List<SkillRank> classSkills = null;
+    //static List<SkillRank> classSkills = null;
     /*List<SkillRankEnum> classSkills = Arrays.asList(
         SkillRankEnum.acrobatics,  
     );*/
+    public List<SkillRank> getClassSkills();
     
     //Skill Ranks per level
-    int skillRanksPerLevel = 0; // n + INT
+    //static int skillRanksPerLevel = 0; // n + INT
+    public int getSkillRanksPerLevel();
 
     //Class leveling TABLE
 

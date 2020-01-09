@@ -6,6 +6,7 @@ import java.util.List;
 import PFPackage.PFBooks.Dice;
 import static PFPackage.PFBooks.Dice.*;
 import PFPackage.Character.SkillRank;
+import static PFPackage.Character.SkillRank.*;
 import PFPackage.PFBooks.Alignment;
 import static PFPackage.PFBooks.Alignment.*;
 import static PFPackage.PFBooks.PFClasses.PFClassName.*;
@@ -17,33 +18,61 @@ public class PFBarbarian implements PFClass {
     }
 
     // class name
-    PFClassName className = Barbarian;
+    final PFClassName className = Barbarian;
+
+    public PFClassName getClassName(){
+        return className;
+    }
 
     // alignment restrictions
-    List<Alignment> alignmentRestrictions = Arrays.asList(LG, LN, LE);
+    final List<Alignment> alignmentRestrictions = Arrays.asList(LG, LN, LE);
+
+    public List<Alignment> getAlignmentRestrictions(){
+        return alignmentRestrictions;
+    }
 
     // role description
-    String roleDesc = "Barbarians excel in combat, possessing the martial "
+    final String roleDesc = "Barbarians excel in combat, possessing the martial "
             + "prowess and fortitude to take on foes seemingly far superior to "
             + "themselves. With rage granting them boldness and daring beyond that "
             + "of most other warriors, barbarians charge furiously into battle and "
             + "ruin all who would stand in their way.";
 
+    public String getRoleDescriptions(){
+        return roleDesc;
+    }
+
     // hit die
-    Dice hitDie = d12;
+    final Dice hitDie = d12;
+    public Dice getHitDie(){
+        return hitDie;
+    }
 
     // starting wealth
-    Object[] initWealth = { 3, d6, 1000 };
-    // In addition, each character begins play with an outfit worth 10 gp or less.
-    int initOutfitWealth = 1000; // 10 gp = 100 sp = 1000 cp
+    final Object[] initWealth = { 3, d6, 1000 };
+    public Object[] getInitWealth(){
+        return initWealth;
+    }
+
+    public int getInitOutfitWealth(){
+        return PFClass.initOutfitWealth;
+    }
 
     // CLASS SKILLS
-    List<SkillRank> classSkills = Arrays.asList(
-        SkillRank.acrobatics
+    final List<SkillRank> classSkills = Arrays.asList(
+        acrobatics, climb, craft, handleAnimal, intimidate, knowledgeNature, 
+        perception, ride, survival, swim
     );
     
+    public List<SkillRank> getClassSkills(){
+        return classSkills;
+    }
+
     //Skill Ranks per level
-    int skillRanksPerLevel = 0; // n + INT
+    final int skillRanksPerLevel = 4; // n + INT
+    public int getSkillRanksPerLevel(){
+        return skillRanksPerLevel;
+    }
 
     
 }

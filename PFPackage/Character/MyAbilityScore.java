@@ -3,7 +3,7 @@ package PFPackage.Character;
 import java.util.EnumMap;
 
 public class MyAbilityScore {    
-    
+
     // Base Ability Score Map
     private EnumMap<AbilityScore, Integer> baseAbScMap = new EnumMap<AbilityScore, Integer>(
             AbilityScore.class);
@@ -31,6 +31,12 @@ public class MyAbilityScore {
     public int getModifier(AbilityScore enumvar){
         int base = getBase(enumvar);
         int modifier = (int) (Math.floor(base/2)) - 5;
+
+        return modifier;    
+    }
+
+    public int calcModifier(int value){
+        int modifier = (int) (Math.floor(value/2)) - 5;
 
         return modifier;    
     }
