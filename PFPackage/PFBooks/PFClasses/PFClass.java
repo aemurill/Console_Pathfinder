@@ -27,9 +27,21 @@ public interface PFClass {
     //static Object[] initWealth = null;// = {5, d6, 10 } ;
     public Object[] getInitWealth();
 
+    default double calcInitWealth() {
+        Object[] temp = this.getInitWealth();
+        int dieMult = (int) temp[0];
+        System.out.println(dieMult);
+        int roll = ((Dice) temp[1]).roll();
+        System.out.println("rolled "+roll);
+        int mult = (int)temp[2];
+        System.out.println(mult);
+        double val = (dieMult * roll) * mult;
+        return val;
+    }
+
     //In addition, each character begins play with an outfit worth 10 gp or less.
-    int initOutfitWealth = 1000; //10 gp = 100 sp = 1000 cp
-    public int getInitOutfitWealth();
+    double initOutfitWealth = 10; //10 gp = 100 sp = 1000 cp
+    public double getInitOutfitWealth();
 
     //CLASS SKILLS
     //static List<SkillRank> classSkills = null;

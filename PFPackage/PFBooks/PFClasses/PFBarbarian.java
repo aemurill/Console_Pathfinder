@@ -25,7 +25,9 @@ public class PFBarbarian implements PFClass {
     }
 
     // alignment restrictions
-    final List<Alignment> alignmentRestrictions = Arrays.asList(LG, LN, LE);
+    final List<Alignment> alignmentRestrictions = Arrays.asList(
+        NG, NN, NE, CG, CN, CE
+    );
 
     public List<Alignment> getAlignmentRestrictions(){
         return alignmentRestrictions;
@@ -49,12 +51,12 @@ public class PFBarbarian implements PFClass {
     }
 
     // starting wealth
-    final Object[] initWealth = { 3, d6, 1000 };
+    final Object[] initWealth = { 3, d6, 10 };
     public Object[] getInitWealth(){
         return initWealth;
     }
 
-    public int getInitOutfitWealth(){
+    public double getInitOutfitWealth(){
         return PFClass.initOutfitWealth;
     }
 
@@ -73,6 +75,5 @@ public class PFBarbarian implements PFClass {
     public int getSkillRanksPerLevel(){
         return skillRanksPerLevel;
     }
-
     
 }
