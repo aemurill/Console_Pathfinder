@@ -47,7 +47,7 @@ class StatManager {
             );
         }
 
-        System.out.println("== Class Stats == ");
+        System.out.println("== Class Stats == \n\n");
         PFClassName className = myClass.getClassName();
         System.out.println("Class: " +className);
         List<AlignmentEnum> badAlign = myClass.getAlignmentRestrictions();
@@ -65,14 +65,15 @@ class StatManager {
         int classSR = myClass.getSkillRanksPerLevel() + myAS.getModifier(INT);
         System.out.println("Skill Ranks per Level (INT): " +classSR);
 
+        System.out.println("== Game Feat List == \n\n");
         List<Feat> featList = FeatList.getList();
         for (Feat feat: featList){
-            System.out.println("FeatList: " + feat);
-            System.out.println(": " + feat.getCategory());
-            System.out.println(": " + feat.getPrereq());
-            System.out.println(": " + feat.getBenefitDesc());
-            System.out.println(": " + feat.getBenefit());
-            System.out.println(": " + feat.getSource());
+            System.out.println("Feat: " + feat);
+            System.out.println("Category: " + feat.getCategory());
+            System.out.println("Prereq: " + feat.getPrereq());
+            System.out.println("Benefit: " + feat.getBenefitDesc());
+            System.out.println("OBJECT: " + feat.getBenefit());
+            System.out.println("Source: " + feat.getSource());
         }
     }
 
