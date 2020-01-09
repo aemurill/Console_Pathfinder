@@ -1,7 +1,5 @@
 package PFPackage.PFBooks.PFFeats;
 
-import java.util.function.Function;
-
 public class Feat {
     
     //More can be added but stop here pls

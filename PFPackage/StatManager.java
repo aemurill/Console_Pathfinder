@@ -79,6 +79,7 @@ class StatManager {
             FeatFunction FF = feat.getBenefit();
             System.out.println("FeatFunction Output: " +  FF.doFunction(null));
             System.out.println("Source: " + feat.getSource());
+            System.out.println("**************");
         }
     }
 
