@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
+import PFPackage.PFBooks.PFFeats.Feat;
+
 import static PFPackage.PFBooks.DiceEnum.*;
 import PFPackage.Character.SkillRankEnum;
 import static PFPackage.Character.SkillRankEnum.*;
 import PFPackage.PFBooks.AlignmentEnum;
 import static PFPackage.PFBooks.AlignmentEnum.*;
 import static PFPackage.PFBooks.PFClasses.PFClassName.*;
-import PFPackage.PFBooks.Feat;
 
 public class PFBarbarian implements PFClass {
     //UNPLANNED: Ex-Barbarian Status

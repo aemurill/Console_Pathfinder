@@ -1,4 +1,6 @@
-package PFPackage.PFBooks;
+package PFPackage.PFBooks.PFFeats;
+
+import java.util.function.Function;
 
 public class Feat {
     
@@ -6,17 +8,18 @@ public class Feat {
     private String featName;
     private String featCategory;
     private String featPrereq;
+    //Heavily consider swapping Prereqs with functions?
     private String featBenefitDesc;
-    private Object[] featBenefit;
+    private FeatFunction featBenefit;
     private String featSource;
 
 
     public Feat(String featName, String featCategory, String featPrereq, 
-        String featBenefitDesc, Object[] featBenefit, String featSource
+        String featBenefitDesc, FeatFunction featBenefit, String featSource
     ){
         this.featName           = featName;
         this.featCategory       = featCategory;
-        this.featPrereq         = featPrereq;
+        this.featPrereq         = featPrereq;        
         this.featBenefitDesc    = featBenefitDesc;
         this.featBenefit        = featBenefit;
         this.featSource         = featSource;
@@ -36,7 +39,7 @@ public class Feat {
     public String getBenefitDesc() {
         return this.featBenefitDesc;
     }
-    public Object[] getBenefit() {
+    public FeatFunction getBenefit() {
         return this.featBenefit;
     }
     public String getSource() {

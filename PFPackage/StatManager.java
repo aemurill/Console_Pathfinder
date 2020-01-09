@@ -2,11 +2,11 @@ package PFPackage;
 
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
+import PFPackage.PFBooks.PFFeats.Feat;
+import PFPackage.PFBooks.PFFeats.FeatFunction;
+import PFPackage.PFBooks.PFFeats.FeatList;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
-import PFPackage.PFBooks.Feat;
-import PFPackage.PFBooks.FeatList;
-
 import static PFPackage.Character.AbilityScoreEnum.*;
 import static PFPackage.Character.SkillRankEnum.*;
 
@@ -66,19 +66,21 @@ class StatManager {
         System.out.println("Skill Ranks per Level (INT): " +classSR);
 
         System.out.println("== Game Feat List == \n\n");
-        List<Feat> featList = FeatList.getList();
+        printFeats(FeatList.getCombatFeatList());
+        printFeats(FeatList.getGeneralFeatList());
+    }
+
+    private static void printFeats(List<Feat> featList){    
         for (Feat feat: featList){
             System.out.println("Feat: " + feat);
             System.out.println("Category: " + feat.getCategory());
             System.out.println("Prereq: " + feat.getPrereq());
             System.out.println("Benefit: " + feat.getBenefitDesc());
-            System.out.println("OBJECT: " + feat.getBenefit());
+            FeatFunction FF = feat.getBenefit();
+            System.out.println("FeatFunction Output: " +  FF.doFunction(null));
             System.out.println("Source: " + feat.getSource());
         }
     }
-
-
-
 
 
 }

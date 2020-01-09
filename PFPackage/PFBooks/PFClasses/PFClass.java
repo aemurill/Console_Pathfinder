@@ -3,9 +3,9 @@ package PFPackage.PFBooks.PFClasses;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
+import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.Character.SkillRankEnum;
 import PFPackage.PFBooks.AlignmentEnum;
-import PFPackage.PFBooks.Feat;
 
 public interface PFClass {
     // class name
