@@ -24,6 +24,13 @@ public class Feat {
     }
 
     @Override
+    public boolean equals(Object o){
+        if(this.featName.equals(o))
+            return true;
+        return false;
+    }
+
+    @Override
     public String toString() {
         return this.featName;
     }

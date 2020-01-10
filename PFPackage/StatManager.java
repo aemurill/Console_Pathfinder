@@ -68,6 +68,9 @@ class StatManager {
         System.out.println("== Game Feat List == \n\n");
         printFeats(FeatList.getCombatFeatList());
         printFeats(FeatList.getGeneralFeatList());
+
+        int element = FeatList.getCombatFeatList().indexOf((Object) "Adder Strike");
+        player.characterFeats.add(FeatList.getCombatFeatList().get(element));
     }
 
     private static void printFeats(List<Feat> featList){    
@@ -82,6 +85,8 @@ class StatManager {
             System.out.println("**************");
         }
     }
+
+    
 
 
 }
