@@ -5,6 +5,8 @@ import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
 import PFPackage.PFBooks.PFFeats.Feat;
+import PFPackage.PFBooks.PFFeats.FeatFunction;
+import PFPackage.PFBooks.PFFeats.FeatList;
 
 import static PFPackage.PFBooks.DiceEnum.*;
 import PFPackage.Character.SkillRankEnum;
@@ -77,9 +79,35 @@ public class PFBarbarian implements PFClass {
         return skillRanksPerLevel;
     }
 
-    private List<Feat> classFeatures = null;
-    public List<Feat> getClassFeatures(){
+    //Static List of all GENERAL Feats
+    private FeatList classFeatures = createClassFeatures();
+    //Access List
+    public FeatList getClassFeatures(){
+        return classFeatures;
+    }    
+    //Create List of Feats
+    private static FeatList createClassFeatures(){                
+        FeatList classFeatures = new FeatList();        
+        classFeatures.add(new Feat(
+            "Aberrant Tumor",
+            "General",
+            "Aberrant bloodline",
+            "Gain a tumor familiar.",
+            (FeatFunction) ((x) -> {
+                return Feat.handleUnimplemented();
+            }),
+            "PZO1129"
+        ));
+        /*You gain a tumor familiar, as the tumor familiar
+         alchemist discovery, with an effective alchemist
+         level equal to the level of the class that grants
+         your aberrant bloodline for determining the tumor
+         familiar’s abilities. If multiple classes grant
+         you the aberrant bloodline, those class levels
+         stack for determining your effective alchemist
+         level.*/
         return classFeatures;
     }
+    
     
 }

@@ -38,6 +38,11 @@ public class Feat {
         return false;
     }
 
+    public static boolean handleUnimplemented(){
+        System.out.println("WARNING: FEAT UNIMPLEMENTED");
+        return false;
+    }
+
     /*@Override
     public int hashCode(){
         int h = hash;

@@ -3,7 +3,7 @@ package PFPackage.PFBooks.PFClasses;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
-import PFPackage.PFBooks.PFFeats.Feat;
+import PFPackage.PFBooks.PFFeats.FeatList;
 import PFPackage.Character.SkillRankEnum;
 import PFPackage.PFBooks.AlignmentEnum;
 
@@ -56,11 +56,11 @@ public interface PFClass {
     public int getSkillRanksPerLevel();
 
     //Class Features     
-    public List<Feat> getClassFeatures();
+    public FeatList getClassFeatures();
 
     
     //Favored Class bonus option
-
+    //public List<FCoptions> getBonusFeatures();
     /* 
         updateStatsManager?
 

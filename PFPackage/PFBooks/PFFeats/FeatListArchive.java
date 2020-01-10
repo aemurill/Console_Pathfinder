@@ -1,10 +1,6 @@
 package PFPackage.PFBooks.PFFeats;
 
-public class FeatListArchive {
-    private static boolean handleUnimplemented(){
-        System.out.println("WARNING: FEAT UNIMPLEMENTED");
-        return false;
-    }
+public class FeatListArchive {    
 
     // == GENERAL FEATS ==
     //Static List of all GENERAL Feats
@@ -22,13 +18,18 @@ public class FeatListArchive {
             "Aberrant bloodline",
             "Gain a tumor familiar.",
             (FeatFunction) ((x) -> {
-                return handleUnimplemented();
+                return Feat.handleUnimplemented();
             }),
             "PZO1129"
         ));
-        /*You gain a tumor familiar, as the tumor familiar alchemist discovery, with an effective alchemist level equal to the level of the class that grants your aberrant bloodline for determining the tumor familiar’s abilities. If multiple classes grant you the aberrant bloodline, those class levels stack for determining your effective alchemist level.
-
-*/
+        /*You gain a tumor familiar, as the tumor familiar
+         alchemist discovery, with an effective alchemist
+         level equal to the level of the class that grants
+         your aberrant bloodline for determining the tumor
+         familiar’s abilities. If multiple classes grant
+         you the aberrant bloodline, those class levels
+         stack for determining your effective alchemist
+         level.*/
         return GeneralFeatList;
     }
 
@@ -50,7 +51,7 @@ public class FeatListArchive {
             (FeatFunction) ((x) -> {
                 Object[] blah = {"blah"};
                 System.out.println("HELLO: " + blah[0] + " " + blah.toString());
-                return handleUnimplemented();
+                return Feat.handleUnimplemented();
             }),
             "PZO1134"
         ));
@@ -61,7 +62,7 @@ public class FeatListArchive {
             "Avoid attacks of opportunity from casting with Acrobatics",
             (FeatFunction) ((x) -> {                
                 System.out.println("POISON STRIKE");
-                return handleUnimplemented();
+                return Feat.handleUnimplemented();
             }),
             "PZO1118"
         ));

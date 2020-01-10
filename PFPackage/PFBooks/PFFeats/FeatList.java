@@ -1,13 +1,12 @@
 package PFPackage.PFBooks.PFFeats;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FeatList extends ArrayList<Feat> {
     //Not used for anything but Serialization which we don't do
     private static final long serialVersionUID = -8206848538013371913L;
 
-    public boolean addFeat(String input){
+    public boolean addFeatByString(String input){
     //check ONE of the archives
         FeatList featList = (FeatList) FeatListArchive.getCombatFeatList();
         //featList.printFeats(); //DEBUG

@@ -3,7 +3,6 @@ package PFPackage;
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFeats.Feat;
-import PFPackage.PFBooks.PFFeats.FeatFunction;
 import PFPackage.PFBooks.PFFeats.FeatListArchive;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
@@ -68,35 +67,20 @@ class StatManager {
 
         System.out.println("\n\n== Game Feat List ==");
         FeatListArchive.getCombatFeatList().printFeats();
-        FeatListArchive.getGeneralFeatList().printFeats();
-        //printFeats(FeatListArchive.getCombatFeatList());
-        //printFeats(FeatListArchive.getGeneralFeatList());
-
+        FeatListArchive.getGeneralFeatList().printFeats();        
         
-        player.characterFeats.addFeat("Adder Strike");
+        System.out.println("\n\n== Barbarian's Feat List == [");        
+        player.characterClass.getClassFeatures().printFeats();
+
+        player.characterFeats.addFeatByString("Acrobatic Spellcaster");
+        for(Feat feat: player.characterClass.getClassFeatures()){
+            player.characterFeats.add(feat);
+        }
+        
         System.out.println("\n\n== Player's Feat List == [");        
         player.characterFeats.printFeats();
         Arrays.toString(player.characterFeats.toArray());
         System.out.println("]");        
-        /*int element = FeatList.getCombatFeatList().indexOf((Object) "Adder Strike");
-        System.out.println(element);
-        player.characterFeats.add(FeatList.getCombatFeatList().get(element));*/
+        
     }
-
-    /*private static void printFeats(List<Feat> featList){    
-        for (Feat feat: featList){
-            System.out.println("Feat: " + feat);
-            System.out.println("Category: " + feat.getCategory());
-            System.out.println("Prereq: " + feat.getPrereq());
-            System.out.println("Benefit: " + feat.getBenefitDesc());
-            FeatFunction FF = feat.getBenefit();
-            System.out.println("FeatFunction Output: " +  FF.doFunction(null));
-            System.out.println("Source: " + feat.getSource());
-            System.out.println("**************");
-        }
-    }*/
-
-    
-
-
 }
