@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
+import PFPackage.PFBooks.PFFavoredClassBonus.FCBonusOption;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.FeatFunction;
 import PFPackage.PFBooks.PFFeats.FeatList;
@@ -109,5 +110,9 @@ public class PFBarbarian implements PFClass {
         return classFeatures;
     }
     
-    
+    //Favored Class bonus option
+    public List<FCBonusOption> getFCBonusOptionList(){
+
+        return null;
+    }
 }
