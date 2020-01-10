@@ -4,12 +4,13 @@ import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.FeatFunction;
-import PFPackage.PFBooks.PFFeats.FeatList;
+import PFPackage.PFBooks.PFFeats.FeatListArchive;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
 import static PFPackage.Character.SkillRankEnum.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 class StatManager {
@@ -47,7 +48,7 @@ class StatManager {
             );
         }
 
-        System.out.println("== Class Stats == \n\n");
+        System.out.println("\n\n== Class Stats == ");
         PFClassName className = myClass.getClassName();
         System.out.println("Class: " +className);
         List<AlignmentEnum> badAlign = myClass.getAlignmentRestrictions();
@@ -65,15 +66,24 @@ class StatManager {
         int classSR = myClass.getSkillRanksPerLevel() + myAS.getModifier(INT);
         System.out.println("Skill Ranks per Level (INT): " +classSR);
 
-        System.out.println("== Game Feat List == \n\n");
-        printFeats(FeatList.getCombatFeatList());
-        printFeats(FeatList.getGeneralFeatList());
+        System.out.println("\n\n== Game Feat List ==");
+        FeatListArchive.getCombatFeatList().printFeats();
+        FeatListArchive.getGeneralFeatList().printFeats();
+        //printFeats(FeatListArchive.getCombatFeatList());
+        //printFeats(FeatListArchive.getGeneralFeatList());
 
-        int element = FeatList.getCombatFeatList().indexOf((Object) "Adder Strike");
-        player.characterFeats.add(FeatList.getCombatFeatList().get(element));
+        
+        player.characterFeats.addFeat("Adder Strike");
+        System.out.println("\n\n== Player's Feat List == [");        
+        player.characterFeats.printFeats();
+        Arrays.toString(player.characterFeats.toArray());
+        System.out.println("]");        
+        /*int element = FeatList.getCombatFeatList().indexOf((Object) "Adder Strike");
+        System.out.println(element);
+        player.characterFeats.add(FeatList.getCombatFeatList().get(element));*/
     }
 
-    private static void printFeats(List<Feat> featList){    
+    /*private static void printFeats(List<Feat> featList){    
         for (Feat feat: featList){
             System.out.println("Feat: " + feat);
             System.out.println("Category: " + feat.getCategory());
@@ -84,7 +94,7 @@ class StatManager {
             System.out.println("Source: " + feat.getSource());
             System.out.println("**************");
         }
-    }
+    }*/
 
     
 

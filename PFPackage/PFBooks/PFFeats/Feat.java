@@ -25,10 +25,32 @@ public class Feat {
 
     @Override
     public boolean equals(Object o){
-        if(this.featName.equals(o))
+        System.out.println("D: pre");
+        if(o == this) return true; //self
+        System.out.println("D: not self");
+        if(!(o instanceof String)) return false; //is Feat?
+        System.out.println("D: o not string");
+        if(this.featName.equals(o)){
+            System.out.println("D: Success?");
             return true;
+        }
+        System.out.println("D: string not equals");
         return false;
     }
+
+    /*@Override
+    public int hashCode(){
+        int h = hash;
+        if (h == 0 && featName.length > 0) {
+            char val[] = featName;
+
+            for (int i = 0; i < featName.length; i++) {
+                h = 31 * h + val[i];
+            }
+            hash = h;
+        }
+        return h;
+    }*/
 
     @Override
     public String toString() {

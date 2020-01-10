@@ -3,105 +3,49 @@ package PFPackage.PFBooks.PFFeats;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeatList {
-    private static boolean handleUnimplemented(){
-        System.out.println("WARNING: FEAT UNIMPLEMENTED");
+public class FeatList extends ArrayList<Feat> {
+    //Not used for anything but Serialization which we don't do
+    private static final long serialVersionUID = -8206848538013371913L;
+
+    public boolean addFeat(String input){
+    //check ONE of the archives
+        FeatList featList = (FeatList) FeatListArchive.getCombatFeatList();
+        //featList.printFeats(); //DEBUG
+        int element_index = featList.indexOf((Object) "Adder Strike");
+        System.out.println(element_index);
+        if(element_index >= 0){
+            super.add(featList.get(element_index));
+        }
         return false;
     }
 
-    // == GENERAL FEATS ==
-    //Static List of all GENERAL Feats
-    static List<Feat> GeneralFeatList = createGeneralFeatList();
-    //Access List
-    public static List<Feat> getGeneralFeatList(){        
-        return GeneralFeatList;
-    }
-    //Create List of Feats
-    private static List<Feat> createGeneralFeatList(){                
-        List<Feat> GeneralFeatList = new ArrayList<Feat>(0);        
-        GeneralFeatList.add(new Feat(
-            "Aberrant Tumor",
-            "General",
-            "Aberrant bloodline",
-            "Gain a tumor familiar.",
-            (FeatFunction) ((x) -> {
-                return handleUnimplemented();
-            }),
-            "PZO1129"
-        ));
-        /*You gain a tumor familiar, as the tumor familiar alchemist discovery, with an effective alchemist level equal to the level of the class that grants your aberrant bloodline for determining the tumor familiar’s abilities. If multiple classes grant you the aberrant bloodline, those class levels stack for determining your effective alchemist level.
-
-*/
-        return GeneralFeatList;
+    @Override
+    public int indexOf(Object o){
+        int size = super.size();
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                if (super.get(i)==null)
+                    return i;
+        } else {
+            for (int i = 0; i < size; i++)
+                if (super.get(i).toString().equals(o))
+                    return i;
+        }
+        return -1;
     }
 
-    // == COMBAT FEATS ==
-    //Static List of all GENERAL Feats
-    static List<Feat> CombatFeatList = createCombatFeatList();
-    //Access List
-    public static List<Feat> getCombatFeatList(){        
-        return CombatFeatList;
+    public void printFeats(){  
+        int ctr = 0;  
+        for (Feat feat: this){
+            if(ctr != 0) System.out.println("**************");            
+            System.out.println("Feat: " + feat);
+            System.out.println("Category: " + feat.getCategory());
+            System.out.println("Prereq: " + feat.getPrereq());
+            System.out.println("Benefit: " + feat.getBenefitDesc());
+            FeatFunction FF = feat.getBenefit();
+            System.out.println("FeatFunction Output: " +  FF.doFunction(null));
+            System.out.println("Source: " + feat.getSource());
+            ctr++;
+        }
     }
-    //Create List of Feats
-    private static List<Feat> createCombatFeatList(){                
-        List<Feat> CombatFeatList = new ArrayList<Feat>(0);                
-        CombatFeatList.add(new Feat(
-            "Acrobatic Spellcaster",
-            "Combat",
-            "Combat Casting, Skill Focus (Acrobatics)",
-            "Avoid attacks of opportunity from casting with Acrobatics",
-            (FeatFunction) ((x) -> {
-                Object[] blah = {"blah"};
-                System.out.println("HELLO: " + blah[0] + " " + blah.toString());
-                return handleUnimplemented();
-            }),
-            "PZO1134"
-        ));
-        CombatFeatList.add(new Feat(
-            "Adder Strike",
-            "Combat",
-            "Poison use class feature, Improved Unarmed Strike, Craft (alchemy) 1",
-            "Avoid attacks of opportunity from casting with Acrobatics",
-            (FeatFunction) ((x) -> {                
-                System.out.println("POISON STRIKE");
-                return handleUnimplemented();
-            }),
-            "PZO1118"
-        ));
-        return CombatFeatList;
-    }
-
-    // == CRITICAL FEATS ==
-
-    // == ITEM CREATION FEATS ==
-
-    // == METAMAGIC FEATS ==
-
-    // == ACHIEVEMENT FEATS ==
-
-    // == BLOOD HEX FEATS ==
-
-    // == FACTION FEATS ==
-    
-    // == GRIT AND PANACHE FEATS ==
-
-    // == HERO POINT FEATS ==
-
-    // == ITEM MASTERY FEATS ==
-
-    // == MEDITATION FEATS ==
-    
-    // == MYTHIC FEATS ==
-
-    // == PERFORMANCE FEATS ==
-
-    // == RACIAL FEATS ==
-
-    // == STORY FEATS ==
-
-    // == STYLE FEATS ==
-
-    // == TARGETING FEATS ==
-
-    // == TEAMWORK FEATS ==    
 }
