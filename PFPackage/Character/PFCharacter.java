@@ -1,7 +1,11 @@
 package PFPackage.Character;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFeats.FeatList;
+import PFPackage.PFBooks.PFFavoredClassBonus.*;
 
 public class PFCharacter {
     //BASE STATS
@@ -15,4 +19,7 @@ public class PFCharacter {
 
     //FEATS - keep track here, based off what's held and otther player stasts
     public FeatList characterFeats = new FeatList();
+
+    //FC Class Options
+    public List<FCBonus> characterFCoptions= new ArrayList<FCBonus>();
 }

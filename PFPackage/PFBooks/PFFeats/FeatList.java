@@ -41,7 +41,7 @@ public class FeatList extends ArrayList<Feat> {
             System.out.println("Category: " + feat.getCategory());
             System.out.println("Prereq: " + feat.getPrereq());
             System.out.println("Benefit: " + feat.getBenefitDesc());
-            FeatFunction FF = feat.getBenefit();
+            Function FF = feat.getBenefit();
             System.out.println("FeatFunction Output: " +  FF.doFunction(null));
             System.out.println("Source: " + feat.getSource());
             ctr++;

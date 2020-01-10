@@ -1,12 +1,13 @@
 package PFPackage.PFBooks.PFClasses;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
-import PFPackage.PFBooks.PFFavoredClassBonus.FCBonusOption;
+import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
 import PFPackage.PFBooks.PFFeats.Feat;
-import PFPackage.PFBooks.PFFeats.FeatFunction;
+import PFPackage.PFBooks.PFFeats.Function;
 import PFPackage.PFBooks.PFFeats.FeatList;
 
 import static PFPackage.PFBooks.DiceEnum.*;
@@ -94,7 +95,7 @@ public class PFBarbarian implements PFClass {
             "General",
             "Aberrant bloodline",
             "Gain a tumor familiar.",
-            (FeatFunction) ((x) -> {
+            (Function) ((x) -> {
                 return Feat.handleUnimplemented();
             }),
             "PZO1129"
@@ -111,8 +112,32 @@ public class PFBarbarian implements PFClass {
     }
     
     //Favored Class bonus option
-    public List<FCBonusOption> getFCBonusOptionList(){
-
-        return null;
+    //Static List of class FC options
+    private List<FCBonus> classFCBonusOptions = createFCBonusOptions();
+    //Access
+    public List<FCBonus> getFCBonusOptionList(){
+        return classFCBonusOptions;
+    }
+    //Create List of class FC options
+    private static List<FCBonus> createFCBonusOptions(){                
+        List<FCBonus> classFeatures = new ArrayList<FCBonus>();        
+        classFeatures.add(new FCBonus(
+            "Aberrant Tumor",
+            "General",
+            "Gain a tumor familiar.",
+            (Function) ((x) -> {
+                return Feat.handleUnimplemented();
+            }),
+            "PZO1129"
+        ));
+        /*You gain a tumor familiar, as the tumor familiar
+         alchemist discovery, with an effective alchemist
+         level equal to the level of the class that grants
+         your aberrant bloodline for determining the tumor
+         familiar’s abilities. If multiple classes grant
+         you the aberrant bloodline, those class levels
+         stack for determining your effective alchemist
+         level.*/
+        return classFeatures;
     }
 }

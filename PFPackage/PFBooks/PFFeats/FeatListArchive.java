@@ -17,7 +17,7 @@ public class FeatListArchive {
             "General",
             "Aberrant bloodline",
             "Gain a tumor familiar.",
-            (FeatFunction) ((x) -> {
+            (Function) ((x) -> {
                 return Feat.handleUnimplemented();
             }),
             "PZO1129"
@@ -48,7 +48,7 @@ public class FeatListArchive {
             "Combat",
             "Combat Casting, Skill Focus (Acrobatics)",
             "Avoid attacks of opportunity from casting with Acrobatics",
-            (FeatFunction) ((x) -> {
+            (Function) ((x) -> {
                 Object[] blah = {"blah"};
                 System.out.println("HELLO: " + blah[0] + " " + blah.toString());
                 return Feat.handleUnimplemented();
@@ -60,7 +60,7 @@ public class FeatListArchive {
             "Combat",
             "Poison use class feature, Improved Unarmed Strike, Craft (alchemy) 1",
             "Avoid attacks of opportunity from casting with Acrobatics",
-            (FeatFunction) ((x) -> {                
+            (Function) ((x) -> {                
                 System.out.println("POISON STRIKE");
                 return Feat.handleUnimplemented();
             }),

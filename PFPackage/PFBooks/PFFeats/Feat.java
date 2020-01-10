@@ -8,12 +8,12 @@ public class Feat {
     private String featPrereq;
     //Heavily consider swapping Prereqs with functions?
     private String featBenefitDesc;
-    private FeatFunction featBenefit;
+    private Function featBenefit;
     private String featSource;
 
 
     public Feat(String featName, String featCategory, String featPrereq, 
-        String featBenefitDesc, FeatFunction featBenefit, String featSource
+        String featBenefitDesc, Function featBenefit, String featSource
     ){
         this.featName           = featName;
         this.featCategory       = featCategory;
@@ -23,7 +23,7 @@ public class Feat {
         this.featSource         = featSource;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o){
         System.out.println("D: pre");
         if(o == this) return true; //self
@@ -36,7 +36,7 @@ public class Feat {
         }
         System.out.println("D: string not equals");
         return false;
-    }
+    }*/
 
     public static boolean handleUnimplemented(){
         System.out.println("WARNING: FEAT UNIMPLEMENTED");
@@ -71,7 +71,7 @@ public class Feat {
     public String getBenefitDesc() {
         return this.featBenefitDesc;
     }
-    public FeatFunction getBenefit() {
+    public Function getBenefit() {
         return this.featBenefit;
     }
     public String getSource() {

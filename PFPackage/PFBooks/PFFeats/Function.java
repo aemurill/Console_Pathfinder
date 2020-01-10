@@ -1,5 +1,5 @@
 package PFPackage.PFBooks.PFFeats;
 
-public interface FeatFunction {
+public interface Function {
     public boolean doFunction(Object[] input);
 }

@@ -2,6 +2,7 @@ package PFPackage;
 
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
+import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.FeatListArchive;
 import PFPackage.PFBooks.AlignmentEnum;
@@ -82,5 +83,19 @@ class StatManager {
         Arrays.toString(player.characterFeats.toArray());
         System.out.println("]");        
         
+
+        System.out.println("\n\n== Barbarian's Focus Class Bonus List == ");        
+        int ctr = 0;
+        for(FCBonus fcb: player.characterFCoptions){
+            if(ctr != 0) System.out.println("**************");            
+            System.out.println("Feat: " + fcb);
+            System.out.println("Category: " + fcb.getCategory());
+            System.out.println("Prereq: " + fcb.getPrereq());
+            System.out.println("Benefit: " + fcb.getBenefitDesc());
+            Function FF = fcb.getBenefit();
+            System.out.println("FeatFunction Output: " +  FF.doFunction(null));
+            System.out.println("Source: " + fcb.getSource());
+            ctr++;
+        }
     }
 }
