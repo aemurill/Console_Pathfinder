@@ -5,6 +5,7 @@ import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.FeatListArchive;
+import PFPackage.PFBooks.PFFeats.Function;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
@@ -85,15 +86,20 @@ class StatManager {
         
 
         System.out.println("\n\n== Barbarian's Focus Class Bonus List == ");        
+        printFCBonusList(player.characterClass.getFCBonusOptionList());
+        
+    }
+
+    public static void printFCBonusList(List<FCBonus> list){
         int ctr = 0;
-        for(FCBonus fcb: player.characterFCoptions){
+        System.out.println("TEST");
+        for(FCBonus fcb: list){
             if(ctr != 0) System.out.println("**************");            
-            System.out.println("Feat: " + fcb);
-            System.out.println("Category: " + fcb.getCategory());
-            System.out.println("Prereq: " + fcb.getPrereq());
-            System.out.println("Benefit: " + fcb.getBenefitDesc());
-            Function FF = fcb.getBenefit();
-            System.out.println("FeatFunction Output: " +  FF.doFunction(null));
+            System.out.println("Name: " + fcb);
+            System.out.println("Race: " + fcb.getRace());
+            System.out.println("Bonus: " + fcb.getBonusDesc());
+            Function FF = fcb.getBonus();
+            System.out.println("Function Output: " +  FF.doFunction(null));
             System.out.println("Source: " + fcb.getSource());
             ctr++;
         }

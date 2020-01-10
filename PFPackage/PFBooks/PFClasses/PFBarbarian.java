@@ -122,13 +122,18 @@ public class PFBarbarian implements PFClass {
     private static List<FCBonus> createFCBonusOptions(){                
         List<FCBonus> classFeatures = new ArrayList<FCBonus>();        
         classFeatures.add(new FCBonus(
-            "Aberrant Tumor",
-            "General",
-            "Gain a tumor familiar.",
+            null,
+            "Dwarf",
+            "Add 1 to the elf’s base speed. In combat this has no effect "+
+            "unless the elf has selected this reward 5 times (or another "+
+            "increment of 5); a speed of 34 feet is effectively the same "+
+            "as a speed of 30 feet, for example. This bonus stacks with a "+
+            "class’s fast movement feature and applies only under the same "+
+            "conditions as that ability.",
             (Function) ((x) -> {
-                return Feat.handleUnimplemented();
+                return FCBonus.handleUnimplemented();
             }),
-            "PZO1129"
+            "APG"
         ));
         /*You gain a tumor familiar, as the tumor familiar
          alchemist discovery, with an effective alchemist
