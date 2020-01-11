@@ -15,8 +15,19 @@ import java.util.Arrays;
 import java.util.List;
 
 class StatManager {
+    public static <T> T cast(Object obj, Class<T> clazz){        
+        return (T) obj;
+    }
 
-    static public void run() {
+    public static void run2(){
+        System.out.println(" --- Player 1 --- ");
+        //PFBarbarian.getInitOutfitWealth();
+        //PFCharacter player = new PFCharacter();
+        //player.characterClass = (PFClass) new PFBarbarian();
+    }
+
+
+    public static void run() {
         System.out.println(" --- Player 1 --- ");
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
