@@ -19,6 +19,9 @@ class StatManager {
         return (T) obj;
     }
 
+    public static PFClass Barbarian = (PFClass) new PFBarbarian();
+    public static PFClass Fighter = (PFClass) new PFFighter();
+
     public static void run2(){
         System.out.println(" --- Player 1 --- ");
         //PFBarbarian.getInitOutfitWealth();
@@ -32,7 +35,7 @@ class StatManager {
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
-        player.characterClass = (PFClass) new PFBarbarian();
+        player.characterClass = Fighter;
         PFClass myClass = player.characterClass;
 
         for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
