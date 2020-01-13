@@ -13,17 +13,83 @@ import static PFPackage.Character.SkillRankEnum.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 class StatManager {
-    public static <T> T cast(Object obj, Class<T> clazz){        
+    public static <T> T cast(Object obj, Class<T> clazz) {
         return (T) obj;
     }
 
     public static PFClass Barbarian = (PFClass) new PFBarbarian();
     public static PFClass Fighter = (PFClass) new PFFighter();
 
+    @SuppressWarnings("resource")
+    public static int getInput(int min, int max) {
+        Scanner in = new Scanner(System.in);
+        int check = -1;
+        while(true) {            
+            try { 
+                check = in.nextInt();                
+            } catch (Exception InputMismatchException) {
+                System.out.println("Type Number!");
+                in.nextLine();
+                continue;
+            }
+
+            if(check >= min && check <= max ){
+                break;
+            }   
+            System.out.println("Type Valid Number");
+        }
+
+        return check;
+    }
+
+    public static PFClass getPFClass(PFClassName name) {
+        if (name == PFClassName.Barbarian) {
+            return Barbarian;
+        }
+        if (name == PFClassName.Fighter) {
+            return Fighter;
+        }
+
+        System.out.println("Unhandled Class entered!");
+        return null;
+    }
+
+    public static PFClass promptPFClass(){        
+        PFClass out = null;
+        int ctr = 1;
+        PFClassName[] pfClassArray = PFClassName.values();
+        for(PFClassName name : pfClassArray){
+            System.out.println(name.toString() + " (" + ctr + ")");
+            ctr++;
+        }
+        System.out.println("Pick Class: ");
+        while(true){                    
+            int value = getInput(1, pfClassArray.length) - 1;
+            System.out.println(pfClassArray[value].toString());
+            out = getPFClass(pfClassArray[value]);
+            if(out != null) break;
+            System.out.println("PICK A DIFFERENT CLASS");
+        }
+        return out;
+    }
+
+
     public static void run2(){
-        System.out.println(" --- Player 1 --- ");
+        System.out.println(" --- Generate a Character! --- ");
+        System.out.println(" --- Player 1 --- ");        
+        PFCharacter player = new PFCharacter();
+                
+        
+        player.characterClass.add(promptPFClass());
+        PFClass myClass = player.characterClass.get(0);
+        
+
+        
+
+
         //PFBarbarian.getInitOutfitWealth();
         //PFCharacter player = new PFCharacter();
         //player.characterClass = (PFClass) new PFBarbarian();
@@ -35,8 +101,8 @@ class StatManager {
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
-        player.characterClass = Fighter;
-        PFClass myClass = player.characterClass;
+        player.characterClass.add(Fighter);
+        PFClass myClass = player.characterClass.get(0);
 
         for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
             System.out.println(
@@ -85,11 +151,13 @@ class StatManager {
         FeatListArchive.getCombatFeatList().printFeats();
         FeatListArchive.getGeneralFeatList().printFeats();        
         
-        System.out.println("\n\n== Barbarian's Feat List == [");        
-        player.characterClass.getClassFeatures().printFeats();
+        System.out.println("\n\n== Classes's (" + 
+            myClass.getClassName().toString() + 
+            ") Feat List == ");        
+            myClass.getClassFeatures().printFeats();
 
         player.characterFeats.addFeatByString("Acrobatic Spellcaster");
-        for(Feat feat: player.characterClass.getClassFeatures()){
+        for(Feat feat: myClass.getClassFeatures()){
             player.characterFeats.add(feat);
         }
         
@@ -99,8 +167,10 @@ class StatManager {
         System.out.println("]");        
         
 
-        System.out.println("\n\n== Barbarian's Focus Class Bonus List == ");        
-        printFCBonusList(player.characterClass.getFCBonusOptionList());
+        System.out.println("\n\n== Classes's (" + 
+            myClass.getClassName().toString() + 
+            ") Focus Class Bonus List == ");        
+        printFCBonusList(myClass.getFCBonusOptionList());
         
     }
 

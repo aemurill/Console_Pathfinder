@@ -17,7 +17,7 @@ public class PFCharacter {
     public PFRace characterRace = null;
 
     //CLASS
-    public PFClass characterClass = null;
+    public List<PFClass> characterClass = new ArrayList<PFClass>();
 
     //SKILL RANKS
     public MySkillRanks characterSkills = new MySkillRanks();    
