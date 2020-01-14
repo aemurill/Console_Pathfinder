@@ -5,7 +5,7 @@ Order:
     Class
         pick class   ✓         
     Ability Score   ✓
-        generate AbScore   !✓
+        generate AbScore   ✓
     Race  !✓
         pick                
         add racial bonuses to AbSCore

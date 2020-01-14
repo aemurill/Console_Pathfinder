@@ -11,6 +11,7 @@ import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
 import static PFPackage.Character.SkillRankEnum.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -76,20 +77,101 @@ class StatManager {
         return out;
     }
 
+    public static int promptAbScore(){        
+        int value;
+        System.out.println("Enter Value" + " (" + 1 + ")");
+        System.out.println("7 d20 rolls" + " (" + 2 + ")");
+        System.out.println("Anarchy rolls" + " (" + 3 + ")");        
+        System.out.println("Pick Abscore Input mode: ");
+        while(true){                    
+            value = getInput(1, 3);
+            break;
+        }
+        return value;
+    }
+
+    public static void genAnarchyABScore(MyAbilityScore stats){
+        for(AbilityScoreEnum stat: AbilityScoreEnum.values()){
+            stats.setBase(stat, DiceEnum.d20.roll());
+        }
+    }
+
+    public static int promptPickScore(List<Integer> rolls, AbilityScoreEnum aEnum){
+        System.out.println("Pick Value for " + aEnum);
+        int ctr = 1;
+        int value = -1;
+        for(int roll : rolls){
+            System.out.println(roll + " (" + ctr + ")");
+            ctr++;
+        }
+        while(true){                    
+            value = getInput(1, rolls.size()) - 1;
+            break;
+        }
+        return value;
+    }
+
+    public static void genTopSixABScore(MyAbilityScore stats){        
+        List<Integer> rolls = new ArrayList<Integer>(0);
+        for(int i = 0; i < 7; i++){
+            rolls.add(DiceEnum.d20.roll());
+        }
+        for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
+            int value = promptPickScore(rolls, aEnum);
+            Integer IntValue = rolls.remove(value);
+            stats.setBase(aEnum, IntValue.intValue());
+        }
+    }
+
+    public static void genPrompt(MyAbilityScore stats){
+        for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
+            System.out.println("Input " + aEnum + " Value");
+            int value = getInput(1,20);
+            stats.setBase(aEnum, value);
+        }        
+    }
+
+    public static void initAbScore(MyAbilityScore AB){
+        int rollType = promptAbScore();
+        if(rollType == 1){
+            System.out.println("ENTER");
+            genPrompt(AB);
+        }
+        if(rollType == 2){
+            System.out.println("7 d20s");
+            genTopSixABScore(AB);
+        }
+        if(rollType == 3){
+            System.out.println("ANARCHY");
+            genAnarchyABScore(AB);
+        }
+    }
+
+    public static void printAbS(MyAbilityScore stats){
+        for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
+            System.out.println(
+                enumvar.toString() + ": " + stats.getBase(enumvar)
+            );
+            System.out.println(
+                enumvar.fullString() + " mod: " + stats.getModifier(enumvar)
+            );
+        }
+    }
 
     public static void run2(){
         System.out.println(" --- Generate a Character! --- ");
         System.out.println(" --- Player 1 --- ");        
         PFCharacter player = new PFCharacter();
                 
+        PFClass myClass = promptPFClass();
+        player.characterClass.add(myClass);
         
-        player.characterClass.add(promptPFClass());
-        PFClass myClass = player.characterClass.get(0);
+        initAbScore(player.characterStats);
+        printAbS(player.characterStats);
         
-
         
-
-
+        
+        
         //PFBarbarian.getInitOutfitWealth();
         //PFCharacter player = new PFCharacter();
         //player.characterClass = (PFClass) new PFBarbarian();
