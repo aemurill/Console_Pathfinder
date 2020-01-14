@@ -1,5 +1,6 @@
 package PFPackage.PFBooks.PFClasses;
 
+import java.lang.ref.Reference;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;
@@ -87,6 +88,7 @@ public interface PFClass {
 
      */
 
+    public ClassTableRow[] getClassTable();
     //Class leveling TABLE
     /*
         CONSULT WHENEVER LEVELING UP 
@@ -98,6 +100,11 @@ public interface PFClass {
             Add Feat / Feat upgrade!
         Array?
         [level][BAB, FORT, REF, WILL, {specials}]
+
+        new ClassTableRow(
+            1, 0, 0, 0, 2, ((Function) ((x) -> {return false;})), 
+            new int[]{3, 1, -1, -1, -1, -1, -1, -1, -1, -1}
+        ),
     */
 
 }
