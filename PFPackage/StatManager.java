@@ -25,7 +25,7 @@ class StatManager {
     public static PFClass Fighter = (PFClass) new PFFighter();
 
     @SuppressWarnings("resource")
-    public static int getInput(int min, int max) {
+    public static int getIntInput(int min, int max) {
         Scanner in = new Scanner(System.in);
         int check = -1;
         while(true) {            
@@ -68,7 +68,7 @@ class StatManager {
         }
         System.out.println("Pick Class: ");
         while(true){                    
-            int value = getInput(1, pfClassArray.length) - 1;
+            int value = getIntInput(1, pfClassArray.length) - 1;
             System.out.println(pfClassArray[value].toString());
             out = getPFClass(pfClassArray[value]);
             if(out != null) break;
@@ -84,7 +84,7 @@ class StatManager {
         System.out.println("Anarchy rolls" + " (" + 3 + ")");        
         System.out.println("Pick Abscore Input mode: ");
         while(true){                    
-            value = getInput(1, 3);
+            value = getIntInput(1, 3);
             break;
         }
         return value;
@@ -105,7 +105,7 @@ class StatManager {
             ctr++;
         }
         while(true){                    
-            value = getInput(1, rolls.size()) - 1;
+            value = getIntInput(1, rolls.size()) - 1;
             break;
         }
         return value;
@@ -126,7 +126,7 @@ class StatManager {
     public static void genPrompt(MyAbilityScore stats){
         for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
             System.out.println("Input " + aEnum + " Value");
-            int value = getInput(1,20);
+            int value = getIntInput(1,20);
             stats.setBase(aEnum, value);
         }        
     }
