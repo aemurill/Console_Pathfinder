@@ -8,6 +8,7 @@ import PFPackage.PFBooks.PFFeats.FeatListArchive;
 import PFPackage.PFBooks.PFFeats.Function;
 import PFPackage.PFBooks.PFRaces.PFHuman;
 import PFPackage.PFBooks.PFRaces.PFRace;
+import PFPackage.PFBooks.PFRaces.PFRaceName;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
@@ -23,22 +24,14 @@ class StatManager {
         return (T) obj;
     }
 
-    public static void run3(){
-        PFRace race = new PFHuman();
-        List<String> list = race.getDefaultNames();
-        int ctr = 1;
-        for(String name : list){
-            System.out.print(name + ", ");
-            if(ctr % 10 == 0) System.out.println();
-            ctr++;
-        }
-    }
+    public static PFClass BarbarianInst = (PFClass) new PFBarbarian();
+    public static PFClass FighterInst = (PFClass) new PFFighter();
 
-    public static PFClass Barbarian = (PFClass) new PFBarbarian();
-    public static PFClass Fighter = (PFClass) new PFFighter();
+    public static PFRace HumanInst = (PFRace) new PFHuman();
+    
 
     @SuppressWarnings("resource")
-    public static int getIntInput(int min, int max) {
+    private static int getIntInput(int min, int max) {
         Scanner in = new Scanner(System.in);
         int check = -1;
         while(true) {            
@@ -59,19 +52,28 @@ class StatManager {
         return check;
     }
 
-    public static PFClass getPFClass(PFClassName name) {
+    private static PFClass getPFClass(PFClassName name) {
         if (name == PFClassName.Barbarian) {
-            return Barbarian;
+            return BarbarianInst;
         }
         if (name == PFClassName.Fighter) {
-            return Fighter;
+            return FighterInst;
         }
 
         System.out.println("Unhandled Class entered!");
         return null;
     }
 
-    public static PFClass promptPFClass(){        
+    private static PFRace getPFRace(PFRaceName name) {
+        if (name == PFRaceName.Human) {
+            return HumanInst;
+        }
+
+        System.out.println("Unhandled Race entered!");
+        return null;
+    }
+
+    private static PFClass promptPFClass(){        
         PFClass out = null;
         int ctr = 1;
         PFClassName[] pfClassArray = PFClassName.values();
@@ -90,7 +92,7 @@ class StatManager {
         return out;
     }
 
-    public static int promptAbScore(){        
+    private static int promptAbScore(){        
         int value;
         System.out.println("Enter Value" + " (" + 1 + ")");
         System.out.println("7 d20 rolls" + " (" + 2 + ")");
@@ -103,13 +105,32 @@ class StatManager {
         return value;
     }
 
-    public static void genAnarchyABScore(MyAbilityScore stats){
+    private static PFRace promptPFRace(){        
+        PFRace out = null;
+        int ctr = 1;
+        PFRaceName[] pfRaceArray = PFRaceName.values();
+        for(PFRaceName name : pfRaceArray){
+            System.out.println(name.toString() + " (" + ctr + ")");
+            ctr++;
+        }
+        System.out.println("Pick Class: ");
+        while(true){                    
+            int value = getIntInput(1, pfRaceArray.length) - 1;
+            System.out.println(pfRaceArray[value].toString());
+            out = getPFRace(pfRaceArray[value]);
+            if(out != null) break;
+            System.out.println("PICK A DIFFERENT RACE");
+        }
+        return out;
+    }
+
+    private static void genAnarchyABScore(MyAbilityScore stats){
         for(AbilityScoreEnum stat: AbilityScoreEnum.values()){
             stats.setBase(stat, DiceEnum.d20.roll());
         }
     }
 
-    public static int promptPickScore(List<Integer> rolls, AbilityScoreEnum aEnum){
+    private static int promptPickScore(List<Integer> rolls, AbilityScoreEnum aEnum){
         System.out.println("Pick Value for " + aEnum);
         int ctr = 1;
         int value = -1;
@@ -124,7 +145,7 @@ class StatManager {
         return value;
     }
 
-    public static void genTopSixABScore(MyAbilityScore stats){        
+    private static void genTopSixABScore(MyAbilityScore stats){        
         List<Integer> rolls = new ArrayList<Integer>(0);
         for(int i = 0; i < 7; i++){
             rolls.add(DiceEnum.d20.roll());
@@ -136,7 +157,7 @@ class StatManager {
         }
     }
 
-    public static void genPrompt(MyAbilityScore stats){
+    private static void genPrompt(MyAbilityScore stats){
         for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
             System.out.println("Input " + aEnum + " Value");
             int value = getIntInput(1,20);
@@ -144,7 +165,7 @@ class StatManager {
         }        
     }
 
-    public static void initAbScore(MyAbilityScore AB){
+    private static void initAbScore(MyAbilityScore AB){
         int rollType = promptAbScore();
         if(rollType == 1){
             System.out.println("ENTER");
@@ -160,7 +181,7 @@ class StatManager {
         }
     }
 
-    public static void printAbS(MyAbilityScore stats){
+    private static void printAbS(MyAbilityScore stats){
         for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
             System.out.println(
                 enumvar.toString() + ": " + stats.getBase(enumvar)
@@ -171,17 +192,49 @@ class StatManager {
         }
     }
 
-    public static void run2(){
+    /*========= TEST =========*/
+    public static void testhuman(){
+        PFRace race = new PFHuman();
+        List<String> list = race.getDefaultNames();
+        int ctr = 1;
+        for(String name : list){
+            System.out.print(name + ", ");
+            if(ctr % 10 == 0) System.out.println();
+            ctr++;
+        }
+        for(int i = 0; i < 1; i++){
+            System.out.println("---");
+            int test = race.getRandomStartingAge(PFClassName.Wizard);
+            System.out.println(test);
+            test = race.getRandomHeight(0);        
+            System.out.println(test/12 + "'" +test%12 + "''");
+            test = race.getRandomWeight(0);
+            System.out.println(test);
+        }
+        System.out.println(race.getDescription());
+        
+        
+        race.getRacialAbScoreMods();
+    }
+
+    /*========= TEST =========*/
+    public static void generateCharacter(){
         System.out.println(" --- Generate a Character! --- ");
         System.out.println(" --- Player 1 --- ");        
-        PFCharacter player = new PFCharacter();
-                
+        PFCharacter player = new PFCharacter();                
+
+        initAbScore(player.characterStats);
+        printAbS(player.characterStats);                
+        
+        System.out.print("===============");
+
         PFClass myClass = promptPFClass();
         player.characterClass.add(myClass);
         
-        initAbScore(player.characterStats);
-        printAbS(player.characterStats);
-        
+        System.out.print("===============");
+
+        PFRace myRace = promptPFRace();
+        player.characterRace = myRace;
         
         
         
@@ -190,13 +243,13 @@ class StatManager {
         //player.characterClass = (PFClass) new PFBarbarian();
     }
 
-
-    public static void run() {
+    /*========= TEST =========*/
+    public static void test() {
         System.out.println(" --- Player 1 --- ");
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
-        player.characterClass.add(Fighter);
+        player.characterClass.add(FighterInst);
         PFClass myClass = player.characterClass.get(0);
 
         for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
@@ -269,7 +322,7 @@ class StatManager {
         
     }
 
-    public static void printFCBonusList(List<FCBonus> list){
+    private static void printFCBonusList(List<FCBonus> list){
         int ctr = 0;
         System.out.println("TEST");
         for(FCBonus fcb: list){

@@ -8,11 +8,14 @@ import java.util.List;
 import PFPackage.PFBooks.BodyTypeEnum;
 import PFPackage.PFBooks.EntitySizeEnum;
 import PFPackage.PFBooks.LanguageEnum;
+import PFPackage.PFBooks.PFClasses.PFClassName;
 import PFPackage.PFBooks.PFFeats.FeatList;
+import static PFPackage.PFBooks.PFClasses.PFClassName.*;
 import static PFPackage.PFBooks.PFRaces.PFRaceName.*;
 import static PFPackage.PFBooks.BodyTypeEnum.*;
 import static PFPackage.PFBooks.EntitySizeEnum.*;
 import static PFPackage.PFBooks.LanguageEnum.*;
+import static PFPackage.PFBooks.DiceEnum.*;
 
 public class PFHuman implements PFRace {
     private PFRaceName raceName = Human;
@@ -91,17 +94,48 @@ public class PFHuman implements PFRace {
     }
     
     //randomStartingAge
-    public int getRandomStartingAge(){
-        return 0;
+    public int getRandomStartingAge(PFClassName aEnum){
+        int mode = getCategory(aEnum);
+        Object[] obj = {15, null, null};
+        if(mode == 1){
+            obj[1] = 1;
+            obj[2] = d4;
+        }
+        if(mode == 2){
+            obj[1] = 1;
+            obj[2] = d6;
+        } 
+        if(mode == 3){
+            obj[1] = 2;
+            obj[2] = d6;
+        }
+        return this.calcRandomStartingAge(obj);
     }
 
     //random height & weight
-    public Object[] getRandomHeight(){
-        return null;
+    //gender 0 = female, 1 = male
+    public int getRandomHeight(int gender){
+        Object[] obj = { (4 * 12), 2, d10};
+        if(gender == 0){
+            obj[0] = ((int) obj[0]) + 5;
+        }
+        if(gender == 1){
+            obj[0] =  ((int) obj[0]) + 10;
+        } 
+        return this.calcRandomStartingAge(obj);
     }
 
-    public int getRandomWeight(){
-        return 0;
+    public int getRandomWeight(int gender ){
+        Object[] obj = { 0, 2, d10};        
+        int out = this.calcRandomStartingAge(obj);
+        out *= 5;
+        if(gender == 0){
+            out += 85;
+        }
+        if(gender == 1){
+            out += 120;
+        } 
+        return out;
     }
 
     //==RACIAL TRAITS==    

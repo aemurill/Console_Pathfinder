@@ -7,10 +7,10 @@ Order:
     Ability Score   ✓
         generate AbScore   ✓
     Race  !✓
-        pick                
+        pick  ✓
         add racial bonuses to AbSCore
-        add Racial Traits
-            size, base speed, language
+        add Racial Traits 
+            size, base speed, language 
         *Alt Racial Traits here!*                
     Class Basics (Alignment, Class Skills, HD, etc)   !✓
         Note Alignment Restriction   

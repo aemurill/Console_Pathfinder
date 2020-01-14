@@ -3,9 +3,12 @@ package PFPackage.PFBooks.PFRaces;
 import java.util.List;
 
 import PFPackage.PFBooks.BodyTypeEnum;
+import PFPackage.PFBooks.DiceEnum;
 import PFPackage.PFBooks.EntitySizeEnum;
 import PFPackage.PFBooks.LanguageEnum;
+import PFPackage.PFBooks.PFClasses.PFClassName;
 import PFPackage.PFBooks.PFFeats.FeatList;
+import static PFPackage.PFBooks.PFClasses.PFClassName.*;
 
 public interface PFRace {
     // class name
@@ -20,13 +23,42 @@ public interface PFRace {
     public List<String> getMaleNames();
     
     //randomStartingAge
-    public int getRandomStartingAge();    
-    //return calculated value of init wealth
+    public int getRandomStartingAge(PFClassName aEnum); 
+    default int calcRandomStartingAge(Object[] input) {
+        int start = (int) input[0];
+        int mult = (int) input[1];
+        DiceEnum die = (DiceEnum) input[2];
+        int temp = 0;
+        for(int i = 0; i < mult; i++){
+            temp += die.roll();
+            System.out.println("["+temp+"]");
+        }        
+        return start + temp;
+    }       
+    default int getCategory(PFClassName aEnum){
+        int val = -1;
+        //Oracles 
+        if(aEnum == Barbarian || aEnum == Rogue || aEnum == Sorcerer ){
+            val = 1;
+        }
+        //Cavalier, Gunslinger, Summoner, Witch
+        if(aEnum == Bard || aEnum == Fighter || aEnum == Paladin ||
+             aEnum == Ranger){
+            val = 2;
+        }
+        //Alchemist, Inquisitor, Magi
+        if(aEnum == Cleric || aEnum == Druid || aEnum == Monk || 
+            aEnum == Wizard){
+            val = 3;
+        }
+        return val;
+    }
+    
 
     //random height & weight
-    public Object[] getRandomHeight();
+    public int getRandomHeight(int gender);
 
-    public int getRandomWeight();
+    public int getRandomWeight(int gender);
 
     //==RACIAL TRAITS==    
         //standard racial traits!        
