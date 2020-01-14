@@ -191,13 +191,15 @@ class StatManager {
         }
     }
 
+
+
     private static void printAbS(MyAbilityScore stats){
         for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
+            String enumString = enumvar.toString();
+            String enumStat = String.valueOf(stats.getBase(enumvar));
+            String enumMod = String.valueOf(stats.getModifier(enumvar));
             System.out.println(
-                enumvar.toString() + ": " + stats.getBase(enumvar)
-            );
-            System.out.println(
-                enumvar.fullString() + " mod: " + stats.getModifier(enumvar)
+                enumString + ": " + enumStat + " mod[" + enumMod + "]"
             );
         }
     }
@@ -230,7 +232,8 @@ class StatManager {
         AbilityScoreEnum[] pfAbsArray = AbilityScoreEnum.values();
         for(AbilityScoreEnum name : pfAbsArray){
             String option = name.toString() +
-                "[" + myStats.getBase(name) + "]";
+                "[" + myStats.getBase(name) + "](" +
+                myStats.getModifier(name) + ")";
             printIntChoice(ctr, option);
             ctr++;
         }
