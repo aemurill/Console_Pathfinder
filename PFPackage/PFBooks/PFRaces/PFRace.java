@@ -9,16 +9,19 @@ import PFPackage.PFBooks.PFFeats.FeatList;
 
 public interface PFRace {
     // class name
-    public PFRaceName getRaceName();
+    public PFRaceName getRaceName();    
     
     // descriptions
     public String getDescription();
 
     //default names
     public List<String> getDefaultNames();
+    public List<String> getFemaleNames();
+    public List<String> getMaleNames();
     
     //randomStartingAge
-    public int getRandomStartingAge();
+    public int getRandomStartingAge();    
+    //return calculated value of init wealth
 
     //random height & weight
     public Object[] getRandomHeight();
@@ -47,7 +50,7 @@ public interface PFRace {
         //Senses Racial traits
         //Offense Racial traits
 
-    public String getAlternateTraits();
+    public FeatList getAlternateTraits();
         //ALTERNATE RACIAL TRAITS
             //may be selected in place of one(or more) std racial traits
                 

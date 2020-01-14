@@ -1,5 +1,5 @@
 package PFPackage.PFBooks.PFRaces;
 
-public class PFRaceName {
-
+public enum PFRaceName {
+    Human;
 }

@@ -6,6 +6,8 @@ import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.FeatListArchive;
 import PFPackage.PFBooks.PFFeats.Function;
+import PFPackage.PFBooks.PFRaces.PFHuman;
+import PFPackage.PFBooks.PFRaces.PFRace;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
@@ -19,6 +21,17 @@ import java.util.Scanner;
 class StatManager {
     public static <T> T cast(Object obj, Class<T> clazz) {
         return (T) obj;
+    }
+
+    public static void run3(){
+        PFRace race = new PFHuman();
+        List<String> list = race.getDefaultNames();
+        int ctr = 1;
+        for(String name : list){
+            System.out.print(name + ", ");
+            if(ctr % 10 == 0) System.out.println();
+            ctr++;
+        }
     }
 
     public static PFClass Barbarian = (PFClass) new PFBarbarian();
