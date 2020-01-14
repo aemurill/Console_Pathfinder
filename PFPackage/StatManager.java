@@ -52,6 +52,10 @@ class StatManager {
         return check;
     }
 
+    private static void printIntChoice(int number, String option){
+        System.out.println("(" + number + ")     " + option);
+    }
+
     private static PFClass getPFClass(PFClassName name) {
         if (name == PFClassName.Barbarian) {
             return BarbarianInst;
@@ -78,7 +82,8 @@ class StatManager {
         int ctr = 1;
         PFClassName[] pfClassArray = PFClassName.values();
         for(PFClassName name : pfClassArray){
-            System.out.println(name.toString() + " (" + ctr + ")");
+            //System.out.println("(" + ctr + ") " + name.toString());
+            printIntChoice(ctr, name.toString());
             ctr++;
         }
         System.out.println("Pick Class: ");
@@ -94,9 +99,12 @@ class StatManager {
 
     private static int promptAbScore(){        
         int value;
-        System.out.println("Enter Value" + " (" + 1 + ")");
-        System.out.println("7 d20 rolls" + " (" + 2 + ")");
-        System.out.println("Anarchy rolls" + " (" + 3 + ")");        
+        //System.out.println("(" + 1 + ") Enter Value");
+        printIntChoice(1, "Enter Value");
+        //System.out.println("(" + 2 + ") 7 d20 rolls");
+        printIntChoice(2, "7 d20 rolls");
+        //System.out.println("(" + 3 + ") Anarchy rolls");        
+        printIntChoice(3, "Anarchy rolls");
         System.out.println("Pick Abscore Input mode: ");
         while(true){                    
             value = getIntInput(1, 3);
@@ -110,10 +118,11 @@ class StatManager {
         int ctr = 1;
         PFRaceName[] pfRaceArray = PFRaceName.values();
         for(PFRaceName name : pfRaceArray){
-            System.out.println(name.toString() + " (" + ctr + ")");
+            //System.out.println("(" + ctr + ") " + name.toString());
+            printIntChoice(ctr, name.toString());
             ctr++;
         }
-        System.out.println("Pick Class: ");
+        System.out.println("Pick Race: ");
         while(true){                    
             int value = getIntInput(1, pfRaceArray.length) - 1;
             System.out.println(pfRaceArray[value].toString());
@@ -135,7 +144,8 @@ class StatManager {
         int ctr = 1;
         int value = -1;
         for(int roll : rolls){
-            System.out.println(roll + " (" + ctr + ")");
+            //System.out.println("(" + ctr + ") " + roll );
+            printIntChoice(ctr, String.valueOf(roll));
             ctr++;
         }
         while(true){                    
@@ -211,10 +221,40 @@ class StatManager {
             test = race.getRandomWeight(0);
             System.out.println(test);
         }
-        System.out.println(race.getDescription());
-        
-        
-        race.getRacialAbScoreMods();
+        System.out.println(race.getDescription());        
+    }
+
+    private static int promptRaceStatModHuman(MyAbilityScore myStats){        
+        int value;
+        int ctr = 1;
+        AbilityScoreEnum[] pfAbsArray = AbilityScoreEnum.values();
+        for(AbilityScoreEnum name : pfAbsArray){
+            String option = name.toString() +
+                "[" + myStats.getBase(name) + "]";
+            printIntChoice(ctr, option);
+            ctr++;
+        }
+        System.out.println("Select Ability Score to increase by 2:");
+        while(true){                    
+            value = getIntInput(1, pfAbsArray.length) - 1;
+            break;
+        }
+        return value;
+    }
+
+    private static void applyRaceStatMod(PFRace myRace, MyAbilityScore myStats){
+        AbilityScoreEnum[] enumArray = AbilityScoreEnum.values();
+        if(myRace.getRaceName() == PFRaceName.Human){            
+            int value = promptRaceStatModHuman(myStats);
+            int newVal = 2 + myStats.getBase(enumArray[value]);
+            myStats.setBase(enumArray[value], newVal);
+        }else{
+            int[] modArray = myRace.getRacialAbScoreMods();            
+            for(int i = 0; i < modArray.length; i++){                        
+                int newVal = modArray[i] + myStats.getBase(enumArray[i]);
+                myStats.setBase(enumArray[i], newVal);
+            }
+        }    
     }
 
     /*========= TEST =========*/
@@ -226,16 +266,21 @@ class StatManager {
         initAbScore(player.characterStats);
         printAbS(player.characterStats);                
         
-        System.out.print("===============");
+        System.out.println("===============");
 
         PFClass myClass = promptPFClass();
         player.characterClass.add(myClass);
         
-        System.out.print("===============");
+        System.out.println("===============");
 
         PFRace myRace = promptPFRace();
         player.characterRace = myRace;
         
+        System.out.println("===============");
+        
+        MyAbilityScore myStats = player.characterStats;
+        applyRaceStatMod(myRace, myStats);
+        printAbS(myStats);
         
         
         //PFBarbarian.getInitOutfitWealth();
@@ -252,23 +297,9 @@ class StatManager {
         player.characterClass.add(FighterInst);
         PFClass myClass = player.characterClass.get(0);
 
-        for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
-            System.out.println(
-                enumvar.toString() + ": " + myAS.getBase(enumvar)
-            );
-            System.out.println(
-                enumvar.fullString() + " mod: " + myAS.getModifier(enumvar)
-            );
-        }
+        printAbS(myAS);
         System.out.println("<Set STR: " + myAS.setBase(STR, 20) + ">");
-        for(AbilityScoreEnum enumvar : AbilityScoreEnum.values()){
-            System.out.println(
-                enumvar.toString() + ": " + myAS.getBase(enumvar)
-            );
-            System.out.println(
-                enumvar.fullString() + " mod: " + myAS.getModifier(enumvar)
-            );
-        }
+        printAbS(myAS);
 
         System.out.println("<Set Stealth: " + mySK.setBase(stealth, 12) + ">");
         for(SkillRankEnum enumvar : SkillRankEnum.values()){
@@ -335,5 +366,5 @@ class StatManager {
             System.out.println("Source: " + fcb.getSource());
             ctr++;
         }
-    }
+    }   
 }
