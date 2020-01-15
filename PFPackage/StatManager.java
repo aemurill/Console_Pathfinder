@@ -7,6 +7,8 @@ import PFPackage.PFBooks.PFFeats.*;
 import PFPackage.PFBooks.PFRaces.*;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
+import PFPackage.PFBooks.LanguageEnum;
+
 import static PFPackage.Character.AbilityScoreEnum.*;
 import static PFPackage.Character.SkillRankEnum.*;
 
@@ -287,8 +289,31 @@ class StatManager {
         
         System.out.println("===============");
 
+        player.characterSize = myRace.getSize();
+        player.characterBaseSpeed = myRace.getBaseSpeed();
+        player.characterLanguages.addAll(myRace.getLanguages());
 
+        System.out.println("Set Size:");
+        System.out.println(player.characterSize);
+        System.out.println("Set Base Speed:");
+        System.out.println(player.characterBaseSpeed);
+        System.out.println("Set Languages:");
+        for(LanguageEnum lang :  player.characterLanguages){
+            System.out.println(lang.toString());
+        }        
+        System.out.println("Alignment Restrictions Noted:");
+        player.alignmentRestriction.addAll(myClass.getAlignmentRestrictions());
+        Object[] alignResArray = player.alignmentRestriction.toArray();
+        String alignResArrayString = Arrays.toString(alignResArray);
+        System.out.println(alignResArrayString);
+        player.characterHitDie = myClass.getHitDie();
+        System.out.println("Hit Die:");
+        System.out.println(player.characterHitDie.toString());
+        System.out.println("Hit Points:");
+        //player.maxHitPoints = 
         
+
+
         //PFBarbarian.getInitOutfitWealth();
         //PFCharacter player = new PFCharacter();
         //player.characterClass = (PFClass) new PFBarbarian();

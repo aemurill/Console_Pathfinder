@@ -47,7 +47,7 @@ public class PFCharacter {
     public int WillSave = 0;
 
     public int getCMB(){
-        
+
         return 0;
     }
 
@@ -73,6 +73,7 @@ public class PFCharacter {
 
     //Alignment
     public AlignmentEnum alignment = null;
+    public List<AlignmentEnum> alignmentRestriction = new ArrayList<AlignmentEnum>();
 
     //SPELlS IF ARCANE OR SOMETHING
 

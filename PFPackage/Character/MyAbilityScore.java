@@ -24,7 +24,11 @@ public class MyAbilityScore {
     // stored in temp adjustments.
     // set base Ability Score given enum
     public int setBase(AbilityScoreEnum enumvar, int value){
-        baseAbScMap.put(enumvar, value);
+        int actValue = value;
+        if(value <= 0){
+            actValue = 0;
+        }
+        baseAbScMap.put(enumvar, actValue);
         return baseAbScMap.get(enumvar);    
     }
 

@@ -8,12 +8,12 @@ Order:
         generate AbScore   ✓
     Race  !✓
         pick  ✓
-        add racial bonuses to AbSCore
+        add racial bonuses to AbSCore ✓
         add Racial Traits 
-            size, base speed, language 
+            size , base speed, language ✓
         *Alt Racial Traits here!*                
     Class Basics (Alignment, Class Skills, HD, etc)   !✓
-        Note Alignment Restriction   
+        Note Alignment Restriction   ✓
         set Hit Die -> get Hit Points (MAX HD AT 1ST LEVEL)
         Note Class Skills!!!!!!!
             //Create Bonus Tracker? Deffo but how?
@@ -29,6 +29,7 @@ Order:
             //Seperate out Special Abilities from Feats?
             //Like, some feats basically bestow Special Abilties, 
             //which are basically types of attacks rather than whatever idk
+        
         
     (Spells) !✓
         //not at all going to be worked on soon
