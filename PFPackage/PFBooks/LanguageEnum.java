@@ -1,7 +1,7 @@
 package PFPackage.PFBooks;
 
 public enum LanguageEnum {
-    Common;
+    Common, Dwarven;
 
     private LanguageEnum(){
     }

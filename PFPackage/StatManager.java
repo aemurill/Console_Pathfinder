@@ -3,12 +3,8 @@ package PFPackage;
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
-import PFPackage.PFBooks.PFFeats.Feat;
-import PFPackage.PFBooks.PFFeats.FeatListArchive;
-import PFPackage.PFBooks.PFFeats.Function;
-import PFPackage.PFBooks.PFRaces.PFHuman;
-import PFPackage.PFBooks.PFRaces.PFRace;
-import PFPackage.PFBooks.PFRaces.PFRaceName;
+import PFPackage.PFBooks.PFFeats.*;
+import PFPackage.PFBooks.PFRaces.*;
 import PFPackage.PFBooks.AlignmentEnum;
 import PFPackage.PFBooks.DiceEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
@@ -28,6 +24,7 @@ class StatManager {
     public static PFClass FighterInst = (PFClass) new PFFighter();
 
     public static PFRace HumanInst = (PFRace) new PFHuman();
+    public static PFRace DwarfInst = (PFRace) new PFDwarf();
     
 
     @SuppressWarnings("resource")
@@ -71,6 +68,9 @@ class StatManager {
     private static PFRace getPFRace(PFRaceName name) {
         if (name == PFRaceName.Human) {
             return HumanInst;
+        }
+        if (name == PFRaceName.Dwarf){
+            return DwarfInst;
         }
 
         System.out.println("Unhandled Race entered!");
@@ -285,6 +285,9 @@ class StatManager {
         applyRaceStatMod(myRace, myStats);
         printAbS(myStats);
         
+        System.out.println("===============");
+
+
         
         //PFBarbarian.getInitOutfitWealth();
         //PFCharacter player = new PFCharacter();

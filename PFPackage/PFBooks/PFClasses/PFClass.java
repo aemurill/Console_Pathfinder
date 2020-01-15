@@ -1,6 +1,5 @@
 package PFPackage.PFBooks.PFClasses;
 
-import java.lang.ref.Reference;
 import java.util.List;
 
 import PFPackage.PFBooks.DiceEnum;

@@ -16,44 +16,24 @@ import static PFPackage.PFBooks.EntitySizeEnum.*;
 import static PFPackage.PFBooks.LanguageEnum.*;
 import static PFPackage.PFBooks.DiceEnum.*;
 
-public class PFHuman implements PFRace {
-    private PFRaceName raceName = Human;
-    private String raceDescription = "Humans possess exceptional drive and a " +
-        "great capacity to endure and expand, and as such are currently the " +
-        "dominant race in the world. Their empires and nations are vast, " +
-        "sprawling things, and the citizens of these societies carve names " +
-        "for themselves with the strength of their sword arms and the power " +
-        "of their spells. Humanity is best characterized by its " +
-        "tumultuousness and diversity, and human cultures run the gamut from " +
-        "savage but honorable tribes to decadent, devil-worshiping noble " +
-        "families in the most cosmopolitan cities. Humans’ curiosity and " +
-        "ambition often triumph over their predilection for a sedentary " +
-        "lifestyle, and many leave their homes to explore the innumerable " + 
-        "forgotten corners of the world or lead mighty armies to conquer " + 
-        "their neighbors, simply because they can.";
+public class PFDwarf implements PFRace {
+    private PFRaceName raceName = Dwarf;
+    private String raceDescription = "Dwarves are a stoic but stern race, " +
+    "ensconced in cities carved from the hearts of mountains and fiercely " +
+    "determined to repel the depredations of savage races like orcs and " +
+    "goblins. More than any other race, dwarves have acquired a reputation " +
+    "as dour and humorless artisans of the earth. It could be said that " +
+    "their history shapes the dark disposition of many dwarves, for they " +
+    "reside in high mountains and dangerous realms below the earth, " +
+    "constantly at war with giants, goblins, and other such horrors.";
     
     private static List<String> raceFemaleNameList =
         Arrays.asList(
-            "Alerdene", "Alinza", "Aula", "Bach Hien", "Belka", "Beshkee", 
-            "Chammady", "Chao", "Do Quyen", "Eshe", "Eudomia", "Gerda", 
-            "Hiriko", "Ilinica", "Indah", "Ingirt", "Izora", "Jalket", "Jayazi",
-            "Kaede", "Kalizama", "Kamshi", "Lestari", "Leyli", "Marisan", 
-            "Me’amesa", "Meilin", "Mirelinda", "Mpaandi", "Nalmida", "Nanya", 
-            "Narantuyaa", "Ntisi", "Pasara", "Pontia", "Que Xuan", "Revhi", 
-            "Runa", "Sahba", "Shirin", "Shivkah", "Sinkitah", "Surenchinua", 
-            "Udara", "Umie", "Valki", "Waajida", "Xemne", "Xue", "Zalika", 
-            "Zova"
+            "Agna", "Bodill", "Ingra", "Kotri", "Rusilka", "Yangrit"
         );
     private static List<String> raceMaleNameList =
         Arrays.asList(
-            "Aakif", "Andrezi", "Arasmes", "Bahram", "Baolo", "Barid", 
-            "Batsaikhan", "Belor", "Budi", "Darvan", "Dolok", "Eilif", 
-            "Garidan", "Gellius", "Hadzi", "Hamengku", "Harisko", "Iacobus", 
-            "Jaali", "Jianguo", "Kjell", "Kousei", "Kronug", "Menas", "Mitabu",
-            "Narsius", "Nonek", "Pateba", "Pratavh", "Qorchi", "Ragnar", 
-            "Rubani", "Seckor", "Shokamb", "Shuo", "Sunaki", "Suryo", "Tabansi",
-            "Teruawa", "Thanh Liem", "Toan Hao", "Tomorbataar", "Tuong Kinh", 
-            "Ursion", "Vachedi", "Viorec", "Yekskya", "Zaiho", "Zhen"
+            "Dolgrin", "Grunyar", "Harsk", "Kazmuk", "Morgrym", "Rogar"
         );
     private List<String> raceDefaultNameList = merge();
 
@@ -64,10 +44,10 @@ public class PFHuman implements PFRace {
         return newList;
     }
         
-    private int[] raceAbScoreMods = {0,0,0,0,0,0};
-    private int raceBaseSpeed = 30;
+    private int[] raceAbScoreMods = {0,0,2,0,2,-2};
+    private int raceBaseSpeed = 20; //SPEED NEVER MODIFIED BY ARMOR OR INV WEIGHT
     private List<LanguageEnum> raceLanguages = 
-        Arrays.asList(Common);
+        Arrays.asList(Common, Dwarven);
     private EntitySizeEnum raceSize = Medium;
     private BodyTypeEnum raceType = Humanoid;
 
@@ -95,17 +75,17 @@ public class PFHuman implements PFRace {
     //randomStartingAge
     public int getRandomStartingAge(PFClassName aEnum){
         int mode = getCategory(aEnum);
-        Object[] obj = {15, null, null};
+        Object[] obj = {40, null, null}; 
         if(mode == 1){
-            obj[1] = 1;
-            obj[2] = d4;
+            obj[1] = 3;
+            obj[2] = d6;
         }
         if(mode == 2){
-            obj[1] = 1;
+            obj[1] = 5;
             obj[2] = d6;
         } 
         if(mode == 3){
-            obj[1] = 2;
+            obj[1] = 7;
             obj[2] = d6;
         }
         return this.calcRandomStartingAge(obj);
@@ -114,25 +94,25 @@ public class PFHuman implements PFRace {
     //random height & weight
     //gender 0 = female, 1 = male
     public int getRandomHeight(int gender){
-        Object[] obj = { (4 * 12), 2, d10};
+        Object[] obj = { (3 * 12), 2, d4};
         if(gender == 0){
-            obj[0] = ((int) obj[0]) + 5;
+            obj[0] = ((int) obj[0]) + 7;
         }
         if(gender == 1){
-            obj[0] =  ((int) obj[0]) + 10;
+            obj[0] =  ((int) obj[0]) + 9;
         } 
         return this.calcRandomStartingAge(obj);
     }
 
     public int getRandomWeight(int gender ){
-        Object[] obj = { 0, 2, d10};        
+        Object[] obj = { 0, 2, d4};        
         int out = this.calcRandomStartingAge(obj);
-        out *= 5;
+        out *= 7;
         if(gender == 0){
-            out += 85;
+            out += 120;
         }
         if(gender == 1){
-            out += 120;
+            out += 150;
         } 
         return out;
     }
