@@ -8,6 +8,7 @@ import PFPackage.PFBooks.DiceEnum;
 import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
 import PFPackage.PFBooks.PFFeats.Feat;
 import PFPackage.PFBooks.PFFeats.Function;
+import PFPackage.PFBooks.PFRaces.PFRaceName;
 import PFPackage.PFBooks.PFFeats.FeatList;
 
 import static PFPackage.PFBooks.DiceEnum.*;
@@ -120,10 +121,19 @@ public class PFBarbarian implements PFClass {
     }
     //Create List of class FC options
     private static List<FCBonus> createFCBonusOptions(){                
-        List<FCBonus> classFeatures = new ArrayList<FCBonus>();        
-        classFeatures.add(new FCBonus(
+        List<FCBonus> bonusList = new ArrayList<FCBonus>();        
+        bonusList.add(new FCBonus(
             null,
-            "Dwarf",
+            PFRaceName.Dwarf,
+            "Add 1 to the dwarf’s total number of rage rounds per day.",
+            (Function) ((x) -> {
+                return FCBonus.handleUnimplemented();
+            }),
+            "APG"
+        ));
+        bonusList.add(new FCBonus(
+            null,
+            PFRaceName.Elf,
             "Add 1 to the elf’s base speed. In combat this has no effect "+
             "unless the elf has selected this reward 5 times (or another "+
             "increment of 5); a speed of 34 feet is effectively the same "+
@@ -135,15 +145,8 @@ public class PFBarbarian implements PFClass {
             }),
             "APG"
         ));
-        /*You gain a tumor familiar, as the tumor familiar
-         alchemist discovery, with an effective alchemist
-         level equal to the level of the class that grants
-         your aberrant bloodline for determining the tumor
-         familiar’s abilities. If multiple classes grant
-         you the aberrant bloodline, those class levels
-         stack for determining your effective alchemist
-         level.*/
-        return classFeatures;
+        
+        return bonusList;
     }
 
     public static ClassTableRow[] classTable = {

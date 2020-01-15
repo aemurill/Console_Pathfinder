@@ -1,18 +1,19 @@
 package PFPackage.PFBooks.PFFavoredClassBonus;
 
 import PFPackage.PFBooks.PFFeats.Function;
+import PFPackage.PFBooks.PFRaces.PFRaceName;
 
 public class FCBonus {
     
     //More can be added but stop here pls
     private String fcBonusName;
-    private String fcRace;
+    private PFRaceName fcRace;
     private String fcBonusDesc;
     private Function fcBonus;
     private String fcSource;
 
 
-    public FCBonus(String fcBonusName, String fcRace,
+    public FCBonus(String fcBonusName, PFRaceName fcRace,
      String fcBonusDesc, Function fcBonus, String fcSource){
         this.fcBonusName = fcBonusName;
         this.fcRace = fcRace;
@@ -46,7 +47,7 @@ public class FCBonus {
         return this.fcBonusName;
     }
 
-    public String getRace() {
+    public PFRaceName getRace() {
         return this.fcRace;
     }
 

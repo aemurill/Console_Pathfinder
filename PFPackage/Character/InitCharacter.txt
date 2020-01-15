@@ -14,8 +14,8 @@ Order:
         *Alt Racial Traits here!*                
     Class Basics (Alignment, Class Skills, HD, etc)   !✓
         Note Alignment Restriction   ✓
-        set Hit Die -> get Hit Points (MAX HD AT 1ST LEVEL)
-        Note Class Skills!!!!!!!
+        set Hit Die -> get Hit Points (MAX HD AT 1ST LEVEL) ✓
+        Note Class Skills!!!!!!! ✓
             //Create Bonus Tracker? Deffo but how?
         Select 1st Favored Class Bonus (CAN CHANGE EVERY LEVEL)
     Class Table   !✓

@@ -59,6 +59,8 @@ public class PFCharacter {
 
     //SKILL RANKS
     public MySkillRanks characterSkills = new MySkillRanks();    
+    public List<SkillRankEnum> characterClassSkills = 
+        new ArrayList<SkillRankEnum>();
 
     //FEATS - keep track here, based off what's held and otther player stasts
     //GET ONE EVERY ODD LEVEL + anything from classes or whatever
@@ -69,7 +71,31 @@ public class PFCharacter {
         //Bloodline
 
     //FC Class Options
-    public List<FCBonus> characterFCoptions= new ArrayList<FCBonus>();
+    public PFClass characterFavoredClass = null;    
+    public List<FCBonus> characterFCoptions = createFCoptions();
+    private List<FCBonus> createFCoptions(){
+        List<FCBonus> output = new ArrayList<FCBonus>();
+        output.add(            
+            new FCBonus(
+                "+1 HP", 
+                null, 
+                "Add 1 HP to your Max HP", 
+                ((Function) ((x) -> {return false;})), 
+                "PFG"
+            )
+        );
+        output.add(            
+            new FCBonus(
+                "+1 Skill Rank", 
+                null, 
+                "Add 1 Skill rank to Skill ranks", 
+                ((Function) ((x) -> {return false;})), 
+                "PFG"
+            )
+        );
+        return output;
+    }
+    public FCBonus characterFCBonus = null;
 
     //Alignment
     public AlignmentEnum alignment = null;

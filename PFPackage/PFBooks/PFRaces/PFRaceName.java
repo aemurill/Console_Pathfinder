@@ -1,5 +1,5 @@
 package PFPackage.PFBooks.PFRaces;
 
 public enum PFRaceName {
-    Human, Dwarf;
+    Human, Dwarf, Elf;
 }

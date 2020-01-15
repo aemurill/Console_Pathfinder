@@ -262,6 +262,41 @@ class StatManager {
         }    
     }
 
+    private static FCBonus promptFCChoice(List<FCBonus> fcOptions) {
+        /*
+        int value;
+        int ctr = 1;
+        AbilityScoreEnum[] pfAbsArray = AbilityScoreEnum.values();
+        for(AbilityScoreEnum name : pfAbsArray){
+            String option = name.toString() +
+                "[" + myStats.getBase(name) + "](" +
+                myStats.getModifier(name) + ")";
+            printIntChoice(ctr, option);
+            ctr++;
+        }
+        System.out.println("Select Ability Score to increase by 2:");
+        while(true){                    
+            value = getIntInput(1, pfAbsArray.length) - 1;
+            break;
+        }
+        return value;
+        */
+        int value = -1;
+        int ctr = 1;
+        for(FCBonus fcBonus: fcOptions){
+            String option = fcBonus.toString();
+            printIntChoice(ctr, option);
+            System.out.println("        " + fcBonus.getBonusDesc());
+            ctr++;
+        }
+        System.out.println("Select Focus Class Bonus for this level!:");
+        while(true){                    
+            value = getIntInput(1, fcOptions.size()) - 1;
+            break;
+        }
+        return fcOptions.get(value);
+    }
+
     /*========= TEST =========*/
     public static void generateCharacter(){
         System.out.println(" --- Generate a Character! --- ");
@@ -295,31 +330,56 @@ class StatManager {
 
         System.out.println("Set Size:");
         System.out.println(player.characterSize);
+
         System.out.println("Set Base Speed:");
         System.out.println(player.characterBaseSpeed);
+
         System.out.println("Set Languages:");
         for(LanguageEnum lang :  player.characterLanguages){
             System.out.println(lang.toString());
         }        
+
         System.out.println("Alignment Restrictions Noted:");
         player.alignmentRestriction.addAll(myClass.getAlignmentRestrictions());
         Object[] alignResArray = player.alignmentRestriction.toArray();
         String alignResArrayString = Arrays.toString(alignResArray);
         System.out.println(alignResArrayString);
         player.characterHitDie = myClass.getHitDie();
+
         System.out.println("Hit Die:");
         System.out.println(player.characterHitDie.toString());
+
         System.out.println("Hit Points:");
-        //player.maxHitPoints = 
+        int maxval = player.characterHitDie.value() + 
+            player.characterStats.getModifier(CON);
+        player.maxHitPoints = maxval;
+        System.out.println(player.maxHitPoints);
         
+        System.out.println("Class Skills Noted:");
+        player.characterClassSkills.addAll(myClass.getClassSkills());
+        Object[] classSkillArray = player.characterClassSkills.toArray();
+        String classSkillArrayString = Arrays.toString(classSkillArray);
+        System.out.println(classSkillArrayString);
 
-
-        //PFBarbarian.getInitOutfitWealth();
-        //PFCharacter player = new PFCharacter();
-        //player.characterClass = (PFClass) new PFBarbarian();
+        System.out.println("FC Bonus For 1st Level:");
+        //player.characterFCoptions.addAll(myClass.getFCBonusOptionList());
+        List<FCBonus> FCoptions = player.characterFCoptions; 
+        List<FCBonus> classFCoptions = myClass.getFCBonusOptionList();
+        addValidFCOptions(FCoptions, classFCoptions, myRace);
+        player.characterFCBonus = promptFCChoice(FCoptions);
+        System.out.println(player.characterFCBonus.toString());
     }
 
-    /*========= TEST =========*/
+    private static void addValidFCOptions(List<FCBonus> fcOptions,
+        List<FCBonus> classFCoptions, PFRace race) {
+        for(FCBonus bonus : classFCoptions){
+            if(race.getRaceName() == bonus.getRace()){
+                fcOptions.add(bonus);
+            }
+        }
+    }
+
+    /* ========= TEST ========= */
     public static void test() {
         System.out.println(" --- Player 1 --- ");
         PFCharacter player = new PFCharacter();
