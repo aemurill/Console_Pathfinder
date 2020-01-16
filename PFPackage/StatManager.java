@@ -262,25 +262,7 @@ class StatManager {
         }    
     }
 
-    private static FCBonus promptFCChoice(List<FCBonus> fcOptions) {
-        /*
-        int value;
-        int ctr = 1;
-        AbilityScoreEnum[] pfAbsArray = AbilityScoreEnum.values();
-        for(AbilityScoreEnum name : pfAbsArray){
-            String option = name.toString() +
-                "[" + myStats.getBase(name) + "](" +
-                myStats.getModifier(name) + ")";
-            printIntChoice(ctr, option);
-            ctr++;
-        }
-        System.out.println("Select Ability Score to increase by 2:");
-        while(true){                    
-            value = getIntInput(1, pfAbsArray.length) - 1;
-            break;
-        }
-        return value;
-        */
+    private static FCBonus promptFCChoice(List<FCBonus> fcOptions) {        
         int value = -1;
         int ctr = 1;
         for(FCBonus fcBonus: fcOptions){
@@ -295,6 +277,15 @@ class StatManager {
             break;
         }
         return fcOptions.get(value);
+    }
+
+    private static void addValidFCOptions(List<FCBonus> fcOptions,
+        List<FCBonus> classFCoptions, PFRace race) {
+        for(FCBonus bonus : classFCoptions){
+            if(race.getRaceName() == bonus.getRace()){
+                fcOptions.add(bonus);
+            }
+        }
     }
 
     /*========= TEST =========*/
@@ -362,22 +353,17 @@ class StatManager {
         System.out.println(classSkillArrayString);
 
         System.out.println("FC Bonus For 1st Level:");
-        //player.characterFCoptions.addAll(myClass.getFCBonusOptionList());
         List<FCBonus> FCoptions = player.characterFCoptions; 
         List<FCBonus> classFCoptions = myClass.getFCBonusOptionList();
         addValidFCOptions(FCoptions, classFCoptions, myRace);
         player.characterFCBonus = promptFCChoice(FCoptions);
         System.out.println(player.characterFCBonus.toString());
-    }
 
-    private static void addValidFCOptions(List<FCBonus> fcOptions,
-        List<FCBonus> classFCoptions, PFRace race) {
-        for(FCBonus bonus : classFCoptions){
-            if(race.getRaceName() == bonus.getRace()){
-                fcOptions.add(bonus);
-            }
-        }
-    }
+        System.out.println("===============");
+        
+        
+
+    }    
 
     /* ========= TEST ========= */
     public static void test() {
