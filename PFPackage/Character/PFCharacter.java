@@ -11,6 +11,7 @@ import PFPackage.PFBooks.PFClasses.*;
 import PFPackage.PFBooks.PFFeats.*;
 import PFPackage.PFBooks.PFRaces.*;
 import PFPackage.PFBooks.PFFavoredClassBonus.*;
+import static PFPackage.Character.AbilityScoreEnum.*;
 
 public class PFCharacter {
     //BASE STATS
@@ -35,24 +36,31 @@ public class PFCharacter {
         //HD
     public DiceEnum characterHitDie = null;
         //HP
-    public int maxHitPoints = 0;
+    public int characterMaxHitPoints = 0;
     public int characterHitPoints = 0;
 
         //BAB
     public int characterBAB = 0;
 
         //Saves
-    public int FortSave = 0;
-    public int RefSave = 0;
-    public int WillSave = 0;
+    public int characterFortSave = 0;
+    public int characterRefSave = 0;
+    public int characterWillSave = 0;
 
-    public int getCMB(){
-
-        return 0;
+    public int getCMB(){        
+        int CMB = characterBAB + characterStats.getModifier(STR)
+            + characterSize.getMod();
+        int bonuses = 0;
+        CMB += bonuses;
+        return CMB;
     }
 
     public int getCMD(){
-        return 0;
+        int CMD = 10 + characterBAB + characterStats.getModifier(STR) +
+            + characterSize.getMod() + characterStats.getModifier(DEX);
+        int bonuses = 0;
+        CMD += bonuses;
+        return CMD;
     }
 
 

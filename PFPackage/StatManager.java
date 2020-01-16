@@ -343,8 +343,8 @@ class StatManager {
         System.out.println("Hit Points:");
         int maxval = player.characterHitDie.value() + 
             player.characterStats.getModifier(CON);
-        player.maxHitPoints = maxval;
-        System.out.println(player.maxHitPoints);
+        player.characterMaxHitPoints = maxval;
+        System.out.println(player.characterMaxHitPoints);
         
         System.out.println("Class Skills Noted:");
         player.characterClassSkills.addAll(myClass.getClassSkills());
@@ -361,7 +361,19 @@ class StatManager {
 
         System.out.println("===============");
         
-        
+        ClassTableRow[] myClassTable = myClass.getClassTable();
+        player.characterBAB = myClassTable[0].BAB;
+        System.out.println("BAB: +" + player.characterBAB);
+        player.characterFortSave = myClassTable[0].FortSave;
+        System.out.println("Fortitude Save: +" + player.characterFortSave);
+        player.characterRefSave = myClassTable[0].RefSave;
+        System.out.println("Reflex Save: +" + player.characterRefSave);
+        player.characterWillSave = myClassTable[0].WillSave;
+        System.out.println("Will Save: +" + player.characterWillSave);
+
+        System.out.println("CMB: " + player.getCMB());
+        System.out.println("CMD: " + player.getCMD());
+
 
     }    
 

@@ -23,11 +23,11 @@ Order:
             //Create Bonus Tracker? Deffo but how?
         Select 1st Favored Class Bonus (CAN CHANGE EVERY LEVEL) ✓✓
     Class Table   ✓
-        //BASE ALL ON CLASS TABLE
-        add BAB 
-        add BASE save throw modifiers
-        //cmb is bab + STRm + bonuses
-        //cmd is bab + STRm + DEXm + bonuses
+        //BASE ALL ON CLASS TABLE 
+        add BAB ✓✓ 
+        add BASE save throw modifiers ✓✓
+        //cmb is bab + STRm + SIZEMOD + bonuses ✓ [without bonus]
+        //cmd is 10 + bab + STRm + DEXm + SIZEMOD + bonuses ✓ [without bonus]
         gain [INITIAL] Special Abilties/PClass Feats!
             //Treat Special Abilities like Feats?
             //Seperate out Special Abilities from Feats?
