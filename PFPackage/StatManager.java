@@ -460,54 +460,61 @@ class StatManager {
         boolean bothLive = true;
         PFCharacter faster = player1;
         PFCharacter slower = player2;
+        PFCharacter winner = null;
         if (initOrder == 2) {
             faster = player2;
             slower = player1;
         }
         System.out.println("Int Order: " + faster.characterName + " " + slower.characterName);
         int ctr = 1;
-        while (bothLive) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        while (bothLive) {            
             System.out.println("@@@@@@@ TURN " + ctr + " @@@@@@@@");
             ctr++;
             //attack loop
             System.out.println("====== " + faster.characterName + "'s turn! ======");
             attack(faster, slower);
             if(slower.characterHitPoints == 0){
-                System.out.println("@@@@@@@@ " + faster.characterName + " Wins! @@@@@@@@");
+                winner = faster;
                 break;
             }
             System.out.println("====== " + slower.characterName + "'s turn! ======");
             attack(slower, faster);
             if(faster.characterHitPoints == 0){
-                System.out.println("@@@@@@@@ " + slower.characterName + " Wins! @@@@@@@@");
+                winner = slower;
                 break;                
             }
             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@");
-            double percent = (faster.characterHitPoints * (100.0))
-                / faster.characterMaxHitPoints;
-            System.out.println(
-                faster.characterName + ": " + 
-                faster.characterHitPoints + "/" + 
-                faster.characterMaxHitPoints + " " +                
-                String.valueOf(percent)
-            );
-            percent = (slower.characterHitPoints * (100.0))
-                / slower.characterMaxHitPoints;
-            System.out.println(
-                slower.characterName + ": " + 
-                slower.characterHitPoints + "/" + 
-                slower.characterMaxHitPoints + " " +                
-                String.valueOf(percent)
-            );
-        }
-        
+            printCharBattleStatus(faster);
+            printCharBattleStatus(slower);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }        
+        printWinner(winner);
+        printCharBattleStatus(faster);
+        printCharBattleStatus(slower);
+        System.out.println("Joe");
+        printAbS(faster.characterStats);
+        System.out.println("Bob");
+        printAbS(slower.characterStats);
     }   
+
+    private static void printWinner(PFCharacter winner){
+        System.out.println("@@@@@@@@ " + winner.characterName + " Wins! @@@@@@@@");
+    }
+
+    private static void printCharBattleStatus(PFCharacter combatant){
+        double percent = (combatant.characterHitPoints * (100.0))
+                / combatant.characterMaxHitPoints;
+        System.out.println(
+            combatant.characterName + ": " + 
+            combatant.characterHitPoints + "/" + 
+            combatant.characterMaxHitPoints + " " +                
+            String.valueOf(percent)
+        );
+    }
 
     private static int initOrder(PFCharacter player1, PFCharacter player2){
         int dex1 = player1.characterStats.getModifier(DEX);
