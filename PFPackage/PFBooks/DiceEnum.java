@@ -3,7 +3,7 @@ package PFPackage.PFBooks;
 import java.util.Random;
 
 public enum DiceEnum {
-    d4(4), d6(6), d8(8), d10(10), d10p(10), d12(12), d20(20);
+    d1(1), d2(2), d3(3), d4(4), d6(6), d8(8), d10(10), d10p(10), d12(12), d20(20);
     //More can be added but stop here pls
 
     private int value;

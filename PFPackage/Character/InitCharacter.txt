@@ -62,10 +62,10 @@ Order:
                 //AC penalties (EQUIPEED/UNEQUIPPED)
                 //modifiers etc
                 //AC bonuses
-    Feats     !✓
+    Feats     ✓
         Pick 1 free feat
         get bonus class feat (if required)                
-    Traits (again)   !✓
+    Traits (again)   ✓
         Pick traits
         treat like feats. Just, you can't pick from traits.
         barring exceptions i'm sure.

@@ -128,4 +128,11 @@ public class PFCharacter {
        Touch AC = 10 + DEXm + Deflection
        Flat Foot AC = Touch AC - DEXm
     */
+
+    //Unused
+    public String characterName = "NONE";
+    public String characterPlayer = "NONE";
+    public String characterHomeland = "NONE";
+    public String characterHair = "NONE";
+    public String characterEyes = "NONE";
 }

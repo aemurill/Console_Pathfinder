@@ -456,4 +456,139 @@ class StatManager {
             ctr++;
         }
     }   
+
+    /*========= TEST =========*/
+    public static void testPunchingFight(){
+        System.out.println(" --- Generate a Character! --- ");
+        System.out.println(" --- Player 1 --- ");     
+        PFCharacter player1 = genCharacter();   
+        PFCharacter player2 = genCharacter();
+        player1.characterName = "Joe";
+        player2.characterName = "Bob";        
+
+        int initOrder = initOrder(player1, player2);
+
+        boolean bothLive = true;
+        int ctr = 0;
+        while(bothLive){
+            if(initOrder == 1){
+                
+            }
+
+            ctr = 1;
+        }
+        
+    }   
+
+    private static int initOrder(PFCharacter player1, PFCharacter player2){
+        int dex1 = player1.characterStats.getModifier(DEX);
+        int dex2 = player2.characterStats.getModifier(DEX);
+
+        int init1  = DiceEnum.d20.roll() + dex1;
+        int init2  = DiceEnum.d20.roll() + dex2;
+
+        if(init1 > init2) return 1;
+        if(init1 < init2) return 2;
+        
+        if(dex1 > dex2 ) return 1;
+        if(dex1 < dex2 ) return 2;
+
+        while(true){
+            if(init1 > init2) return 1;
+            if(init1 < init2) return 2;
+        }
+    }
+    
+    private static int rollHit(PFCharacter player){
+        int attack = player.characterBAB + player.characterStats.getModifier(STR) +
+            player.characterSize.getMod();
+        return attack - 4;
+    }
+
+    private static boolean checkHit(int attack, PFCharacter defender){
+        int armorB = 2;
+        int maxDexBonus = 6;
+        int DexBonus = defender.characterStats.getModifier(DEX);
+        if(DexBonus < maxDexBonus){
+            maxDexBonus = DexBonus;
+        }
+        int AC = 10 + armorB + maxDexBonus + 0;
+
+        if(attack >= AC){
+            return true;
+        }
+        return false;
+    }
+
+    private static int rollDamage(PFCharacter player){
+        int attack = DiceEnum.d3.roll() + player.characterStats.getModifier(STR);
+        return attack;
+    }
+
+    private static void updateHealth(int attack, PFCharacter defender){
+        int temp =  defender.characterHitPoints - attack;
+        if (temp < 0) temp = 0;
+        defender.characterHitPoints = temp;
+    }
+
+    private static void attack(PFCharacter attacker, PFCharacter defender){
+        int toHit = rollHit(attacker);
+        if( checkHit(toHit, defender) ){
+            System.out.print(attacker.characterName + " HIT! ");
+            int toDamage = rollDamage(attacker);
+            updateHealth(toDamage, defender);
+            System.out.println(toDamage + "DEALT! " + 
+                defender.characterHitPoints + "/" + 
+                defender.characterMaxHitPoints
+            );            
+        }
+        System.out.println(attacker.characterName + " MISSED!");
+    }
+    
+
+    private static PFCharacter genCharacter(){
+        PFCharacter player = new PFCharacter();                
+
+        //GEN ABSCORE
+        initAbScore(player.characterStats);
+
+        //GET CLASS
+        PFClass myClass = promptPFClass();
+        player.characterClass.add(myClass);        
+
+        //GET RACE
+        PFRace myRace = promptPFRace();
+        player.characterRace = myRace;
+        
+        //APPLY MOD
+        MyAbilityScore myStats = player.characterStats;
+        applyRaceStatMod(myRace, myStats);
+        printAbS(myStats);
+        
+        //APPLY PROPERTIES
+        player.characterSize = myRace.getSize();
+        player.characterBaseSpeed = myRace.getBaseSpeed();
+        player.characterLanguages.addAll(myRace.getLanguages());
+        player.alignmentRestriction.addAll(myClass.getAlignmentRestrictions());
+        player.characterHitDie = myClass.getHitDie();
+        int maxval = player.characterHitDie.value() + 
+            player.characterStats.getModifier(CON);
+        player.characterMaxHitPoints = maxval;
+        
+        System.out.println("Class Skills Noted:");
+        player.characterClassSkills.addAll(myClass.getClassSkills());
+
+        System.out.println("FC Bonus For 1st Level:");
+        List<FCBonus> FCoptions = player.characterFCoptions; 
+        List<FCBonus> classFCoptions = myClass.getFCBonusOptionList();
+        addValidFCOptions(FCoptions, classFCoptions, myRace);
+        player.characterFCBonus = promptFCChoice(FCoptions);
+
+        ClassTableRow[] myClassTable = myClass.getClassTable();
+        player.characterBAB = myClassTable[0].BAB;
+        player.characterFortSave = myClassTable[0].FortSave;
+        player.characterRefSave = myClassTable[0].RefSave;
+        player.characterWillSave = myClassTable[0].WillSave;
+        return player;
+    }
 }
