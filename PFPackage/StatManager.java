@@ -12,10 +12,34 @@ import PFPackage.PFBooks.LanguageEnum;
 import static PFPackage.Character.AbilityScoreEnum.*;
 import static PFPackage.Character.SkillRankEnum.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 class StatManager {
     public static <T> T cast(Object obj, Class<T> clazz) {
@@ -27,6 +51,12 @@ class StatManager {
 
     public static PFRace HumanInst = (PFRace) new PFHuman();
     public static PFRace DwarfInst = (PFRace) new PFDwarf();
+
+    enum RollMode {
+        Official, Fun, Exploding
+    }
+
+    public static RollMode intRollMode = RollMode.Fun;
 
     @SuppressWarnings("resource")
     private static int getIntInput(int min, int max) {
@@ -50,6 +80,13 @@ class StatManager {
         return check;
     }
 
+    @SuppressWarnings("resource")
+    private static String getString() {
+        Scanner in = new Scanner(System.in);
+        String s = in.nextLine();
+        return s;
+    }
+
     private static void printIntChoice(int number, String option) {
         System.out.println("(" + number + ")     " + option);
     }
@@ -66,6 +103,18 @@ class StatManager {
         return null;
     }
 
+    private static PFClassName getPFClassName(PFClass aClass) {
+        if (aClass instanceof PFBarbarian) {
+            return PFClassName.Barbarian;
+        }
+        if (aClass instanceof PFFighter) {
+            return PFClassName.Fighter;
+        }
+
+        System.out.println("Unhandled RaceName entered!");
+        return null;
+    }
+
     private static PFRace getPFRace(PFRaceName name) {
         if (name == PFRaceName.Human) {
             return HumanInst;
@@ -75,6 +124,18 @@ class StatManager {
         }
 
         System.out.println("Unhandled Race entered!");
+        return null;
+    }
+
+    private static PFRaceName getPFRaceName(PFRace race) {
+        if (race instanceof PFHuman) {
+            return PFRaceName.Human;
+        }
+        if (race instanceof PFDwarf) {
+            return PFRaceName.Dwarf;
+        }
+
+        System.out.println("Unhandled RaceName entered!");
         return null;
     }
 
@@ -283,6 +344,16 @@ class StatManager {
         }
     }
 
+    private static String promptCharName() {
+        String value = null;
+        System.out.println("Select Character Name:");
+        while (true) {
+            value = getString();
+            break;
+        }
+        return value;
+    }
+
     /* ========= TEST ========= */
     public static void generateCharacter() {
         System.out.println(" --- Generate a Character! --- ");
@@ -295,12 +366,12 @@ class StatManager {
         System.out.println("===============");
 
         PFClass myClass = promptPFClass();
-        player.characterClass.add(myClass);
+        player.characterClassName.add(getPFClassName(myClass));
 
         System.out.println("===============");
 
         PFRace myRace = promptPFRace();
-        player.characterRace = myRace;
+        player.characterRaceName = getPFRaceName(myRace);
 
         System.out.println("===============");
 
@@ -367,7 +438,6 @@ class StatManager {
 
         System.out.println("CMB: " + player.getCMB());
         System.out.println("CMD: " + player.getCMD());
-
     }
 
     /* ========= TEST ========= */
@@ -376,8 +446,8 @@ class StatManager {
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
-        player.characterClass.add(FighterInst);
-        PFClass myClass = player.characterClass.get(0);
+        player.characterClassName.add(PFClassName.Fighter);
+        PFClass myClass = getPFClass(player.characterClassName.get(0));
 
         printAbS(myAS);
         System.out.println("<Set STR: " + myAS.setBase(STR, 20) + ">");
@@ -442,16 +512,72 @@ class StatManager {
             System.out.println("Source: " + fcb.getSource());
             ctr++;
         }
+    }    
+
+    public static Map<Integer, PFCharacter> loadChars() {
+        Gson gson = new GsonBuilder().registerTypeAdapter(
+            new TypeToken<EnumMap<AbilityScoreEnum, Integer>>() {}.getType(),
+            new EnumMapInstanceCreator<AbilityScoreEnum, Integer>(
+                AbilityScoreEnum.class)).create();
+
+
+
+
+        Type type = new TypeToken<Map<Integer, PFCharacter>>() {}.getType();
+        Map<Integer, PFCharacter> map = null;
+        try {
+            Reader reader = new FileReader("character.tmp");            
+            JsonReader jReader = new JsonReader(reader);
+            JsonObject jObject = gson.fromJson(jReader, JsonObject.class);
+            JsonElement jElement = jObject.get("general");    
+            System.out.println(jElement.toString());
+            map = gson.fromJson(jElement, type);
+            reader.close();
+        } catch (JsonSyntaxException | JsonIOException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    public static void saveChars(PFCharacter[] players){    
+        Map<Integer, PFCharacter> map = new HashMap<Integer, PFCharacter>();
+        int ctr = 0;
+        for(PFCharacter player: players){
+            map.put(ctr++, player);
+        }
+        System.out.flush();
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<Integer, PFCharacter>>() {}.getType();
+        try {
+            Writer writer = new FileWriter("character.tmp");
+            JsonElement jsonTree = gson.toJsonTree(map, type);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.add("general", jsonTree);
+            writer.write(jsonObject.toString());
+            writer.flush();
+            writer.close();
+        } catch (JsonIOException | IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+    public static void genChar4Fight(){
+        System.out.println(" --- Generate 2 Characters! --- ");
+        PFCharacter player1 = genCharacter();
+        PFCharacter player2 = genCharacter();
+        PFCharacter[] players = {player1, player2};
+        saveChars(players);
     }
 
     /* ========= TEST ========= */
     public static void testPunchingFight() {
-        System.out.println(" --- Generate a Character! --- ");
-        System.out.println(" --- Player 1 --- ");
-        PFCharacter player1 = genCharacter();
-        PFCharacter player2 = genCharacter();
-        player1.characterName = "Joe";
-        player2.characterName = "Bob";
+        Map<Integer, PFCharacter> map = loadChars();
+        PFCharacter player1 = map.get(0);
+        PFCharacter player2 = map.get(1);
+        //PFCharacter player1 = genCharacter();
+        //PFCharacter player2 = genCharacter();
 
         System.out.println("**************");
         System.out.println("ATTACK");
@@ -548,19 +674,23 @@ class StatManager {
         int attack = player.characterBAB + player.characterStats.getModifier(STR) +
             player.characterSize.getMod();
         roll[0] = DiceEnum.d20.roll();
-        System.out.println(roll[0]);
+        System.out.println("Actual Roll: " + roll[0]);
         if(roll[0] == 20){
-            System.out.print("Confirming Crit: ");
-            int[] roll2 = {1};
-            int noCritRoll = rollHitNoCrit(player, roll2);
-            if(checkHit(noCritRoll, roll2, player) == 0){
-                crit[0] = true;
-                System.out.println("CRITICAL HIT!");
-            }
-            else{
-                System.out.println("No crit today :(");
-            }
+            if(intRollMode == RollMode.Official){
+                System.out.print("Confirming Crit: ");
+                int[] roll2 = {1};
+                int noCritRoll = rollHitNoCrit(player, roll2);
+                if(checkHit(noCritRoll, roll2, player) == 0){
+                    crit[0] = true;                    
+                }else{
+                    System.out.println("No crit today :(");
+                }
+            }    
+            if(intRollMode == RollMode.Fun)  crit[0] = true;
         } 
+        if(crit[0] == true){
+            System.out.println("CRITICAL HIT!");
+        }
         attack = roll[0] + attack - 4;    
 
         return attack;
@@ -630,6 +760,7 @@ class StatManager {
         System.out.println(attacker.characterName + " MISSED!");
     }
     
+    
 
     private static PFCharacter genCharacter(){
         PFCharacter player = new PFCharacter();                
@@ -639,11 +770,11 @@ class StatManager {
 
         //GET CLASS
         PFClass myClass = promptPFClass();
-        player.characterClass.add(myClass);        
+        player.characterClassName.add(getPFClassName(myClass));        
 
         //GET RACE
         PFRace myRace = promptPFRace();
-        player.characterRace = myRace;
+        player.characterRaceName = getPFRaceName(myRace);
         
         //APPLY MOD
         MyAbilityScore myStats = player.characterStats;
@@ -675,6 +806,9 @@ class StatManager {
         player.characterFortSave = myClassTable[0].FortSave;
         player.characterRefSave = myClassTable[0].RefSave;
         player.characterWillSave = myClassTable[0].WillSave;
+
+        System.out.println("FC Bonus For 1st Level:");
+        player.characterName = promptCharName();
         return player;
     }
 }

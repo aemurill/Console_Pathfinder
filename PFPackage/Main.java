@@ -7,6 +7,7 @@ class Main{
         //StatManager.generateCharacter();
         //StatManager.testhuman();
         //StatManager.generateCharacter();
+        //StatManager.genChar4Fight();
         StatManager.testPunchingFight();
 
 

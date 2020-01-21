@@ -18,10 +18,10 @@ public class PFCharacter {
     public MyAbilityScore characterStats = new MyAbilityScore();    
 
     //CLASS
-    public List<PFClass> characterClass = new ArrayList<PFClass>();    
+    public List<PFClassName> characterClassName = new ArrayList<PFClassName>();    
 
     //RACE
-    public PFRace characterRace = null;    
+    public PFRaceName characterRaceName = null;    
 
         //SIZE
     public EntitySizeEnum characterSize = null;
@@ -79,7 +79,7 @@ public class PFCharacter {
         //Bloodline
 
     //FC Class Options
-    public PFClass characterFavoredClass = null;    
+    public PFClassName characterFavoredClass = null;    
     public List<FCBonus> characterFCoptions = createFCoptions();
     private List<FCBonus> createFCoptions(){
         List<FCBonus> output = new ArrayList<FCBonus>();

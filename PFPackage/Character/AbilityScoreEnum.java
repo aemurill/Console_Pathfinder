@@ -1,20 +1,13 @@
 package PFPackage.Character;
 
 public enum AbilityScoreEnum {
-    STR("STR", "Strength"), DEX("DEX", "Dexterity"), CON("CON", "Constitution"),
-    INT("INT", "Intelligence"), WIS("WIS", "Wisdom"), CHA("CHA", "Charisma");
+    STR("Strength"), DEX("Dexterity"), CON("Constitution"),
+    INT("Intelligence"), WIS("Wisdom"), CHA("Charisma");
 
-    private String string;
     private String fullString;
 
-    private AbilityScoreEnum(String string, String fullString){
-        this.string = string;
+    private AbilityScoreEnum(String fullString){
         this.fullString = fullString;
-    }
-
-    @Override
-    public String toString() {
-        return string;
     }
 
     public String fullString() {
