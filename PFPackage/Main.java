@@ -7,8 +7,8 @@ class Main{
         //StatManager.generateCharacter();
         //StatManager.testhuman();
         //StatManager.test();
-        StatManager.genChar4Fight();
-        //StatManager.testPunchingFight();
+        //StatManager.genChar4Fight();
+        StatManager.testPunchingFight();
 
 
         System.out.println("<><><>Leaving Main<><><>\n");

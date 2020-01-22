@@ -626,9 +626,9 @@ class StatManager {
         printWinner(winner);
         printCharBattleStatus(faster);
         printCharBattleStatus(slower);
-        System.out.println("Joe");
+        System.out.println(faster.characterName);
         printAbS(faster.characterStats);
-        System.out.println("Bob");
+        System.out.println(slower.characterName);
         printAbS(slower.characterStats);
     }   
 
