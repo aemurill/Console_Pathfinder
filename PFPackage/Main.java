@@ -6,9 +6,9 @@ class Main{
         
         //StatManager.generateCharacter();
         //StatManager.testhuman();
-        //StatManager.generateCharacter();
-        //StatManager.genChar4Fight();
-        StatManager.testPunchingFight();
+        //StatManager.test();
+        StatManager.genChar4Fight();
+        //StatManager.testPunchingFight();
 
 
         System.out.println("<><><>Leaving Main<><><>\n");

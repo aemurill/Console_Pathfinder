@@ -14,6 +14,11 @@ import PFPackage.PFBooks.PFFavoredClassBonus.*;
 import static PFPackage.Character.AbilityScoreEnum.*;
 
 public class PFCharacter {
+
+    public PFCharacter(){
+
+    }
+
     //BASE STATS
     public MyAbilityScore characterStats = new MyAbilityScore();    
 
@@ -80,30 +85,18 @@ public class PFCharacter {
 
     //FC Class Options
     public PFClassName characterFavoredClass = null;    
-    public List<FCBonus> characterFCoptions = createFCoptions();
-    private List<FCBonus> createFCoptions(){
-        List<FCBonus> output = new ArrayList<FCBonus>();
+    public List<String> characterFCoptions = createFCoptions();
+    private List<String> createFCoptions(){
+        List<String> output = new ArrayList<String>();
         output.add(            
-            new FCBonus(
-                "+1 HP", 
-                null, 
-                "Add 1 HP to your Max HP", 
-                ((Function) ((x) -> {return false;})), 
-                "PFG"
-            )
+            "+1 HP"
         );
         output.add(            
-            new FCBonus(
-                "+1 Skill Rank", 
-                null, 
-                "Add 1 Skill rank to Skill ranks", 
-                ((Function) ((x) -> {return false;})), 
-                "PFG"
-            )
+            "+1 Skill Rank"
         );
         return output;
     }
-    public FCBonus characterFCBonus = null;
+    public String characterFCBonus = null;
 
     //Alignment
     public AlignmentEnum alignment = null;

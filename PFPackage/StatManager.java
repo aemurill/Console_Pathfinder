@@ -2,7 +2,7 @@ package PFPackage;
 
 import PFPackage.Character.*;
 import PFPackage.PFBooks.PFClasses.*;
-import PFPackage.PFBooks.PFFavoredClassBonus.FCBonus;
+import PFPackage.PFBooks.PFFavoredClassBonus.*;
 import PFPackage.PFBooks.PFFeats.*;
 import PFPackage.PFBooks.PFRaces.*;
 import PFPackage.PFBooks.AlignmentEnum;
@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Type;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -51,6 +52,8 @@ class StatManager {
 
     public static PFRace HumanInst = (PFRace) new PFHuman();
     public static PFRace DwarfInst = (PFRace) new PFDwarf();
+
+    public static FCBonusList FCBonusList = new FCBonusList();
 
     enum RollMode {
         Official, Fun, Exploding
@@ -319,13 +322,15 @@ class StatManager {
         }
     }
 
-    private static FCBonus promptFCChoice(List<FCBonus> fcOptions) {
+    private static String promptFCChoice(List<String> fcOptions) {
         int value = -1;
         int ctr = 1;
-        for (FCBonus fcBonus : fcOptions) {
-            String option = fcBonus.toString();
+        String option = null;
+        for (String fcBonus : fcOptions) {
+            option = fcBonus;
+            FCBonus fcbOBJ = FCBonusList.getBonus(option);
             printIntChoice(ctr, option);
-            System.out.println("        " + fcBonus.getBonusDesc());
+            System.out.println("        " + fcbOBJ.getBonusDesc());
             ctr++;
         }
         System.out.println("Select Focus Class Bonus for this level!:");
@@ -333,12 +338,13 @@ class StatManager {
             value = getIntInput(1, fcOptions.size()) - 1;
             break;
         }
+        
         return fcOptions.get(value);
     }
 
-    private static void addValidFCOptions(List<FCBonus> fcOptions, List<FCBonus> classFCoptions, PFRace race) {
-        for (FCBonus bonus : classFCoptions) {
-            if (race.getRaceName() == bonus.getRace()) {
+    private static void addValidFCOptions(List<String> fcOptions, List<String> classFCoptions, PFRace race) {
+        for (String bonus : classFCoptions) {
+            if (race.getRaceName() == FCBonusList.getBonus(bonus).getRace()) {
                 fcOptions.add(bonus);
             }
         }
@@ -418,8 +424,8 @@ class StatManager {
         System.out.println(classSkillArrayString);
 
         System.out.println("FC Bonus For 1st Level:");
-        List<FCBonus> FCoptions = player.characterFCoptions;
-        List<FCBonus> classFCoptions = myClass.getFCBonusOptionList();
+        List<String> FCoptions = player.characterFCoptions;
+        List<String> classFCoptions = myClass.getFCBonusOptionList();
         addValidFCOptions(FCoptions, classFCoptions, myRace);
         player.characterFCBonus = promptFCChoice(FCoptions);
         System.out.println(player.characterFCBonus.toString());
@@ -498,10 +504,11 @@ class StatManager {
 
     }
 
-    private static void printFCBonusList(List<FCBonus> list) {
+    private static void printFCBonusList(List<String> list) {
         int ctr = 0;
         System.out.println("TEST");
-        for (FCBonus fcb : list) {
+        for (String key : list) {
+            FCBonus fcb = FCBonusList.getBonus(key);
             if (ctr != 0)
                 System.out.println("**************");
             System.out.println("Name: " + fcb);
@@ -515,13 +522,11 @@ class StatManager {
     }    
 
     public static Map<Integer, PFCharacter> loadChars() {
-        Gson gson = new GsonBuilder().registerTypeAdapter(
+        /*Gson gson = new GsonBuilder().registerTypeAdapter(
             new TypeToken<EnumMap<AbilityScoreEnum, Integer>>() {}.getType(),
             new EnumMapInstanceCreator<AbilityScoreEnum, Integer>(
-                AbilityScoreEnum.class)).create();
-
-
-
+                AbilityScoreEnum.class)).create();*/
+        Gson gson = new Gson();
 
         Type type = new TypeToken<Map<Integer, PFCharacter>>() {}.getType();
         Map<Integer, PFCharacter> map = null;
@@ -796,8 +801,8 @@ class StatManager {
         player.characterClassSkills.addAll(myClass.getClassSkills());
 
         System.out.println("FC Bonus For 1st Level:");
-        List<FCBonus> FCoptions = player.characterFCoptions; 
-        List<FCBonus> classFCoptions = myClass.getFCBonusOptionList();
+        List<String> FCoptions = player.characterFCoptions; 
+        List<String> classFCoptions = myClass.getFCBonusOptionList();
         addValidFCOptions(FCoptions, classFCoptions, myRace);
         player.characterFCBonus = promptFCChoice(FCoptions);
 

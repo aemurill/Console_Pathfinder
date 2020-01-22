@@ -114,33 +114,16 @@ public class PFFighter implements PFClass {
     
     //Favored Class bonus option
     //Static List of class FC options
-    private List<FCBonus> classFCBonusOptions = createFCBonusOptions();
+    private List<String> classFCBonusOptions = createFCBonusOptions();
     //Access
-    public List<FCBonus> getFCBonusOptionList(){
+    public List<String> getFCBonusOptionList(){
         return classFCBonusOptions;
     }
     //Create List of class FC options
-    private static List<FCBonus> createFCBonusOptions(){                
-        List<FCBonus> bonusList = new ArrayList<FCBonus>();        
-        bonusList.add(new FCBonus(
-            null,
-            PFRaceName.Dwarf,
-            "Add +1 to the fighter’s CMD when resisting a bull rush or trip.",
-            (Function) ((x) -> {
-                return FCBonus.handleUnimplemented();
-            }),
-            "APG"
-        ));
-        bonusList.add(new FCBonus(
-            null,
-            PFRaceName.Elf,
-            "Add +1 to the elf’s CMD when resisting a disarm or sunder attempt.",
-            (Function) ((x) -> {
-                return FCBonus.handleUnimplemented();
-            }),
-            "APG"
-        ));        
-        
+    private static List<String> createFCBonusOptions(){                
+        List<String> bonusList = new ArrayList<String>();        
+        bonusList.add("Fighter/Dwarf");
+        bonusList.add("Fighter/Elf");        
         return bonusList;
     }
 

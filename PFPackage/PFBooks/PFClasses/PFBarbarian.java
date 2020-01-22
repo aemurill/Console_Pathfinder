@@ -114,38 +114,16 @@ public class PFBarbarian implements PFClass {
     
     //Favored Class bonus option
     //Static List of class FC options
-    private List<FCBonus> classFCBonusOptions = createFCBonusOptions();
+    private List<String> classFCBonusOptions = createFCBonusOptions();
     //Access
-    public List<FCBonus> getFCBonusOptionList(){
+    public List<String> getFCBonusOptionList(){
         return classFCBonusOptions;
     }
     //Create List of class FC options
-    private static List<FCBonus> createFCBonusOptions(){                
-        List<FCBonus> bonusList = new ArrayList<FCBonus>();        
-        bonusList.add(new FCBonus(
-            null,
-            PFRaceName.Dwarf,
-            "Add 1 to the dwarf’s total number of rage rounds per day.",
-            (Function) ((x) -> {
-                return FCBonus.handleUnimplemented();
-            }),
-            "APG"
-        ));
-        bonusList.add(new FCBonus(
-            null,
-            PFRaceName.Elf,
-            "Add 1 to the elf’s base speed. In combat this has no effect "+
-            "unless the elf has selected this reward 5 times (or another "+
-            "increment of 5); a speed of 34 feet is effectively the same "+
-            "as a speed of 30 feet, for example. This bonus stacks with a "+
-            "class’s fast movement feature and applies only under the same "+
-            "conditions as that ability.",
-            (Function) ((x) -> {
-                return FCBonus.handleUnimplemented();
-            }),
-            "APG"
-        ));
-        
+    private static List<String> createFCBonusOptions(){                
+        List<String> bonusList = new ArrayList<String>();        
+        bonusList.add("Barbarian/Dwarf");
+        bonusList.add("Barbarian/Elf");        
         return bonusList;
     }
 

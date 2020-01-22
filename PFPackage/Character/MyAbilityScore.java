@@ -1,23 +1,36 @@
 package PFPackage.Character;
 
 import java.util.EnumMap;
+import static PFPackage.Character.AbilityScoreEnum.*;
 
 public class MyAbilityScore {    
 
     // Base Ability Score Map
-    private EnumMap<AbilityScoreEnum, Integer> baseAbScMap = new EnumMap<AbilityScoreEnum, Integer>(
-            AbilityScoreEnum.class);
+    //private EnumMap<AbilityScoreEnum, Integer> baseAbScMap = new EnumMap<AbilityScoreEnum, Integer>(
+    //        AbilityScoreEnum.class);
+    private int[] baseAbScMap = new int[6];
 
     public MyAbilityScore() {
         //init all to 10
         for(AbilityScoreEnum aEnum: AbilityScoreEnum.values()){
-            baseAbScMap.put(aEnum, 10);        
+            setBase(aEnum, 10);
         }
     }        
 
+    private static int getIndex(AbilityScoreEnum enumvar){
+        if(enumvar == STR) return 0;
+        if(enumvar == DEX) return 1;
+        if(enumvar == CON) return 2;
+        if(enumvar == INT) return 3;
+        if(enumvar == WIS) return 4;
+        if(enumvar == CHA) return 5;
+        System.out.println("ABSCORE ERROR INDEXING");
+        return -1; 
+    }
+
     // return base Ability Score given enum
     public int getBase(AbilityScoreEnum enumvar){
-        return baseAbScMap.get(enumvar);    
+        return baseAbScMap[getIndex(enumvar)];    
     }
 
     // To be used PURELY for character creation, all other increases to be 
@@ -28,8 +41,8 @@ public class MyAbilityScore {
         if(value <= 0){
             actValue = 0;
         }
-        baseAbScMap.put(enumvar, actValue);
-        return baseAbScMap.get(enumvar);    
+        baseAbScMap[getIndex(enumvar)] = actValue;
+        return this.getBase(enumvar);    
     }
 
     public int getModifier(AbilityScoreEnum enumvar){

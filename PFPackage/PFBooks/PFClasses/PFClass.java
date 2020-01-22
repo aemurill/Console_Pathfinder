@@ -61,7 +61,7 @@ public interface PFClass {
 
     
     //Favored Class bonus option
-    public List<FCBonus> getFCBonusOptionList();
+    public List<String> getFCBonusOptionList();
     /* 
         updateStatsManager?
 
