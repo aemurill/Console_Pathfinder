@@ -42,7 +42,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
-class StatManager {
+public class StatManager {
     public static <T> T cast(Object obj, Class<T> clazz) {
         return (T) obj;
     }

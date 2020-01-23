@@ -1,16 +1,68 @@
 package PFPackage.View;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.Reader;
+
+import PFPackage.StatManager;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-public class Render extends Application implements Runnable {
+public class Render extends Application { // implements Runnable {
 
-    public void start() {
-        new Thread(this).start();
+    public void start(Stage theStage) throws Exception {
+        theStage.setTitle( "Timeline Example" );
+    
+        Group root = new Group();
+        Scene theScene = new Scene( root );
+        theStage.setScene( theScene );
+    
+        Canvas canvas = new Canvas( 512, 512 );
+        root.getChildren().add( canvas );
+    
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+    
+        final long startNanoTime = System.nanoTime();
+    
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                gc.clearRect(0, 0, 512, 512);
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0; 
+    
+                double x = 232 + 128 * Math.cos(t);
+                double y = 232 + 128 * Math.sin(t);
+    
+                // background image clears canvas
+                double[] xR = {x+5,x+5,x-5,x-5};
+                double[] yR = {y+5,y-5,y-5,y+5};
+                gc.fillPolygon(xR, yR, 4);
+                double[] xR2 = {196+10,196+10,196-10,196-10};
+                double[] yR2 = {196+10,196-10,196-10,196+10};
+                gc.fillPolygon(xR2,yR2, 4);
+            }
+        }.start();
+    
+        theStage.show();      
     }
 
-    public void run() {
-
+    public void run(String[] args) {
+        launch(args);
         /*
          * setSize(480, 320); // For AppletViewer, remove later.
          * 
@@ -34,11 +86,5 @@ public class Render extends Application implements Runnable {
          * 
          * public boolean handleEvent(Event e) { return false; }
          */
-    }
-
-    @Override
-    public void start(Stage arg0) throws Exception {
-        // TODO Auto-generated method stub
-
     }
 }
