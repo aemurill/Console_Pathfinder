@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.aemurill.pathfinderproject.PFPackage.Main",
+            "projectName": "my-pathfinder-project"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Solo_4d1be554"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Render",
             "request": "launch",
             "mainClass": "PFPackage.View.Render",
