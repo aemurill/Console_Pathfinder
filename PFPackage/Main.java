@@ -1,13 +1,13 @@
 package PFPackage;
 
-import PFPackage.View.Render;
+//import PFPackage.View.Render;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("<><><>Running Main<><><>");
 
-        Render render = new Render();
-        render.run(args);
+        //Render render = new Render();
+        //render.run(args);
         //StatManager.generateCharacter();
         //StatManager.testhuman();
         //StatManager.test();

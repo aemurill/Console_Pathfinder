@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Render",
+            "request": "launch",
+            "mainClass": "PFPackage.View.Render",
+            "projectName": "Solo_4d1be554"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"
