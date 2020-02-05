@@ -8,7 +8,7 @@ public class Main {
 
         Render render = new Render();
         render.run(args);
-        //StatManager.generateCharacter();
+        StatManager.generateCharacter();
         //StatManager.testhuman();
         //StatManager.test();
         //StatManager.genChar4Fight();

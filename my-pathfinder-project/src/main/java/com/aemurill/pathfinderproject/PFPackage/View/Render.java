@@ -45,7 +45,7 @@ public class Render extends Application { // implements Runnable {
      
         Canvas canvas = new Canvas( 500, 500 );
      
-        root.getChildren().add( canvas );
+        root.getChildren().add( new Console() );
      
         Circle targetData = new Circle(100,100,32);
         Circle targetData2 = new Circle(100,100,16);
