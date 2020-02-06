@@ -1,6 +1,6 @@
 package com.aemurill.pathfinderproject;
 
-import com.aemurill.pathfinderproject.PFPackage.Main;
+import com.aemurill.pathfinderproject.Controller.Main;
 
 /**
  * Hello world!
