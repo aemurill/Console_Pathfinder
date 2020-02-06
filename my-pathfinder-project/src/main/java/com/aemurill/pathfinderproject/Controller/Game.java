@@ -26,7 +26,7 @@ public class Game implements Runnable {
     private final Grid grid;
     private final TokenList tokens;
     private final Console console;
-    private final StatManager statManager;
+    public final StatManager statManager;
     private final Pane pane;
     private boolean doD = false;
     // private Ball ball;
@@ -41,12 +41,13 @@ public class Game implements Runnable {
     // private boolean gameOver;
     // private SoundObserver soundObserverBall;
     public int speed = 1;
+    private ScriptRunner scriptRunner;
 
     public Game(final Basic_Grid_Combat_Controller gameApp, final CanvasPane canvasPane, final Pane pane,
             final Console console, final GraphicsContext gc) {
         this.canvas = canvasPane.canvas;
         this.pane = pane;
-        this.console = console;
+        this.console = console;        
         this.running = true;
         this.paused = false;
         this.keyIsPressed = false;
@@ -68,6 +69,7 @@ public class Game implements Runnable {
         this.tokens.add(new Token(this, 1, 4));
         this.tokens.sort();
         this.statManager = new StatManager(console);
+        this.scriptRunner = new ScriptRunner(this);
         // this.gameOver = false;
         /*
          * this.soundObserverBall = new SoundObserverConcrete(
@@ -110,12 +112,7 @@ public class Game implements Runnable {
     // UPDATE / CHECK GAME STATE?
     private void doGameLogic() {
         if(this.doD == false){
-        // statManager.genChar4Fight();
-        // statManager.generateCharacter();
-        // statManager.testPunchingFight();
-        statManager.testhuman();
-        //statManager.test();
-        //gameOver();
+            this.scriptRunner.scriptRunnerCheck();
             this.doD = true;
         }
     }
@@ -197,4 +194,8 @@ public class Game implements Runnable {
     public Console getConsole(){
         return this.console;
     }
+
+	public StatManager getStatManager() {
+		return this.statManager;
+	}
 }

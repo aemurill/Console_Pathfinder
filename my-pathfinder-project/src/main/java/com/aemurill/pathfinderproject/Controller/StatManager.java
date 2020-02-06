@@ -445,7 +445,7 @@ public class StatManager {
 
     /* ========= TEST ========= */
     public void test() {
-        console.println(" --- Player 1 --- ");
+        System.out.println(" --- Player 1 --- ");
         PFCharacter player = new PFCharacter();
         MyAbilityScore myAS = player.characterStats;
         MySkillRanks mySK = player.characterSkills;
