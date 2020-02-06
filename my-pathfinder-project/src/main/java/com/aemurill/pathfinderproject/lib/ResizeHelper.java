@@ -18,22 +18,24 @@ import javafx.stage.Stage;
  */
 public class ResizeHelper {
 
-    public static void addResizeListener(Stage stage) {
-        addResizeListener(stage, 0, 0, Double.MAX_VALUE, Double.MAX_VALUE);
+    public static void addResizeListener(Stage stage, int mode) {
+        addResizeListener(stage, 0, 0, Double.MAX_VALUE, Double.MAX_VALUE, mode);
     }
 
-    public static void addResizeListener(Stage stage, double minWidth, double minHeight, double maxWidth, double maxHeight) {
-        ResizeListener resizeListener = new ResizeListener(stage);
+    public static void addResizeListener(Stage stage, double minWidth, double minHeight, double maxWidth, double maxHeight, int mode) {
+        ResizeListener resizeListener = new ResizeListener(stage, mode);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resizeListener);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resizeListener);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resizeListener);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED, resizeListener);
         stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, resizeListener);
-
+        
         resizeListener.setMinWidth(minWidth);
-        resizeListener.setMinHeight(minHeight);
         resizeListener.setMaxWidth(maxWidth);
+                
+        resizeListener.setMinHeight(minHeight);        
         resizeListener.setMaxHeight(maxHeight);
+        
 
         ObservableList<Node> children = stage.getScene().getRoot().getChildrenUnmodifiable();
         for (Node child : children) {
@@ -58,6 +60,7 @@ public class ResizeHelper {
 
     static class ResizeListener implements EventHandler<MouseEvent> {
         private Stage stage;
+        private int mode;
         private Cursor cursorEvent = Cursor.DEFAULT;
         private int border = 4;
         private double startX = 0;
@@ -69,8 +72,9 @@ public class ResizeHelper {
         private double minHeight;
         private double maxHeight;
 
-        public ResizeListener(Stage stage) {
+        public ResizeListener(Stage stage, int mode) {
             this.stage = stage;
+            this.mode = mode;
         }
 
         public void setMinWidth(double minWidth) {
@@ -162,14 +166,20 @@ public class ResizeHelper {
         }
 
         private void setStageWidth(double width) {
+            if(mode == 1 || mode == 0) return;
+            System.out.println("width set rh");
             width = Math.min(width, maxWidth);
             width = Math.max(width, minWidth);
+            System.out.println("LL"+width);
             stage.setWidth(width);
         }
 
         private void setStageHeight(double height) {
+            if(mode == 2 || mode == 0) return;
+            System.out.println("height set rh");
             height = Math.min(height, maxHeight);
             height = Math.max(height, minHeight);
+            System.out.println("LL"+height);
             stage.setHeight(height);
         }
 

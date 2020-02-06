@@ -4,7 +4,8 @@ import java.util.Optional;
 
 import com.aemurill.pathfinderproject.lib.CanvasPane;
 import com.aemurill.pathfinderproject.lib.Console;
-import com.aemurill.pathfinderproject.lib.DragResizerXY;
+import com.aemurill.pathfinderproject.lib.DragResizer;
+import com.aemurill.pathfinderproject.lib.ResizeHelper;
 import com.aemurill.pathfinderproject.lib.WordWrapConsole;
 
 import javafx.application.Application;
@@ -13,6 +14,7 @@ import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,6 +28,7 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -70,12 +73,17 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
         // background = soundInstance.getBackPlayer();
         // ball = soundInstance.getBallPlayer();
         // gameover = soundInstance.getGameoverPlayer();
-        theStage.setWidth(900);
+        
+        theStage.setWidth(600);
         theStage.setHeight(300);
         Platform.setImplicitExit(true);
         //AnchorPane root = new AnchorPane();
-        BorderPane root = new BorderPane();
+        //BorderPane root = new BorderPane();
+        HBox root = new HBox();
+        root.setFillHeight(true);
         Scene theScene = new Scene(root); 
+        theStage.setTitle("Basic Grid Combat");
+        theStage.setScene(theScene);
         root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
 
         // SoundListener soundListener = new SoundListener();
@@ -98,6 +106,10 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
             loop.keyPressed(e);
             e.consume();
         });
+        canvasPane.setOnMouseClicked(e ->{
+            canvasPane.requestFocus();
+        });
+        
         FlowPane flow = new FlowPane();
         flow.setPadding(new Insets(5, 0, 5, 0));
         flow.setVgap(4);
@@ -109,7 +121,7 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
         pane.setBorder(
             new Border(
                 new BorderStroke(
-                    Color.BLACK,
+                    Color.GREY,
                     BorderStrokeStyle.SOLID, 
                     CornerRadii.EMPTY,
                     new BorderWidths(0, 5, 0, 0)
@@ -117,23 +129,32 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
             )
         );
 
-        console = new WordWrapConsole();
+        console = new WordWrapConsole(canvasPane);
 
-        root.setLeft(canvasPane);
+        //root.setLeft(canvasPane);
         canvasPane.setMinWidth(200);
-        root.setCenter(pane);
-        pane.setMinWidth(200);
+        canvasPane.setMaxWidth(200);
         
-        root.setRight(console);
-        console.setMinWidth(400);
+        
+        //root.setCenter(pane);
+        pane.setMinWidth(100);
+        pane.setMaxWidth(100);
+        
+        console.prefWidthProperty().bind(root.widthProperty());
+        //root.setRight(console);
+        //console.setMinWidth(400);
+        root.getChildren().add(canvasPane);
+        root.getChildren().add(pane);
+        root.getChildren().add(console);
 
         
         //console.layoutYProperty().bind(canvasPane.heightProperty());
         
 
-        DragResizerXY.makeResizableX(canvasPane, root, -1, false);
-        DragResizerXY.makeResizableX(pane, root, 1, true);
+        
         System.out.println(pane.getHeight() +" "+pane.getWidth());
+        //ResizeHelper.addResizeListener(theStage, 0);
+        canvasPane.minHeightProperty().bind(theStage.minHeightProperty());
         
         theStage.addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>() {
             @Override
@@ -142,6 +163,8 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
                     @Override
                     public void run() {
                         console.disableCursor();
+                        DragResizer.makeResizableX(canvasPane, root, -1, false);
+                        DragResizer.makeResizableX(pane, root, 1, false);
                     }
                 });
             }
@@ -167,8 +190,7 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
         });
 
 
-        theStage.setTitle("Basic Grid Combat");
-        theStage.setScene(theScene);
+        
         theStage.show();
         // WINDOW CLOSE = SHUT DOWN
         Thread gameThread = new Thread(task);
@@ -184,7 +206,9 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
             Platform.exit();
         });
         reset(); //INITIALIZE GAME LOOP
-        //ResizeHelper.addResizeListener(theStage);
+
+        
+        
         gameThread.start();
     }
 

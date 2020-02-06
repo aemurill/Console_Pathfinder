@@ -229,18 +229,33 @@ public class Grid {
 
     private void drawCanvasFrame(GraphicsContext gc) {
         if(!isPerfect){
-            gc.setFill( Color.BLACK );
+            gc.setFill( Color.GREY );
             gc.fillRect(gc.getCanvas().getWidth()-frameStroke, 0, 
                 frameStroke, gc.getCanvas().getHeight()+frameStroke);   
             gc.fillRect(0, gc.getCanvas().getHeight()-frameStroke, 
             gc.getCanvas().getWidth()+frameStroke, frameStroke);   
-        }else{
-            gc.setFill( Color.LIGHTGREEN );
+        }
+        
+        if(gc.getCanvas().getParent().getScene().focusOwnerProperty().get() == gc.getCanvas().getParent()){
+            gc.setFill( Color.TURQUOISE );
+            gc.fillRect(gc.getCanvas().getWidth()-frameStroke, 0, 
+                frameStroke, gc.getCanvas().getHeight()+frameStroke);   
+            gc.fillRect(0, gc.getCanvas().getHeight()-frameStroke, 
+            gc.getCanvas().getWidth()+frameStroke, frameStroke);   
+        }
+
+        if(isPerfect){
+            gc.setFill( Color.DARKGREEN );
+            gc.fillRect(
+                gc.getCanvas().getWidth()-frameStroke-40, 
+                gc.getCanvas().getHeight()-frameStroke, 
+                gc.getCanvas().getWidth()+frameStroke+40,
+                gc.getCanvas().getHeight()+frameStroke);   
             gc.fillRect(
                 gc.getCanvas().getWidth()-frameStroke, 
-                gc.getCanvas().getHeight()-frameStroke, 
+                gc.getCanvas().getHeight()-frameStroke-40, 
                 gc.getCanvas().getWidth()+frameStroke,
-                gc.getCanvas().getHeight()+frameStroke);   
+                gc.getCanvas().getHeight()+frameStroke+40);   
         }
     }
 }

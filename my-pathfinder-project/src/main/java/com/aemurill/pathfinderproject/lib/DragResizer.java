@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**
- * {@link DragResizerXY} can be used to add mouse listeners to a {@link Region}
+ * {@link DragResizer} can be used to add mouse listeners to a {@link Region}
  * and make it resizable by the user by clicking and dragging the border in the
  * same way as a window.
  * <p>
@@ -20,7 +20,7 @@ import javafx.scene.layout.Region;
  * @author Cannibalsticky (modified from the original DragResizer created by AndyTill)
  *
  */
-public class DragResizerXY {
+public class DragResizer {
 
 	/**
 	 * The margin around the control that a user can click in to start resizing
@@ -42,7 +42,7 @@ public class DragResizerXY {
 
 	private boolean dragging;
 
-	private DragResizerXY(Region aRegion) {
+	private DragResizer(Region aRegion) {
 		region = aRegion;
 	}
 
@@ -70,50 +70,50 @@ public class DragResizerXY {
 		region.setMinHeight(newHeight);
 	}
 
-	public static void makeResizableXY(Region region, Pane pane, int resizeMargin, boolean Left, boolean Top){
+	public static void makeResizableXY(Region region, Pane root, int resizeMargin, boolean Left, boolean Top){
 		if (resizeMargin > 1) RESIZE_MARGIN = resizeMargin;
-		final DragResizerXY resizer = new DragResizerXY(region);
+		final DragResizer resizer = new DragResizer(region);
 
 		region.widthProperty().addListener((obs, oldVal, newVal) -> {
-			correctWidth(resizer.region, region.getWidth(), pane);
+			correctWidth(resizer.region, region.getWidth(), root);
 		});
 		region.heightProperty().addListener((obs, oldVal, newVal) -> {
-			correctHeight(resizer.region, region.getHeight(), pane);
+			correctHeight(resizer.region, region.getHeight(), root);
 		});
-		makeResizable(region, pane, resizer, 0, Left, Top);
+		makeResizable(region, root, resizer, 0, Left, Top);
 	}
 	
-	public static void makeResizableX(Region region, Pane pane, int resizeMargin, boolean Left){
+	public static void makeResizableX(Region region, Pane root, int resizeMargin, boolean Left){
 		if (resizeMargin > 1) RESIZE_MARGIN = resizeMargin;
-		final DragResizerXY resizer = new DragResizerXY(region);
+		final DragResizer resizer = new DragResizer(region);
 
 		region.widthProperty().addListener((obs, oldVal, newVal) -> {
-			correctWidth(resizer.region, region.getWidth(), pane);
+			correctWidth(resizer.region, region.getWidth(), root);
 		});
-		makeResizable(region, pane, resizer, 1, Left, false);
+		makeResizable(region, root, resizer, 1, Left, false);
 	}
 
-	public static void makeResizableY(Region region, Pane pane, int resizeMargin, boolean Top){
+	public static void makeResizableY(Region region, Pane root, int resizeMargin, boolean Top){
 		if (resizeMargin > 1) RESIZE_MARGIN = resizeMargin;
-		final DragResizerXY resizer = new DragResizerXY(region);
+		final DragResizer resizer = new DragResizer(region);
 
 		region.heightProperty().addListener((obs, oldVal, newVal) -> {
-			correctHeight(resizer.region, region.getHeight(), pane);
+			correctHeight(resizer.region, region.getHeight(), root);
 		});
-		makeResizable(region, pane, resizer, 2, false, Top);
+		makeResizable(region, root, resizer, 2, false, Top);
 	}
 
-	public static void makeResizable(Region region, Pane pane, final DragResizerXY resizer, int mode, boolean Left, boolean Top) {		
+	public static void makeResizable(Region region, Pane root, final DragResizer resizer, int mode, boolean Left, boolean Top) {		
 		region.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				resizer.mousePressed(event);
+				resizer.mousePressed(event, mode);
 			}
 		});
 		region.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				resizer.mouseDragged(event, pane, mode);
+				resizer.mouseDragged(event, root, mode);
 			}
 		});
 		region.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -162,24 +162,24 @@ public class DragResizerXY {
 		return (draggableZoneY || draggableZoneX);
 	}
 
-	protected void mouseDragged(MouseEvent event, Pane pane, int mode) {
+	protected void mouseDragged(MouseEvent event, Pane root, int mode) {
 		if (!dragging) {
 			return;
 		}
 
-		if (draggableZoneY ){//&& (mode == 2 || mode == 0)) {
+		if (draggableZoneY && (mode == 2 || mode == 0)) {
 			double mousey = event.getY();
 
 			double newHeight = region.getMinHeight() + (mousey - y);
-			correctHeight(region, newHeight, pane);
+			correctHeight(region, newHeight, root);
 			y = mousey;
 		}
 
-		if (draggableZoneX){//) && (mode == 1 || mode == 0)) {
+		if (draggableZoneX && (mode == 1 || mode == 0)) {
 			double mousex = event.getX();
 
 			double newWidth = region.getMinWidth() + (mousex - x);
-			correctWidth(region, newWidth, pane);
+			correctWidth(region, newWidth, root);
 			x = mousex;
 
 		}
@@ -187,7 +187,7 @@ public class DragResizerXY {
 	}
 
 
-	protected void mousePressed(MouseEvent event) {
+	protected void mousePressed(MouseEvent event, int mode) {
 
 		// ignore clicks outside of the draggable margin
 		if (!isInDraggableZone(event)) {
@@ -199,17 +199,17 @@ public class DragResizerXY {
 		// make sure that the minimum height is set to the current height once,
 		// setting a min height that is smaller than the current height will
 		// have no effect
-		if (!initMinHeight) {
+		/*if (!initMinHeight && (mode == 2 || mode == 0)) {
 			region.setMinHeight(region.getHeight());
 			initMinHeight = true;
-		}
+		}*/
 
 		y = event.getY();
 
-		if (!initMinWidth) {
+		/*if (!initMinWidth&& (mode == 1 || mode == 0)) {
 			region.setMinWidth(region.getWidth());
 			initMinWidth = true;
-		}
+		}*/
 
 		x = event.getX();
 	}

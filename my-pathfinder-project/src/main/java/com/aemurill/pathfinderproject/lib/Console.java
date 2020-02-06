@@ -15,18 +15,21 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 //https://codereview.stackexchange.com/questions/52197/console-component-in-javafx
 public class Console extends BorderPane {
     protected final TextArea textArea = new TextArea();
     protected final TextField textField = new TextField();
+    private final Pane root;
 
     protected final List<String> history = new ArrayList<>();
     protected int historyPointer = 0;
 
     private Consumer<String> onMessageReceivedHandler;
 
-    public Console() {
+    public Console(Pane newRoot) {
+        root = newRoot;
         textArea.setEditable(false);
         textArea.setCache(false);
         Platform.runLater(()->{
@@ -51,6 +54,7 @@ public class Console extends BorderPane {
                         onMessageReceivedHandler.accept(text);
                     }
                     textField.clear();
+                    root.requestFocus();
                     break;
                 case UP:
                     if (historyPointer == 0) {

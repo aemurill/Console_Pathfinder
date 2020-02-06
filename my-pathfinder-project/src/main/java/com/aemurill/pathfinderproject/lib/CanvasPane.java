@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 public class CanvasPane extends Pane {
 
-    public final Canvas canvas;
+    public final ResizableCanvas canvas;
 
     public CanvasPane(double width, double height) {
         setWidth(width);
@@ -16,8 +16,10 @@ public class CanvasPane extends Pane {
 
         canvas.widthProperty().bind(this.widthProperty());
         canvas.heightProperty().bind(this.heightProperty());
-        this.prefHeightProperty().bind(((ResizableCanvas)canvas).prefHeight);
-        this.prefWidthProperty().bind(((ResizableCanvas)canvas).prefWidth);
+        //this.prefHeightProperty().bind(((ResizableCanvas)canvas).prefHeight);
+        //this.prefWidthProperty().bind(((ResizableCanvas)canvas).prefWidth);
         
+        
+
     }
 }
