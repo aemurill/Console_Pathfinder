@@ -1,7 +1,5 @@
 package com.aemurill.pathfinderproject.View;
 
-import com.aemurill.pathfinderproject.lib.Console;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;

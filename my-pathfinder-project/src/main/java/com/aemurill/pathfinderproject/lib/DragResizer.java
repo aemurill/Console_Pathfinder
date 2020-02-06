@@ -34,9 +34,9 @@ public class DragResizer {
 
 	private double x;
 
-	private boolean initMinHeight;
+//	private boolean initMinHeight;
 
-	private boolean initMinWidth;
+//	private boolean initMinWidth;
 
 	private boolean draggableZoneX, draggableZoneY;
 

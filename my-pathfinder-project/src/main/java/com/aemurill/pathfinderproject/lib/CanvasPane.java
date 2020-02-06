@@ -1,6 +1,5 @@
 package com.aemurill.pathfinderproject.lib;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 
 public class CanvasPane extends Pane {
