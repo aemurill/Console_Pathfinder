@@ -71,19 +71,25 @@ public class StatManager {
         int check = -1;
         while (true) {
             lambda.doLambda(null);
-            while(!in.hasNextInt()){
-                console.println("Type Number!");
+            printEqualsLine();
+            if(!in.hasNextInt()){
+                console.println("Must enter a number! ("+ min + " to " + max +"):");                
                 in.nextLine();
+                continue;
             } 
             check = in.nextInt();
 
             if (check >= min && check <= max) {
                 break;
             }
-            console.println("Type Valid Number");
+            console.println("Type Valid Number ("+ min + " to " + max +"):");
         }
 
         return check;
+    }
+
+    private void printEqualsLine(){
+        console.println("===============");
     }
 
     @SuppressWarnings("resource")
@@ -260,15 +266,15 @@ public class StatManager {
     private void initAbScore(MyAbilityScore AB) {
         int rollType = promptAbScore();
         if (rollType == 1) {
-            console.println("ENTER");
+            console.println("<Prepare to enter scores>");
             genPrompt(AB);
         }
         if (rollType == 2) {
-            console.println("7 d20s");
+            console.println("<Rolling 7 d20s>");
             genTopSixABScore(AB);
         }
         if (rollType == 3) {
-            console.println("ANARCHY");
+            console.println("<ANARCHY>");
             genAnarchyABScore(AB);
         }
     }
@@ -390,23 +396,23 @@ public class StatManager {
         initAbScore(player.characterStats);
         printAbS(player.characterStats);
 
-        console.println("===============");
+        console.println("===============");// TODO 
 
         PFClass myClass = promptPFClass();
         player.characterClassName.add(getPFClassName(myClass));
 
-        console.println("===============");
+        console.println("===============");// TODO 
 
         PFRace myRace = promptPFRace();
         player.characterRaceName = getPFRaceName(myRace);
 
-        console.println("===============");
+        console.println("===============");// TODO 
 
         MyAbilityScore myStats = player.characterStats;
         applyRaceStatMod(myRace, myStats);
         printAbS(myStats);
 
-        console.println("===============");
+        console.println("===============");// TODO 
 
         player.characterSize = myRace.getSize();
         player.characterBaseSpeed = myRace.getBaseSpeed();
@@ -452,7 +458,7 @@ public class StatManager {
         player.characterFCBonus = promptFCChoice(FCoptions);
         console.println(player.characterFCBonus.toString());
 
-        console.println("===============");
+        console.println("===============");// TODO 
 
         ClassTableRow[] myClassTable = myClass.getClassTable();
         player.characterBAB = myClassTable[0].BAB;

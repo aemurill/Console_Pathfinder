@@ -97,7 +97,7 @@ public class Game implements Runnable {
         task.setOnRunning(e -> {
         });
         Thread gameThread = new Thread(task);
-        task.run();
+        gameThread.start();
 
         while (running && !paused) {
             float time = System.currentTimeMillis();
