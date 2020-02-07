@@ -36,8 +36,8 @@ public class Token {
         this(game);
         this.x = x;
         this.y = y;
-        this.oldX = this.x;
-        this.oldY = this.y;
+        this.oldX = x;
+        this.oldY = y;
     }
 
     public void setOrder(int order){
@@ -45,11 +45,17 @@ public class Token {
     }
 
     public void paint(GraphicsContext gc){
+        //System.out.println(turnOrder + " (" + this.x + " " + this.y + ") O(" + this.oldX + " " + this.oldY);
         squareSize = grid.getSquareSize(gc);
         double x = grid.getCanvasLocationX(this.x-1, gc);
         double y = grid.getCanvasLocationY(this.y-1, gc);
         gc.setFill(Color.RED);
         gc.fillOval(x, y, squareSize, squareSize);
+        if(this.x != this.oldX || this.y != this.oldY){
+            gc.setFill(Color.DARKSLATEGRAY);
+            gc.fillOval(grid.getCanvasLocationX(this.oldX-1, gc), 
+                grid.getCanvasLocationX(this.oldY-1, gc), squareSize, squareSize);
+        }
             
         gc.drawImage(
             BGC_Paint.createCircledNumber(this.turnOrder, squareSize, squareSize),

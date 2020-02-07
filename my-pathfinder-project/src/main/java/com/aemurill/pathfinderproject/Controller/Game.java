@@ -122,6 +122,7 @@ public class Game implements Runnable {
             }
             // break;
         }
+        task.cancel();
 
     }
 
