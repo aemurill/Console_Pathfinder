@@ -1,5 +1,7 @@
 package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats;
 
+import com.aemurill.pathfinderproject.lib.LambdaClass;
+
 public class Feat {
     
     //More can be added but stop here pls
@@ -8,12 +10,12 @@ public class Feat {
     private String featPrereq;
     //Heavily consider swapping Prereqs with functions?
     private String featBenefitDesc;
-    private Function featBenefit;
+    private LambdaClass featBenefit;
     private String featSource;
 
 
     public Feat(String featName, String featCategory, String featPrereq, 
-        String featBenefitDesc, Function featBenefit, String featSource
+        String featBenefitDesc, LambdaClass featBenefit, String featSource
     ){
         this.featName           = featName;
         this.featCategory       = featCategory;
@@ -71,7 +73,7 @@ public class Feat {
     public String getBenefitDesc() {
         return this.featBenefitDesc;
     }
-    public Function getBenefit() {
+    public LambdaClass getBenefit() {
         return this.featBenefit;
     }
     public String getSource() {

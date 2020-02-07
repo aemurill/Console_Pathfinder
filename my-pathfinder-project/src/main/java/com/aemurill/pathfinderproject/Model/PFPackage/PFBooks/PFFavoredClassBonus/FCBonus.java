@@ -1,7 +1,7 @@
 package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFavoredClassBonus;
 
-import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.Function;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFRaces.PFRaceName;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
 
 public class FCBonus {
     
@@ -9,12 +9,12 @@ public class FCBonus {
     private String fcBonusName;
     private PFRaceName fcRace;
     private String fcBonusDesc;
-    private Function fcBonus;
+    private LambdaClass fcBonus;
     private String fcSource;
 
 
     public FCBonus(String fcBonusName, PFRaceName fcRace,
-     String fcBonusDesc, Function fcBonus, String fcSource){
+     String fcBonusDesc, LambdaClass fcBonus, String fcSource){
         this.fcBonusName = fcBonusName;
         this.fcRace = fcRace;
         this.fcBonusDesc = fcBonusDesc;
@@ -55,7 +55,7 @@ public class FCBonus {
         return this.fcBonusDesc;
     }
 
-    public Function getBonus() {
+    public LambdaClass getBonus() {
         return this.fcBonus;
     }
 

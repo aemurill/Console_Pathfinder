@@ -7,8 +7,8 @@ import java.util.List;
 import com.aemurill.pathfinderproject.Model.PFPackage.Character.SkillRankEnum;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.DiceEnum;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.Feat;
-import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.Function;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.FeatList;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.AlignmentEnum;
 
 import static com.aemurill.pathfinderproject.Model.PFPackage.Character.SkillRankEnum.*;
@@ -94,7 +94,7 @@ public class PFFighter implements PFClass {
             "General",
             "Aberrant bloodline",
             "Gain a tumor familiar.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return Feat.handleUnimplemented();
             }),
             "PZO1129"
@@ -128,102 +128,102 @@ public class PFFighter implements PFClass {
     public static ClassTableRow[] classTable = {
         new ClassTableRow(
             1, 1, 2, 0, 0, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             2, 2, 3, 0, 0, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             3, 3, 3, 1, 1, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             4, 4, 4, 1, 1, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             5, 5, 4, 1, 1, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             6, 6, 5, 2, 2, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             7, 7, 5, 2, 2, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             8, 8, 6, 2, 2, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             9, 9, 6, 3, 3, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             10, 10, 7, 3, 3, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             11, 11, 7, 3, 3, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             12, 12, 8, 4, 4, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             13, 13, 8, 4, 4, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             14, 14, 9, 4, 4, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             15, 15, 9, 5, 5, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             16, 16, 10, 5, 5, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             17, 17, 10, 5, 5, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             18, 18, 11, 6, 6, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             19, 19, 11, 6, 6, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         ),
         new ClassTableRow(
             20, 20, 12, 6, 6, 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             null
         )
     };

@@ -20,6 +20,6 @@ public class ScriptRunner {
     //statManager.test();
     public void scriptRunnerCheck(){
         this.console.println("RUN SCRIPT");
-        this.statManager.test();
+        this.statManager.generateCharacter();
     }
 }

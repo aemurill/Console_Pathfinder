@@ -1,6 +1,6 @@
 package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFClasses;
 
-import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.Function;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
 
 public class ClassTableRow {
     public int level;
@@ -8,12 +8,12 @@ public class ClassTableRow {
     public int FortSave;
     public int RefSave;
     public int WillSave;
-    public Function Special;
+    public LambdaClass Special;
     public int[] spellsPerDay;
 
     public ClassTableRow(
         int level, int BAB, int FortSave, int RefSave,
-        int WillSave, Function Special, int[] spellsPerDay
+        int WillSave, LambdaClass Special, int[] spellsPerDay
     ){
         this.level = level;
         this.BAB = BAB;

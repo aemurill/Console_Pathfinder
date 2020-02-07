@@ -1,8 +1,10 @@
 package com.aemurill.pathfinderproject.Controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileReader;
 //import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 //import java.io.Writer;
 import java.lang.reflect.Type;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 import com.aemurill.pathfinderproject.Model.PFPackage.Character.*;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.AlignmentEnum;
@@ -22,6 +25,7 @@ import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFavoredClassBonu
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.*;
 import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFRaces.*;
 import com.aemurill.pathfinderproject.lib.Console;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
@@ -38,6 +42,7 @@ public class StatManager {
         return (T) obj;
     }*/
     private Console console;
+    private Consumer<String> onMessageReceivedHandler;
 
     public static PFClass BarbarianInst = (PFClass) new PFBarbarian();
     public static PFClass FighterInst = (PFClass) new PFFighter();
@@ -55,20 +60,22 @@ public class StatManager {
 
     public StatManager(Console console){
         this.console = console;
+        //this.onMessageReceivedHandler = ((x) -> return x;);
     }
 
     @SuppressWarnings("resource")
-    private int getIntInput(int min, int max) {
-        Scanner in = new Scanner(System.in);
+    private int getIntInput(int min, int max, LambdaClass lambda){
+        InputStream inStream = console.getIn();
+        Scanner in = new Scanner(inStream);
+        in.useDelimiter("\n");        
         int check = -1;
         while (true) {
-            try {
-                check = in.nextInt();
-            } catch (Exception InputMismatchException) {
+            lambda.doLambda(null);
+            while(!in.hasNextInt()){
                 console.println("Type Number!");
                 in.nextLine();
-                continue;
-            }
+            } 
+            check = in.nextInt();
 
             if (check >= min && check <= max) {
                 break;
@@ -139,17 +146,20 @@ public class StatManager {
     }
 
     private PFClass promptPFClass() {
-        PFClass out = null;
-        int ctr = 1;
+        PFClass out = null;        
         PFClassName[] pfClassArray = PFClassName.values();
-        for (PFClassName name : pfClassArray) {
-            // console.println("(" + ctr + ") " + name.toString());
-            printIntChoice(ctr, name.toString());
-            ctr++;
-        }
+        LambdaClass lambda = (x) -> {
+            int ctr = 1;
+            for (PFClassName name : pfClassArray) {
+                // console.println("(" + ctr + ") " + name.toString());
+                printIntChoice(ctr, name.toString());
+                ctr++;
+            }
+            return true;
+        };   
         console.println("Pick Class: ");
         while (true) {
-            int value = getIntInput(1, pfClassArray.length) - 1;
+            int value = getIntInput(1, pfClassArray.length, lambda) - 1;
             console.println(pfClassArray[value].toString());
             out = getPFClass(pfClassArray[value]);
             if (out != null)
@@ -161,32 +171,35 @@ public class StatManager {
 
     private int promptAbScore() {
         int value;
-        // console.println("(" + 1 + ") Enter Value");
-        printIntChoice(1, "Enter Value");
-        // console.println("(" + 2 + ") 7 d20 rolls");
-        printIntChoice(2, "7 d20 rolls");
-        // console.println("(" + 3 + ") Anarchy rolls");
-        printIntChoice(3, "Anarchy rolls");
+        LambdaClass lambda = (x) -> {
+            printIntChoice(1, "Enter Value");
+            printIntChoice(2, "7 d20 rolls");        
+            printIntChoice(3, "Anarchy rolls");
+            return true;
+        };
         console.println("Pick Abscore Input mode: ");
         while (true) {
-            value = getIntInput(1, 3);
+            value = getIntInput(1, 3, lambda);
             break;
         }
         return value;
     }
 
     private PFRace promptPFRace() {
-        PFRace out = null;
-        int ctr = 1;
+        PFRace out = null;        
         PFRaceName[] pfRaceArray = PFRaceName.values();
-        for (PFRaceName name : pfRaceArray) {
-            // console.println("(" + ctr + ") " + name.toString());
-            printIntChoice(ctr, name.toString());
-            ctr++;
-        }
+        LambdaClass lambda = (x) -> {
+            int ctr = 1;
+            for (PFRaceName name : pfRaceArray) {
+                // console.println("(" + ctr + ") " + name.toString());
+                printIntChoice(ctr, name.toString());
+                ctr++;
+            }
+            return true;
+        };
         console.println("Pick Race: ");
         while (true) {
-            int value = getIntInput(1, pfRaceArray.length) - 1;
+            int value = getIntInput(1, pfRaceArray.length, lambda) - 1;
             console.println(pfRaceArray[value].toString());
             out = getPFRace(pfRaceArray[value]);
             if (out != null)
@@ -203,16 +216,19 @@ public class StatManager {
     }
 
     private int promptPickScore(List<Integer> rolls, AbilityScoreEnum aEnum) {
-        console.println("Pick Value for " + aEnum);
-        int ctr = 1;
+        console.println("Pick Value for " + aEnum);        
         int value = -1;
-        for (int roll : rolls) {
-            // console.println("(" + ctr + ") " + roll );
-            printIntChoice(ctr, String.valueOf(roll));
-            ctr++;
-        }
+        LambdaClass lambda = (x) -> {
+            int ctr = 1;
+            for (int roll : rolls) {
+                // console.println("(" + ctr + ") " + roll );
+                printIntChoice(ctr, String.valueOf(roll));
+                ctr++;
+            }
+            return true;
+        };
         while (true) {
-            value = getIntInput(1, rolls.size()) - 1;
+            value = getIntInput(1, rolls.size(), lambda) - 1;
             break;
         }
         return value;
@@ -232,8 +248,11 @@ public class StatManager {
 
     private void genPrompt(MyAbilityScore stats) {
         for (AbilityScoreEnum aEnum : AbilityScoreEnum.values()) {
-            console.println("Input " + aEnum + " Value");
-            int value = getIntInput(1, 20);
+            LambdaClass lambda = (x) -> {
+                console.println("Input " + aEnum + " Value");
+                return true;
+            };
+            int value = getIntInput(1, 20, lambda);
             stats.setBase(aEnum, value);
         }
     }
@@ -287,17 +306,20 @@ public class StatManager {
     }
 
     private int promptRaceStatModHuman(MyAbilityScore myStats) {
-        int value;
-        int ctr = 1;
+        int value;        
         AbilityScoreEnum[] pfAbsArray = AbilityScoreEnum.values();
-        for (AbilityScoreEnum name : pfAbsArray) {
-            String option = name.toString() + "[" + myStats.getBase(name) + "](" + myStats.getModifier(name) + ")";
-            printIntChoice(ctr, option);
-            ctr++;
-        }
-        console.println("Select Ability Score to increase by 2:");
+        LambdaClass lambda = (x) -> {
+            int ctr = 1;
+            for (AbilityScoreEnum name : pfAbsArray) {
+                String option = name.toString() + "[" + myStats.getBase(name) + "](" + myStats.getModifier(name) + ")";
+                printIntChoice(ctr, option);
+                ctr++;
+            }
+            console.println("Select Ability Score to increase by 2:");
+            return true;
+        };
         while (true) {
-            value = getIntInput(1, pfAbsArray.length) - 1;
+            value = getIntInput(1, pfAbsArray.length, lambda) - 1;
             break;
         }
         return value;
@@ -320,18 +342,21 @@ public class StatManager {
 
     private String promptFCChoice(List<String> fcOptions) {
         int value = -1;
-        int ctr = 1;
-        String option = null;
-        for (String fcBonus : fcOptions) {
-            option = fcBonus;
-            FCBonus fcbOBJ = FCBonusList.getBonus(option);
-            printIntChoice(ctr, option);
-            console.println("        " + fcbOBJ.getBonusDesc());
-            ctr++;
-        }
-        console.println("Select Focus Class Bonus for this level!:");
+        LambdaClass lambda = (x) -> {
+            int ctr = 1;
+            String option = null;
+            for (String fcBonus : fcOptions) {
+                option = fcBonus;
+                FCBonus fcbOBJ = FCBonusList.getBonus(option);
+                printIntChoice(ctr, option);
+                console.println("        " + fcbOBJ.getBonusDesc());
+                ctr++;
+            }
+            console.println("Select Focus Class Bonus for this level!:");
+            return true;
+        };
         while (true) {
-            value = getIntInput(1, fcOptions.size()) - 1;
+            value = getIntInput(1, fcOptions.size(), lambda) - 1;
             break;
         }
         
@@ -511,8 +536,8 @@ public class StatManager {
             console.println("Name: " + fcb);
             console.println("Race: " + fcb.getRace());
             console.println("Bonus: " + fcb.getBonusDesc());
-            Function FF = fcb.getBonus();
-            console.println("Function Output: " + FF.doFunction(null));
+            LambdaClass FF = fcb.getBonus();
+            console.println("Function Output: " + FF.doLambda(null));
             console.println("Source: " + fcb.getSource());
             ctr++;
         }

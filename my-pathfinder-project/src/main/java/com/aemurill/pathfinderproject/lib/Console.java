@@ -2,6 +2,13 @@ package com.aemurill.pathfinderproject.lib;
 
 import static com.aemurill.pathfinderproject.lib.GUIUtils.runSafe;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -21,15 +29,19 @@ import javafx.scene.layout.Pane;
 public class Console extends BorderPane {
     protected final TextArea textArea = new TextArea();
     protected final TextField textField = new TextField();
-    private final Pane root;
+    //private final Pane root;
 
     protected final List<String> history = new ArrayList<>();
     protected int historyPointer = 0;
+    private boolean isOpen;
+    private final TextInputControlStream stream;
+    private final PrintStream out;
+    private final InputStream in;
 
     private Consumer<String> onMessageReceivedHandler;
 
     public Console(Pane newRoot) {
-        root = newRoot;
+        //root = newRoot;
         textArea.setEditable(false);
         textArea.setCache(false);
         Platform.runLater(()->{
@@ -43,18 +55,33 @@ public class Console extends BorderPane {
         
         setCenter(textArea);        
 
+        stream = new TextInputControlStream(textField, Charset.defaultCharset());
+        try{
+            out = new PrintStream(stream.getOut(), true, Charset.defaultCharset().name());
+        } catch (UnsupportedEncodingException e){
+            throw new RuntimeException(e);
+        }
+        in = stream.getIn();
+
+        textField.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent ->{
+
+        });
+
         textField.addEventHandler(KeyEvent.KEY_RELEASED, keyEvent -> {
+            //if(!isOpen) return;
             switch (keyEvent.getCode()) {
                 case ENTER:
+                    System.out.println("ENTER");
+                    stream.getIn().enterKeyPressed();
                     String text = textField.getText();
                     textArea.appendText(text + System.lineSeparator());
                     history.add(text);
                     historyPointer++;
                     if (onMessageReceivedHandler != null) {
                         onMessageReceivedHandler.accept(text);
-                    }
+                    }                    
                     textField.clear();
-                    root.requestFocus();
+                    //root.requestFocus();
                     break;
                 case UP:
                     if (historyPointer == 0) {
@@ -114,5 +141,13 @@ public class Console extends BorderPane {
 
 	public void disableCursor() {
         textArea.setCursor(Cursor.DEFAULT);
-	}
+    }
+    
+    public PrintStream getOut() {
+        return out;
+      }
+    
+    public InputStream getIn() {
+    return in;
+    }
 }

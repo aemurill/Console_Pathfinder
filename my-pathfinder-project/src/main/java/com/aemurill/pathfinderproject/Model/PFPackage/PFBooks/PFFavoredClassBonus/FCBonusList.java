@@ -3,7 +3,8 @@ package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFavoredClassBon
 import java.util.HashMap;
 import java.util.Map;
 
-import com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats.Function;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
+
 import static com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFRaces.PFRaceName.*;
 
 public class FCBonusList {
@@ -14,21 +15,21 @@ public class FCBonusList {
             "+1 HP", 
             null, 
             "Add 1 HP to your Max HP", 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             "PFG"
         ));
         putBonusInMap(new FCBonus(
             "+1 Skill Rank", 
             null, 
             "Add 1 Skill rank to Skill ranks", 
-            ((Function) ((x) -> {return false;})), 
+            ((LambdaClass) ((x) -> {return false;})), 
             "PFG"
         ));
         putBonusInMap(new FCBonus(
             "Barbarian/Dwarf",
             Dwarf,
             "Add 1 to the dwarf’s total number of rage rounds per day.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return FCBonus.handleUnimplemented();
             }),
             "APG"
@@ -42,7 +43,7 @@ public class FCBonusList {
             "as a speed of 30 feet, for example. This bonus stacks with a "+
             "class’s fast movement feature and applies only under the same "+
             "conditions as that ability.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return FCBonus.handleUnimplemented();
             }),
             "APG"
@@ -51,7 +52,7 @@ public class FCBonusList {
             "Fighter/Dwarf",
             Dwarf,
             "Add +1 to the fighter’s CMD when resisting a bull rush or trip.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return FCBonus.handleUnimplemented();
             }),
             "APG"
@@ -60,7 +61,7 @@ public class FCBonusList {
             "Fighter/Elf",
             Elf,
             "Add +1 to the elf’s CMD when resisting a disarm or sunder attempt.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return FCBonus.handleUnimplemented();
             }),
             "APG"

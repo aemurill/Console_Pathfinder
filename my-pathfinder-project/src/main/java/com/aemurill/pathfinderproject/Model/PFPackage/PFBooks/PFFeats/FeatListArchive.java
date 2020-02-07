@@ -1,5 +1,7 @@
 package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats;
 
+import com.aemurill.pathfinderproject.lib.LambdaClass;
+
 public class FeatListArchive {
 
     // == GENERAL FEATS ==
@@ -17,7 +19,7 @@ public class FeatListArchive {
             "General",
             "Aberrant bloodline",
             "Gain a tumor familiar.",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 return Feat.handleUnimplemented();
             }),
             "PZO1129"
@@ -48,7 +50,7 @@ public class FeatListArchive {
             "Combat",
             "Combat Casting, Skill Focus (Acrobatics)",
             "Avoid attacks of opportunity from casting with Acrobatics",
-            (Function) ((x) -> {
+            (LambdaClass) ((x) -> {
                 Object[] blah = {"blah"};
                 System.out.println("HELLO: " + blah[0] + " " + blah.toString());
                 return Feat.handleUnimplemented();
@@ -60,7 +62,7 @@ public class FeatListArchive {
             "Combat",
             "Poison use class feature, Improved Unarmed Strike, Craft (alchemy) 1",
             "Avoid attacks of opportunity from casting with Acrobatics",
-            (Function) ((x) -> {                
+            (LambdaClass) ((x) -> {                
                 System.out.println("POISON STRIKE");
                 return Feat.handleUnimplemented();
             }),

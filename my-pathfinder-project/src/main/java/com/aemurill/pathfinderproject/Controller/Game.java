@@ -12,6 +12,7 @@ import com.aemurill.pathfinderproject.lib.Console;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -83,10 +84,25 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+        Task<Void> task;
+        task = new Task<Void>() {
+            @Override
+            public Void call() throws Exception {
+                doGameLogic();
+                return null;
+            }
+        };
+        task.setOnSucceeded(e -> {
+        });
+        task.setOnRunning(e -> {
+        });
+        Thread gameThread = new Thread(task);
+        task.run();
+
         while (running && !paused) {
             float time = System.currentTimeMillis();
             // If you want updates seperate to graphics updates, keep these untied!
-            this.doGameLogic();
+            //doGameLogic();
             // MUST DO PLATFOR RUN LATER
             // ONLY APPLICATION THREAD CAN DO UI STUFF, THIS QUEUES IT FOR THAT
             Platform.runLater(() -> painter.paint());

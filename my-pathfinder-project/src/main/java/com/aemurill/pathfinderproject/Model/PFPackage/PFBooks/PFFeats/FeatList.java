@@ -3,6 +3,7 @@ package com.aemurill.pathfinderproject.Model.PFPackage.PFBooks.PFFeats;
 import java.util.ArrayList;
 
 import com.aemurill.pathfinderproject.lib.Console;
+import com.aemurill.pathfinderproject.lib.LambdaClass;
 
 public class FeatList extends ArrayList<Feat> {
     //Not used for anything but Serialization which we don't do
@@ -43,8 +44,8 @@ public class FeatList extends ArrayList<Feat> {
             console.println("Category: " + feat.getCategory());
             console.println("Prereq: " + feat.getPrereq());
             console.println("Benefit: " + feat.getBenefitDesc());
-            Function FF = feat.getBenefit();
-            console.println("FeatFunction Output: " +  FF.doFunction(null));
+            LambdaClass FF = feat.getBenefit();
+            console.println("FeatFunction Output: " +  FF.doLambda(null));
             console.println("Source: " + feat.getSource());
             ctr++;
         }
