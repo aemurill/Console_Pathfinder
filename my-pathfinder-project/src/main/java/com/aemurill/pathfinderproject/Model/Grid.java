@@ -50,7 +50,7 @@ public class Grid {
         double squareSize = getSquareSize(gc); 
         double width = gc.getCanvas().getWidth();
         double height = gc.getCanvas().getHeight();   
-        System.out.println(width +" "+ height);
+        //System.out.println(width +" "+ height);
         drawGridSquares(gc, squareSize);
         checkGrid(gc);
         drawGridLines(gc, squareSize, width, height);

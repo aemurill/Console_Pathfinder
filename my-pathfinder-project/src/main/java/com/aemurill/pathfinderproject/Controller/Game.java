@@ -107,9 +107,9 @@ public class Game implements Runnable {
             // ONLY APPLICATION THREAD CAN DO UI STUFF, THIS QUEUES IT FOR THAT
             Platform.runLater(() -> painter.paint());
             // this.playSounds();
-            System.out.println(this.tokens.currentAgent);
-            System.out.print("X:"+((Pane) canvas.getParent()).getWidth());
-            System.out.println("Y:"+((Pane) canvas.getParent()).getHeight());
+            //System.out.println(this.tokens.currentAgent);
+            //System.out.print("X:"+((Pane) canvas.getParent()).getWidth());
+            //System.out.println("Y:"+((Pane) canvas.getParent()).getHeight());
 
             time = System.currentTimeMillis() - time;
 

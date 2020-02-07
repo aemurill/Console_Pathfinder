@@ -89,8 +89,8 @@ public class Token {
     
     private void updatePos(int x, int y){
         int newX, newY;
-        System.out.println(this.x + "=" +  this.y);
-        System.out.println(x + "+" +  y);
+        //System.out.println(this.x + "=" +  this.y);
+        //System.out.println(x + "+" +  y);
         newX = x;
         newY = y;
         if(x > grid.getNumCols())

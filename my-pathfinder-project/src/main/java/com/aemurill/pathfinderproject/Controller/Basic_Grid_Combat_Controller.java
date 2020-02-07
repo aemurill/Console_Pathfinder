@@ -149,7 +149,7 @@ public class Basic_Grid_Combat_Controller extends Application { // implements Ru
         
 
         
-        System.out.println(pane.getHeight() +" "+pane.getWidth());
+        //System.out.println(pane.getHeight() +" "+pane.getWidth());
         //ResizeHelper.addResizeListener(theStage, 0);
         canvasPane.minHeightProperty().bind(theStage.minHeightProperty());
         
