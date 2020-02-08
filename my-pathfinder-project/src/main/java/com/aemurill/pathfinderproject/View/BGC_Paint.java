@@ -38,7 +38,7 @@ public class BGC_Paint extends Paint{
         canvas.setLayoutY(0);
         grid.paint(gc);
         game.getGUI_logic().paint(gc);
-        for(Token token: game.getTokens()){
+        for(Token token: game.getTokenManager().getTokenList()){
             token.paint(gc);   
         }
         

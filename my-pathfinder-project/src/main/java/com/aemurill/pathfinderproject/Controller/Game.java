@@ -25,7 +25,8 @@ public class Game implements Runnable {
     private final BGC_Paint painter;
     private final GUI_logic gui;
     private final Grid grid;
-    private final TokenList tokens;
+    //private final TokenList tokens;
+    private final TokenManager tokens;
     private final Console console;
     public final StatManager statManager;
     private final Pane pane;
@@ -61,13 +62,13 @@ public class Game implements Runnable {
 
         this.gameApp = gameApp;
         this.painter = new BGC_Paint(this);
-        this.tokens = new TokenList();
+        this.tokens = new TokenManager();
         this.tokens.add(new Token(this));
-        this.tokens.add(new Token(this, 6, 6));
-        this.tokens.add(new Token(this, 2, 4));
-        this.tokens.add(new Token(this, 4, 5));
-        this.tokens.add(new Token(this, 3, 2));
-        this.tokens.add(new Token(this, 1, 4));
+        this.tokens.add(this, 6, 6);
+        this.tokens.add(this, 2, 4);
+        this.tokens.add(this, 4, 5);
+        this.tokens.add(this, 3, 2);
+        this.tokens.add(this, 1, 4);
         this.tokens.sort();
         this.statManager = new StatManager(console);
         this.scriptRunner = new ScriptRunner(this);
@@ -203,10 +204,6 @@ public class Game implements Runnable {
 	public Pane getPane() {
 		return this.pane;
     }
-    
-    public List<Token> getTokens(){
-        return this.tokens;
-    }
 
     public Console getConsole(){
         return this.console;
@@ -214,5 +211,9 @@ public class Game implements Runnable {
 
 	public StatManager getStatManager() {
 		return this.statManager;
+	}
+
+	public TokenManager getTokenManager() {
+		return tokens;
 	}
 }
