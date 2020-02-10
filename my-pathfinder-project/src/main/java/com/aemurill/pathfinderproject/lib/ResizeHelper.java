@@ -167,19 +167,19 @@ public class ResizeHelper {
 
         private void setStageWidth(double width) {
             if(mode == 1 || mode == 0) return;
-            System.out.println("width set rh");
+            //System.out.println("width set rh");
             width = Math.min(width, maxWidth);
             width = Math.max(width, minWidth);
-            System.out.println("LL"+width);
+            //System.out.println("LL"+width);
             stage.setWidth(width);
         }
 
         private void setStageHeight(double height) {
             if(mode == 2 || mode == 0) return;
-            System.out.println("height set rh");
+            //System.out.println("height set rh");
             height = Math.min(height, maxHeight);
             height = Math.max(height, minHeight);
-            System.out.println("LL"+height);
+            //System.out.println("LL"+height);
             stage.setHeight(height);
         }
 

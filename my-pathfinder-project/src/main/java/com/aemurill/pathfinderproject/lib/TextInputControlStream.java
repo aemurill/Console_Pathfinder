@@ -115,7 +115,7 @@ class TextInputControlStream {
         try {
           final String lastLine = getLastLine();
           final ByteBuffer buf = getCharset().encode(lastLine + System.lineSeparator()); 
-          System.out.println(new String(buf.array()));
+          //System.out.println(new String(buf.array()));
           
           this.inputTextTarget.write(buf.array(), 0, buf.remaining());
           this.inputTextTarget.flush();
