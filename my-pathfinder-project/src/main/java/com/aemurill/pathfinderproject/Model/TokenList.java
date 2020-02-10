@@ -4,48 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
-
-
+//A token list that sorts via INITIATIVE order
 public class TokenList extends ArrayList<Token> {
-    private static final long serialVersionUID = 1L;  
-    public int currentAgent = 0;
-
-    public void keyPressed(KeyEvent e) {        
-        thisAgent().keyPressed(e);        
-        if(e.getCode() == KeyCode.SPACE){
-            nextAgent();
-        }            
-    }
-
-	public void keyTyped(KeyEvent e) {
-        //thisAgent().keyTyped(e);
-    }
-
-	public void keyReleased(KeyEvent e) {
-        //thisAgent().keyReleased(e);
-	}
-    
- 
-
-    private void nextAgent() {
-        Token agent = this.get(currentAgent);
-        agent.setTurn(false);
-
-        if( currentAgent + 1 >= this.size()){
-            currentAgent = 0;
-        }else currentAgent++;
-        
-        agent = this.get(currentAgent);
-        agent.setTurn(true);
-        
-    }
-
-    private Token thisAgent(){
-        return this.get(currentAgent);
-    }
+    private static final long serialVersionUID = 1L;      
 
     public void sort() {
         Collections.sort(this, new TokenComp());

@@ -1,5 +1,7 @@
 package com.aemurill.pathfinderproject.Model;
 
+import java.util.UUID;
+
 import com.aemurill.pathfinderproject.Controller.Game;
 import com.aemurill.pathfinderproject.View.BGC_Paint;
 
@@ -11,6 +13,7 @@ import javafx.scene.paint.Color;
 
 
 public class Token {
+    private UUID uniqueId;
     private int oldX = 1;
     private int oldY = 1;
     private int x = 1;
@@ -40,6 +43,14 @@ public class Token {
         this.oldY = y;
     }
 
+    public void setID(UUID id){
+        uniqueId = id;
+    }
+
+    public UUID getID(){
+        return uniqueId;
+    }
+
     public void setOrder(int order){
         this.turnOrder = order;
     }
@@ -52,7 +63,7 @@ public class Token {
         gc.setFill(Color.RED);
         gc.fillOval(x, y, squareSize, squareSize);
         if(this.x != this.oldX || this.y != this.oldY){
-            gc.setFill(Color.DARKSLATEGRAY);
+            gc.setFill(Color.DARKSLATEGRAY.deriveColor(0, 1, 0, 0.25));
             gc.fillOval(grid.getCanvasLocationX(this.oldX-1, gc), 
                 grid.getCanvasLocationX(this.oldY-1, gc), squareSize, squareSize);
         }

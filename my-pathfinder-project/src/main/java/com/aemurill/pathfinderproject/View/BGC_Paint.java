@@ -38,10 +38,11 @@ public class BGC_Paint extends Paint{
         canvas.setLayoutY(0);
         grid.paint(gc);
         game.getGUI_logic().paint(gc);
-        for(Token token: game.getTokenManager().getTokenList()){
+        /*for(Token token: game.getTokenManager().getTokenList()){
             token.paint(gc);   
-        }
-        
+        }*/
+        game.getTokenManager().paint(gc);
+
         //game.getBall().paint(gc);
         //game.getRacquet().paint(gc);
         //gc.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
