@@ -6,7 +6,7 @@
 
   <groupId>com.aemurill.consolepathfinder</groupId>
   <artifactId>Console_Pathfinder_Redux</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>Console_Pathfinder_Redux</name>
   <!-- FIXME change it to the project's website -->
@@ -22,7 +22,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
